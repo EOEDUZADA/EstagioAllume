@@ -6,6 +6,9 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 <body>
@@ -14,11 +17,9 @@
     <div class="wrapper navbar-fixed">
         <nav class="nav-extended black">
             <div class="nav-wrapper">
-              <a href="#" class="brand-logo yellow-text">Allumé</a>
+              <a href="#" class="brand-logo yellow-text" id="brand-nav">Allumé</a>
               <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="sass.html">Sass</a></li>
-                <li><a href="badges.html">Components</a></li>
-                <li><a href="collapsible.html">JavaScript</a></li>
+                
               </ul>
             </div>
             <div class="nav-content">
@@ -52,15 +53,18 @@
                             <label for="password">Senha</label>
                             <input type="password" id="password" name="password_usuario" required="required" />
                         </div>
+                        <p id="erroLogin" class="flow-text red-text" >Email ou senha incorretos</p>
                         <div class="form-group">
                             <a class="form-recovery" href="#">Esqueceu a sua senha?</a>
                         </div>
                         <div class="form-group">
                             <a class="form-recovery" href="registro.php">Registre-se</a>
                         </div>
+                        
                         <div class="form-group">
                             <button type="login":hover>Log In</button>
                         </div>
+                        
                     </form>
                     
                 </div>

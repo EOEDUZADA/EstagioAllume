@@ -1,7 +1,20 @@
+
 .body {
     margin:0;
     padding:0;
+    
 }
+
+
+/*Nav*/
+
+#brand-nav {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+}
+
 
 /* FORMULARIO UPLOAD */
 
@@ -122,6 +135,10 @@ border-radius: 10px;
     transition: 0.3s ease;
 }
 
+.form-group input:hover {
+   background-color: #9d26ff;
+}
+
 .form-group input:focus {
     color: rgba(0, 0, 0, 1.2);
 }
@@ -136,7 +153,7 @@ border-radius: 10px;
 
 .form-group button {
     outline: none;
-    background: #d0e075;
+    background: #d1f600;
     width: 100%;
     border: 0;
     border-radius: 4px;
@@ -152,8 +169,22 @@ border-radius: 10px;
     
 }
 
+.form-group button:hover {
+
+    background: #00ff1a;
+    
+
+    
+}
+
+#erroLogin {
+
+ display: none;
+
+font-size: small;
 
 
+}
 
 
 
@@ -587,3 +618,9 @@ border-radius: 10px;
     padding: 60px calc(5% + 60px) 60px 60px;
     box-sizing: border-box;
 }
+
+
+
+
+/* PAGINA ADMIN */
+
