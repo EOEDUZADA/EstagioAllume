@@ -1,3 +1,63 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $host = "localhost";
+    $dbname = "allume";
+    $username = "root";
+    $password = "";
+
+    // Conexão com o banco de dados MySQL
+    $dbcon = mysqli_connect($host, $username, $password, $dbname);
+
+    // Verifica se a conexão foi bem sucedida
+    if (!$dbcon) {
+        die("Erro ao conectar ao banco de dados: " . mysqli_connect_error());
+    } else {
+        echo "Conectado ao banco de dados";
+    }
+
+    if (isset($_GET["email_usuario"]) && isset($_GET["password_usuario"]) && isset($_GET["nome_usuario"])) {
+        $nome_usuario = mysqli_real_escape_string($dbcon, $_GET["nome_usuario"]);
+        $email_usuario = mysqli_real_escape_string($dbcon, $_GET["email_usuario"]);
+        $hash = password_hash($_GET["password_usuario"], PASSWORD_DEFAULT);
+
+        if ($email_usuario == 'jonathan@allumers.com.br') {
+            $query_admin = "INSERT INTO usuarios (nome_usuario, email_usuario, password_usuario, level_usuario) VALUES ('$nome_usuario','$email_usuario','$hash','admin')";
+
+            if (mysqli_query($dbcon, $query_admin)) {
+                echo "<h2>Admin Registrado!</h2>";
+                header("Location: login.php");
+            }
+        } else {
+            $verifica_usuario_existente = "SELECT email_usuario FROM usuarios WHERE email_usuario = '$email_usuario'";
+            $result = mysqli_query($dbcon, $verifica_usuario_existente);
+
+            if ($result) {
+                $num_rows = mysqli_num_rows($result);
+
+                if ($num_rows > 0) {
+                    echo 'Usuário já existe';
+                    $valor_verifica_usuario = mysqli_fetch_assoc($result)['email_usuario'];
+                    echo "ID do usuário: " . $valor_verifica_usuario;
+                } else {
+                    $query_insert = "INSERT INTO usuarios (nome_usuario, email_usuario, password_usuario, level_usuario) VALUES ('$nome_usuario','$email_usuario','$hash','user')";
+
+                    if (mysqli_query($dbcon, $query_insert)) {
+                        header("Location: login.php");
+                    } else {
+                        echo "Erro na consulta de inserção: " . mysqli_error($dbcon);
+                    }
+                }
+            }
+        }
+    }
+
+    // Fecha a conexão com o banco de dados
+    mysqli_close($dbcon);
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

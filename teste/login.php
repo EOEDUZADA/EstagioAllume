@@ -1,3 +1,64 @@
+<?php
+session_start();
+
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $host = "localhost";
+    $dbname = "allume";
+    $username = "root";
+    $password = "";
+
+    $dbcon = mysqli_connect($host, $username, $password, $dbname);
+
+    if (!$dbcon) {
+        die("Erro ao conectar ao banco de dados: " . mysqli_connect_error());
+    }
+
+    if (isset($_GET["email_usuario"]) && isset($_GET["password_usuario"])) {
+        $email_usuario = mysqli_real_escape_string($dbcon, $_GET["email_usuario"]);
+        $senha_usuario = mysqli_real_escape_string($dbcon, $_GET["password_usuario"]);
+
+        $select_senha = mysqli_query($dbcon, "SELECT password_usuario, nome_usuario, id_usuario FROM usuarios WHERE email_usuario = '$email_usuario'");
+        $result = mysqli_fetch_assoc($select_senha);
+
+        if ($result) {
+            $hash_senha = $result["password_usuario"];
+            $verificar_senha = password_verify($senha_usuario, $hash_senha);
+
+            if ($verificar_senha) {
+                // Autenticação bem-sucedida
+                $_SESSION['email'] = $email_usuario;
+                $_SESSION['nome'] = $result["nome_usuario"];
+                $_SESSION['id_usuario'] = $result["id_usuario"];
+
+                if ($email_usuario == 'jonathan@allumers.com.br') {
+                    header("Location: paginaInicialAdmin.php?id=" . $_SESSION['id_usuario']);
+                } else {
+                    header("Location: index.php?id=" . $_SESSION['id_usuario']);
+                }
+                exit;
+            } else {
+                $erro = "Senha incorreta. Tente novamente.";
+            }
+        } else {
+            $erro = "Usuário não encontrado. Verifique o email e tente novamente.";
+        }
+    }
+
+    mysqli_close($dbcon);
+}
+?>
+
+<?php
+if (isset($erro)) {
+    echo '<div class="erro">' . $erro . '</div>';
+}
+?>
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

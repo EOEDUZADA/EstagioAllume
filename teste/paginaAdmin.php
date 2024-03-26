@@ -18,7 +18,7 @@ body {
 }
 
 .container {
-    max-width: 400px;
+    max-width: 700px;
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;
@@ -76,7 +76,6 @@ input[type="submit"]:hover {
 <body>
 
 
-
 <div class="wrapper navbar-fixed">
         <nav class="nav-extended black">
             <div class="nav-wrapper">
@@ -103,22 +102,23 @@ input[type="submit"]:hover {
            <p>Nome do orgão <input type="text" name="nome_orgao" /></p>
             <p>Numero do edital <input type="text" name="numero_edital" /></p>
             <p>Numero do processo  <input type="text" name="numero_processo" /></p>
+
+
+            <p>Documento é SRP? </p>
             <p>
-            <div class="tipo">
-     <p>SRP</p>
       <label>
-        <input id="radioButton" name="srp"  type="radio" checked />
+        <input name="group1" id="srp"  type="radio" />
         <span>Sim</span>
       </label>
     </p>
     <p>
       <label>
-        <input id="radioButton" name="normal" type="radio" />
+        <input  name="group1" id="normal" type="radio" />
         <span>Não</span>
       </label>
     </p>
 
-</div>
+
 
     <p>Data final  <input type="date" name="data_final_edital" /></p>
 
