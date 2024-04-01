@@ -135,10 +135,6 @@ border-radius: 10px;
     transition: 0.3s ease;
 }
 
-.form-group input:hover {
-   background-color: #9d26ff;
-}
-
 .form-group input:focus {
     color: rgba(0, 0, 0, 1.2);
 }
@@ -192,7 +188,6 @@ font-size: small;
   
   .form-group button {
     outline: none;
-    background: #9d26ff;
     width: 50%;
     border: 0;
     border-radius: 4px;
@@ -593,7 +588,9 @@ font-size: small;
         
         }
 
-
+button:focus{
+    background-color: transparent;
+}
 
 .two .form-group button {
     background: #FFFFFF;
@@ -622,5 +619,93 @@ font-size: small;
 
 
 
-/* PAGINA ADMIN */
+/* BOTOES RADIO */
+[type="radio"]:checked+span:after,[type="radio"].with-gap:checked+span:after {
+    background-color: yellow;
+}
+[type="radio"]:checked+span:after,[type="radio"].with-gap:checked+span:before,[type="radio"].with-gap:checked+span:after {
+    border: 2px solid #ffffff
+}
 
+/* side bar */
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #D8D4F2;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-wrapper.black .brand-logo.right {
+    position: absolute;
+    right: 10px;
+}
+
+#brand-logo{
+ 
+    margin-left: 50px;
+    margin-bottom: 3vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #182833;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow-y: auto;
+    transition: width 0.3s ease;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    display: flex;
+    justify-content: center;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar ul li:hover {
+    background-color: #555;
+}
+
+.main-content {
+    padding: 20px;
+    margin-left: 250px; /* Ajuste para deixar espaço para a barra lateral */
+    transition: margin-left 0.3s ease;
+}
+
+.dashboard-square {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.dashboard-square:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+li a{
+    text-decoration: none;
+    color: inherit;
+}
+.brand-logo {
+    display: flex;
+    justify-content: flex-star;
+}
+
+table{
+    width: 100%;
+}

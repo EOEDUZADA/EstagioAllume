@@ -9,11 +9,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $dbcon = mysqli_connect($host, $username, $password, $dbname);
 
     // Verifica se a conexão foi bem sucedida
-    if (!$dbcon) {
-        die("Erro ao conectar ao banco de dados: " . mysqli_connect_error());
-    } else {
-        echo "Conectado ao banco de dados";
-    }
+    //if (!$dbcon) {
+    //    die("Erro ao conectar ao banco de dados: " . mysqli_connect_error());
+    //} else {
+    //    echo "Conectado ao banco de dados";
+    //}
 
     if (isset($_GET["email_usuario"]) && isset($_GET["password_usuario"]) && isset($_GET["nome_usuario"])) {
         $nome_usuario = mysqli_real_escape_string($dbcon, $_GET["nome_usuario"]);
@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $hash = password_hash($_GET["password_usuario"], PASSWORD_DEFAULT);
 
         if ($email_usuario == 'jonathan@allumers.com.br') {
-            $query_admin = "INSERT INTO usuarios (nome_usuario, email_usuario, password_usuario, level_usuario) VALUES ('$nome_usuario','$email_usuario','$hash','admin')";
+            $query_admin = "INSERT INTO usuarios (nome_usuario, email_usuario, password_usuario, funcao_usuario) VALUES ('$nome_usuario','$email_usuario','$hash','admin')";
 
             if (mysqli_query($dbcon, $query_admin)) {
                 echo "<h2>Admin Registrado!</h2>";
@@ -39,7 +39,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     $valor_verifica_usuario = mysqli_fetch_assoc($result)['email_usuario'];
                     echo "ID do usuário: " . $valor_verifica_usuario;
                 } else {
-                    $query_insert = "INSERT INTO usuarios (nome_usuario, email_usuario, password_usuario, level_usuario) VALUES ('$nome_usuario','$email_usuario','$hash','user')";
+                    $funcao_usuario = mysqli_real_escape_string($dbcon, $_GET["funcao_usuario"]);
+                    $query_insert = "INSERT INTO usuarios (nome_usuario, email_usuario, password_usuario, funcao_usuario) VALUES ('$nome_usuario','$email_usuario','$hash','$funcao_usuario')";
 
                     if (mysqli_query($dbcon, $query_insert)) {
                         header("Location: login.php");
@@ -64,11 +65,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
-    <link rel="stylesheet" href="css/styles.css" />
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="css/styles.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 <body>
@@ -116,11 +118,35 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     </div>
                     <div class="form-group">
                     <label>
-                        Email: <input type="email" name="email_usuario">
+                        Email: <input type="email" name="email_usuario" required>
                     </label>
                 </div>
 
-            
+             
+                <p>Função do funcionário</p>
+
+                
+            <p>
+                <label>
+                    <input name="funcao_usuario" type="radio" value="OPERACIONAL" />
+                    <span>Operacional</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input name="funcao_usuario" type="radio" value="ADMIN" />
+                    <span>Admin</span>
+                </label>
+            </p>
+
+            <p>
+                <label>
+                    <input name="funcao_usuario" type="radio" value="FINANCEIRO" />
+                    <span>Financeiro</span>
+                </label>
+            </p>
+
+          
                     <div class="form-group">
                         <button type="submit">Registrar</button>
                     </div>

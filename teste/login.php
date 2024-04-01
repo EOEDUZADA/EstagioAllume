@@ -16,8 +16,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     if (isset($_GET["email_usuario"]) && isset($_GET["password_usuario"])) {
         $email_usuario = mysqli_real_escape_string($dbcon, $_GET["email_usuario"]);
         $senha_usuario = mysqli_real_escape_string($dbcon, $_GET["password_usuario"]);
+        $dados_incorretos = '';
 
-        $select_senha = mysqli_query($dbcon, "SELECT password_usuario, nome_usuario, id_usuario FROM usuarios WHERE email_usuario = '$email_usuario'");
+        $select_senha = mysqli_query($dbcon, "SELECT password_usuario, nome_usuario, id_usuario,funcao_usuario FROM usuarios WHERE email_usuario = '$email_usuario'");
         $result = mysqli_fetch_assoc($select_senha);
 
         if ($result) {
@@ -32,9 +33,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
                 if ($email_usuario == 'jonathan@allumers.com.br') {
                     header("Location: paginaInicialAdmin.php?id=" . $_SESSION['id_usuario']);
-                } else {
+                }  elseif($funcao_usuario == 'OPERACIONAL'){
                     header("Location: index.php?id=" . $_SESSION['id_usuario']);
                 }
+                   elseif($funcao_usuario == 'ADMIN'){
+                    header("Location: index.php?id=" . $_SESSION['id_usuario']);
+                   }
+                   elseif($funcao_usuario == 'FINANCEIRO'){
+                    header("Location: index.php?id=" . $_SESSION['id_usuario']);
+                   }
                 exit;
             } else {
                 $erro = "Senha incorreta. Tente novamente.";
@@ -48,11 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 }
 ?>
 
-<?php
-if (isset($erro)) {
-    echo '<div class="erro">' . $erro . '</div>';
-}
-?>
+
 
 
 
@@ -114,7 +117,14 @@ if (isset($erro)) {
                             <label for="password">Senha</label>
                             <input type="password" id="password" name="password_usuario" required="required" />
                         </div>
-                        <p id="erroLogin" class="flow-text red-text" >Email ou senha incorretos</p>
+
+                        <?php
+
+if (isset($erro)) {
+    echo '<div class="erro red-text">' . $erro . '</div>';
+}
+   ?>
+
                         <div class="form-group">
                             <a class="form-recovery" href="#">Esqueceu a sua senha?</a>
                         </div>

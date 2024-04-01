@@ -1,3 +1,10 @@
+<?php
+
+session_start();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,6 +25,14 @@
     width: auto;
     height: auto;
 }
+.card{
+    border-radius: 20px;
+    box-shadow: 2px 2px 2px black;
+}
+h3{
+    text-align: center;
+}
+
 </style>
 <body>
     
@@ -30,7 +45,7 @@
                 
               </ul>
             </div>
-            <div class="nav-content">
+            <!--<div class="nav-content">
               <ul class="tabs tabs-transparent hide-on-med-and-up ">
                 <li class="tab"><a href="#test1">Test 1</a></li>
                 <li class="tab"><a class="active" href="#test2">Test 2</a></li>
@@ -38,6 +53,7 @@
                 <li class="tab"><a href="login.php">Login</a></li>
               </ul>
             </div>
+-->
           </nav>
         
           </div>
@@ -45,24 +61,59 @@
     <main>
 
     <div class="container">
-
-        <div class="row">
-            <div class="col s3">
-                <a class="btn-floating btn-large pulse"><i class="material-icons">face</i></a>
-            </div>
-            <div class="col s3">
-                <a class="btn-floating btn-large pulse"><i class="material-icons">face</i></a>
-            </div>
-            <div class="col s3">
-                <a class="btn-floating btn-large pulse"><i class="material-icons">face</i></a>
-            </div>
-
-   
-    
+    <h3>Login</h3>
+    <div class="row">
+      <div class="col s12 m4">
+        <div class="card">
+          <div class="card-content center-align">
+            <i class="material-icons large">admin_panel_settings</i>
+            <h5>Admin</h5>
+            <p>Login como administrador</p>
+            <a href="login.php" class="btn">Entrar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m4">
+        <div class="card">
+          <div class="card-content center-align">
+            <i class="material-icons large">attach_money</i>
+            <h5>Financeiro</h5>
+            <p>Login como financeiro</p>
+            <a href="login.php" class="btn">Entrar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m4">
+        <div class="card">
+          <div class="card-content center-align">
+            <i class="material-icons large">people_alt</i>
+            <h5>Operacional</h5>
+            <p>Login da Operacional</p>
+            <a href="login.php" class="btn">Entrar</a>
+          </div>
+        </div>
+      </div>
     </div>
-    
-    
-       </main>
+  
+
+    <h3>Registro</h3>
+    <div class="row">
+    <div class="col s12 m4 offset-m4">
+        <div class="card">
+          <div class="card-content center-align">
+            <i class="material-icons large">person_add</i>
+            <h5>Registro de conta</h5>
+            <p>faça seu registro aqui</p>
+            <br>
+            <a href="registro.php" class="btn">Entrar</a>
+          </div>
+        </div>
+    </div>
+    </div>
+
+
+</div>
+    </main>
 
        
 
