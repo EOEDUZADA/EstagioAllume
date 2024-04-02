@@ -30,8 +30,17 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 $_SESSION['email'] = $email_usuario;
                 $_SESSION['nome'] = $result["nome_usuario"];
                 $_SESSION['id_usuario'] = $result["id_usuario"];
+                $funcao_usuario = mysqli_query($dbcon, "SELECT funcao_usuario from usuarios WHERE email_usuario = '$email_usuario'");
+              
 
-                if ($email_usuario == 'jonathan@allumers.com.br') {
+                $result_funcao_usuario = mysqli_fetch_assoc($funcao_usuario);
+                $funcao_usuario = $result_funcao_usuario['funcao_usuario'];
+
+
+                echo $funcao_usuario;
+                
+
+                if($funcao_usuario == 'ADMIN') {
                     header("Location: paginaInicialAdmin.php?id=" . $_SESSION['id_usuario']);
                 }  elseif($funcao_usuario == 'OPERACIONAL'){
                     header("Location: index.php?id=" . $_SESSION['id_usuario']);
@@ -72,31 +81,23 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 <body>
     
-
-    <div class="wrapper navbar-fixed">
-        <nav class="nav-extended black">
-            <div class="nav-wrapper">
-              <a href="#" class="brand-logo yellow-text" id="brand-nav">Allumé</a>
-              <ul id="nav-mobile" class="right hide-on-med-and-down">
-                
-              </ul>
-            </div>
-            <div class="nav-content">
-              <ul class="tabs tabs-transparent hide-on-med-and-up ">
-                <li class="tab"><a href="#test1">Test 1</a></li>
-                <li class="tab"><a class="active" href="#test2">Test 2</a></li>
-                <li class="tab disabled"><a href="#test3">Disabled Tab</a></li>
-                <li class="tab"><a href="login.php">Login</a></li>
-              </ul>
-            </div>
-          </nav>
-        
-          </div>
+<div class="sidebar">
+    <img src="./img/logo3.png" id="brand-logo">
+    <ul>
+    <li>
+        <a href="paginainicial.php" style="display: flex; align-items: center;">
+            <i class="tiny material-icons">arrow_back</i>
+            <span style="margin-left: 5px;">Voltar</span>
+        </a>
+    </li>
+</ul>
+</div>
 
     <main>
 
@@ -127,9 +128,6 @@ if (isset($erro)) {
 
                         <div class="form-group">
                             <a class="form-recovery" href="#">Esqueceu a sua senha?</a>
-                        </div>
-                        <div class="form-group">
-                            <a class="form-recovery" href="registro.php">Registre-se</a>
                         </div>
                         
                         <div class="form-group">

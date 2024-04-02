@@ -8,11 +8,16 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pagina Inicial do Admin</title>
+    <link rel="stylesheet" href="css/styles.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
+
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #D8D4F2;
+            background-color: white;
             margin: 0;
             padding: 0;
         }
@@ -28,17 +33,7 @@ session_start();
             margin-bottom: 3vh;
         }
 
-        .sidebar {
-            width: 250px;
-            background-color: #182833;
-            color: #fff;
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            overflow-y: auto;
-            transition: width 0.3s ease;
-        }
+     
 
         .sidebar ul {
             list-style-type: none;
@@ -58,11 +53,6 @@ session_start();
             background-color: #555;
         }
 
-        .main-content {
-            padding: 20px;
-            margin-left: 250px; /* Ajuste para deixar espaço para a barra lateral */
-            transition: margin-left 0.3s ease;
-        }
 
         .dashboard-square {
             background-color: #fff;
@@ -93,10 +83,10 @@ session_start();
 <div class="sidebar">
 <img src="./img/logo3.png" id="brand-logo">
     <ul>
-        <li>Dashboard</li>
+        <li><a href="paginainicialadmin.php">Dashboard</a></li>
         <li><a href="usuarios.php">Usuários</a></li>
         <li><a href="editais.php">Produtos</a></li>
-        <li>Orçamentos</li>
+        <li><a href="tabelaeditais.php">Editais</a></li>
         <li><a href="sair.php">Sair</a></li>
     </ul>
 </div>
@@ -105,24 +95,30 @@ session_start();
     <h1 class="white-text">Bem vindo! <?php echo $_SESSION['nome'] ?></h1>
     <div class="row">
         <div class="col s12 m4">
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
+            <div class="card large white darken-1">
+                <div class="card-content black-text">
                     <span class="card-title">Total de Editais</span>
                     <p>50</p>
                 </div>
             </div>
-        </div>
-        <div class="col s12 m4">
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
+            <div class="card white  arken-1">
+                <div class="card-content black-text">
                     <span class="card-title">Total de Produtos</span>
                     <p>500</p>
                 </div>
             </div>
         </div>
         <div class="col s12 m4">
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
+            <div class="card white  arken-1">
+                <div class="card-content black-text">
+                    <span class="card-title">Total de Produtos</span>
+                    <p>500</p>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m4">
+            <div class="card white darken-1">
+                <div class="card-content black-text">
                     <span class="card-title">Total de Algo</span>
                     <p>300</p>
                 </div>

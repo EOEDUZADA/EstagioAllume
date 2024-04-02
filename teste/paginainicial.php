@@ -32,35 +32,20 @@ session_start();
 h3{
     text-align: center;
 }
+.row{
+  margin-top: 40px;
+}
 
 </style>
 <body>
     
-
-    <div class="wrapper navbar-fixed">
-        <nav class="nav-extended black">
-            <div class="nav-wrapper">
-              <a href="#" class="brand-logo yellow-text" id="brand-nav">Allumé</a>
-              <ul id="nav-mobile" class="right hide-on-med-and-down">
-                
-              </ul>
-            </div>
-            <!--<div class="nav-content">
-              <ul class="tabs tabs-transparent hide-on-med-and-up ">
-                <li class="tab"><a href="#test1">Test 1</a></li>
-                <li class="tab"><a class="active" href="#test2">Test 2</a></li>
-                <li class="tab disabled"><a href="#test3">Disabled Tab</a></li>
-                <li class="tab"><a href="login.php">Login</a></li>
-              </ul>
-            </div>
--->
-          </nav>
-        
-          </div>
+<div class="sidebar">
+    <img src="./img/logo3.png" id="brand-logo">
+</div>
 
     <main>
 
-    <div class="container">
+    <div class="main-content">
     <h3>Login</h3>
     <div class="row">
       <div class="col s12 m4">
@@ -96,20 +81,6 @@ h3{
     </div>
   
 
-    <h3>Registro</h3>
-    <div class="row">
-    <div class="col s12 m4 offset-m4">
-        <div class="card">
-          <div class="card-content center-align">
-            <i class="material-icons large">person_add</i>
-            <h5>Registro de conta</h5>
-            <p>faça seu registro aqui</p>
-            <br>
-            <a href="registro.php" class="btn">Entrar</a>
-          </div>
-        </div>
-    </div>
-    </div>
 
 
 </div>

@@ -20,10 +20,10 @@ table {
 <div class="sidebar">
     <img src="./img/logo3.png" id="brand-logo">
     <ul>
-        <li>Dashboard</li>
-        <li><a href="editais.php">Usuários</a></li>
+        <li><a href="paginainicialadmin.php">Dashboard</a></li>
+        <li><a href="usuarios.php">Usuários</a></li>
         <li><a href="editais.php">Produtos</a></li>
-        <li>Orçamentos</li>
+        <li><a href="tabelaeditais.php">Editais</a></li>
         <li><a href="sair.php">Sair</a></li>
     </ul>
 </div>
@@ -51,7 +51,7 @@ table {
 
         if ($num_rows > 0) {
             // Exibir os usuários em uma tabela
-            echo "<table class='responsive-table centered' id='tabela_usuarios'>";
+            echo "<table class='funcionarios' id='tabela_usuarios'>";
             echo "<thead>";
             echo "<tr>";
             echo "<th>Nome</th>";
@@ -85,6 +85,7 @@ table {
     ?>
 </section>
 </div>
+
 
 </body>
 </html>

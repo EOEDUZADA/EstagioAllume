@@ -20,14 +20,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $email_usuario = mysqli_real_escape_string($dbcon, $_GET["email_usuario"]);
         $hash = password_hash($_GET["password_usuario"], PASSWORD_DEFAULT);
 
-        if ($email_usuario == 'jonathan@allumers.com.br') {
-            $query_admin = "INSERT INTO usuarios (nome_usuario, email_usuario, password_usuario, funcao_usuario) VALUES ('$nome_usuario','$email_usuario','$hash','admin')";
-
-            if (mysqli_query($dbcon, $query_admin)) {
-                echo "<h2>Admin Registrado!</h2>";
-                header("Location: login.php");
-            }
-        } else {
             $verifica_usuario_existente = "SELECT email_usuario FROM usuarios WHERE email_usuario = '$email_usuario'";
             $result = mysqli_query($dbcon, $verifica_usuario_existente);
 
@@ -54,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     // Fecha a conexão com o banco de dados
     mysqli_close($dbcon);
-}
+
 ?>
 
 
@@ -75,31 +67,20 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 </head>
 <body>
 
-
-<div class="wrapper navbar-fixed">
-        <nav class="nav-extended black">
-            <div class="nav-wrapper">
-              <a href="#" class="brand-logo yellow-text" id="brand-nav">Allumé</a>
-              <ul id="nav-mobile" class="right hide-on-med-and-down">
-                
-              </ul>
-            </div>
-            <div class="nav-content">
-              <ul class="tabs tabs-transparent hide-on-med-and-up ">
-                <li class="tab"><a href="#test1">Test 1</a></li>
-                <li class="tab"><a class="active" href="#test2">Test 2</a></li>
-                <li class="tab disabled"><a href="#test3">Disabled Tab</a></li>
-                <li class="tab"><a href="login.php">Login</a></li>
-              </ul>
-            </div>
-          </nav>
-        
-          </div>
-
+<div class="sidebar">
+    <img src="./img/logo3.png" id="brand-logo">
+    <ul>
+        <li>Dashboard</li>
+        <li><a href="editais.php">Usuários</a></li>
+        <li><a href="editais.php">Produtos</a></li>
+        <li><a href="tabelaeditais.php">Editais</a></li>
+        <li><a href="sair.php">Sair</a></li>
+    </ul>
+</div>
 
     <main>
 
-
+    <div class="main-content">
     <div class="formulario">
         <div class="form-toggle"></div>
         <div class="form-panel one">
@@ -156,6 +137,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         </div>
     </div>
 
+</div>
     </main>
 </body>
 </html>

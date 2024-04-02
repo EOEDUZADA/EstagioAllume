@@ -1,8 +1,22 @@
 
+
 .body {
     margin:0;
-    padding:0;
-    
+    padding:0;  
+}
+
+p {
+    font-family: "Inter", sans-serif !important;
+    font-optical-sizing: auto !important;
+    font-weight: 500 !important;
+    font-style: normal !important; 
+}
+
+h1 {
+    font-family: "Inter", sans-serif !important;
+    font-optical-sizing: auto !important;
+    font-weight: 500 !important;
+    font-style: normal !important; 
 }
 
 
@@ -632,7 +646,7 @@ button:focus{
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #D8D4F2;
+    background-color: #ffffff;
     margin: 0;
     padding: 0;
 }
@@ -650,7 +664,7 @@ body {
 
 .sidebar {
     width: 250px;
-    background-color: #182833;
+    background-color: #2E5995;
     color: #fff;
     position: fixed;
     top: 0;
@@ -658,7 +672,32 @@ body {
     height: 100%;
     overflow-y: auto;
     transition: width 0.3s ease;
+    animation: color 7s infinite;
 }
+/*@keyframes color{
+    0%{
+        border: 1px solid red;
+        box-shadow: 5px 5px 5px red;
+    }
+    25%{
+        border: 1px solid rgb(30, 255, 0);
+        box-shadow: 5px 5px 5px rgb(30, 255, 0);
+    }
+    50%{
+        border: 1px solid rgb(255, 251, 0);
+        box-shadow: 5px 5px 5px rgb(255, 251, 0);
+    }
+    75%{
+        border: 1px solid rgb(0, 17, 255);
+        box-shadow: 5px 5px 5px rgb(0, 17, 255);
+    }
+    100%{
+        border: 1px solid rgb(255, 0, 255);
+        box-shadow: 5px 5px 5px rgb(255, 0, 255);
+    }
+    
+}
+*/
 
 .sidebar ul {
     list-style-type: none;
@@ -675,13 +714,14 @@ body {
 }
 
 .sidebar ul li:hover {
-    background-color: #555;
+    background-color: #777777;
 }
 
 .main-content {
     padding: 20px;
     margin-left: 250px; /* Ajuste para deixar espaço para a barra lateral */
     transition: margin-left 0.3s ease;
+    background-color: #ffffff;
 }
 
 .dashboard-square {
@@ -709,3 +749,32 @@ li a{
 table{
     width: 100%;
 }
+
+/*tabela dos usuarios*/
+
+.funcionarios {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .funcionarios th, .funcionarios td {
+    border: 1px solid #dddddd;
+    padding: 10px;
+  }
+  
+  .funcionarios th {
+      background-color: rgb(77, 82, 90);
+    color: white;
+    font-weight: bold;
+    text-align: left;
+  }
+  
+  
+  .funcionarios tbody tr:hover {
+    background-color: #ddd;
+  }
+  
+  

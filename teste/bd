@@ -1,0 +1,21 @@
+CREATE TABLE editais (
+    id_edital serial primary key,
+    nome_edital varchar(255),
+    nome_orgao_edital varchar(255),
+    numero_edital float,
+    numero_processo float,
+    tipo_documento varchar(255),
+    tipo_fornecimento varchar(255),
+    data_final_edital date,
+    data_cadastro_edital date,
+    data_limite_orcamento_edital date,
+    arquivo_edital varchar(255)
+);
+
+CREATE TABLE usuarios (
+    id_usuario serial primary key,
+    nome_usuario varchar(255),
+    password_usuario varchar(255),
+    email_usuario varchar(255),
+    funcao_usuario varchar(255)
+);
