@@ -12,8 +12,8 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -21,19 +21,10 @@ session_start();
             margin: 0;
             padding: 0;
         }
-
-        .nav-wrapper.black .brand-logo.right {
-            position: absolute;
-            right: 10px;
+        nav{
+            height: 85px;
         }
-
-        #brand-logo{
-         
-            margin-left: 50px;
-            margin-bottom: 3vh;
-        }
-
-     
+  
 
         .sidebar ul {
             list-style-type: none;
@@ -49,9 +40,7 @@ session_start();
             transition: background-color 0.3s ease;
         }
 
-        .sidebar ul li:hover {
-            background-color: #555;
-        }
+        
 
 
         .dashboard-square {
@@ -71,14 +60,31 @@ session_start();
             text-decoration: none;
             color: inherit;
         }
-        .brand-logo {
+        .brand-logo { 
+            color: black;
             display: flex;
-            justify-content: flex-star;
+           
         }
+        
+        nav .brand-logo {
+            color:black;
+        }
+      
+        
     </style>
 </head>
+
 <body>
-        
+
+
+<nav>
+    <div class="nav-wrapper white" style="display: flex; align-items: center; flex-direction: row-reverse;"> 
+        <i class="large material-icons brand-logo" style="font-size: 50px;">account_circle</i>
+        <p class="black-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p>
+    </div>
+</nav>
+
+
 
 <div class="sidebar">
 <img src="./img/logo3.png" id="brand-logo">
@@ -92,7 +98,8 @@ session_start();
 </div>
 
 <div class="main-content">
-    <h1 class="white-text">Bem vindo! <?php echo $_SESSION['nome'] ?></h1>
+
+    
     <div class="row">
         <div class="col s12 m4">
             <div class="card large white darken-1">

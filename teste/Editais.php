@@ -22,11 +22,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $data_cadastro_edital = mysqli_real_escape_string($dbcon, $_POST["data_cadastro_edital"]);
     
 
+
+
+
+
+
         $arquivos = array();
       // Verifica se $arquivos é um array
 if (is_array($arquivos)) {
     // Realiza o upload dos arquivos PDF
-    $dir = 'uploads/'; // Diretório para uploads
+    
+    $dir = 'uploads/ '; // Diretório para uploads
+    $nova_pasta =  mkdir($dir, 0777, true);
     foreach ($_FILES['fileUpload']['tmp_name'] as $key => $tmp_name) {
         $nome_arquivo = $_FILES['fileUpload']['name'][$key];
         $caminho_arquivo = $dir . $nome_arquivo;
@@ -71,8 +78,12 @@ if (is_array($arquivos)) {
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
     <script>
-        function adicionarNovoUpload() {
+
+
+function adicionarNovoUpload() {
             // Cria um novo elemento input de tipo arquivo
             var novoInput = document.createElement("input");
             novoInput.type = "file";
@@ -88,12 +99,36 @@ if (is_array($arquivos)) {
 
         }
 
-        function enviarFormulario() {
-        var formulario = document.getElementById("formulario_edital");
-        document.getElementById("botaoEnviar").click();
-        formulario.submit();
+    function validarFormulario() {
+        var nomeOrgao = document.getElementsByName("nome_orgao_edital")[0].value;
+        var numeroEdital = document.getElementsByName("numero_edital")[0].value;
+        var dataFinalEdital = document.getElementsByName("data_final_edital")[0].value;
+        var dataLimiteOrcamento = document.getElementsByName("data_limite_orcamento")[0].value;
+        var dataCadastroEdital = document.getElementsByName("data_cadastro_edital")[0].value;
+        var tipoDocumento = document.querySelector('input[name="tipo_documento"]:checked');
+        var tipoFornecimento = document.querySelector('input[name="tipo_fornecimento"]:checked');
+        var erroPreencher = document.getElementById("erroPreencher");
+
+        if (nomeOrgao === "" || numeroEdital === "" || dataFinalEdital === "" || dataLimiteOrcamento === "" || dataCadastroEdital === "" || !tipoDocumento || !tipoFornecimento) {
+
+            erroPreencher.innerHTML = "Preencha todos os campos obrigatórios!";
+          
+            return false; // Impede o envio do formulário
+        }
+
+        erroPreencher.innerHTML = "";
+
+        return true; // Permite o envio do formulário
     }
-    </script>
+
+    function enviarFormulario() {
+        if (validarFormulario()) {
+            var formulario = document.getElementById("formulario_edital");
+            formulario.submit();
+        }
+    }
+</script>
+
 </head>
 <style>
   body {
@@ -221,6 +256,8 @@ button{
     </form>
     <p onclick="adicionarNovoUpload()" class="enviar"><input type="submit" value="Adicionar novo upload"></p>
     <p class="enviar"><input id="botaoEnviar" type="submit" value="Inserir" onclick="enviarFormulario()"></p>
+
+    <p id="erroPreencher" class="red-text"> </p>
 </div>
 
 
@@ -229,6 +266,12 @@ button{
             <i class="material-icons right">send</i>
         </button>
     </div>
+
+
+
+
+
+    
     <!-- Scripts Materialize -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>

@@ -7,14 +7,23 @@
     <link rel="stylesheet" href="css/styles.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
+    
+    <style>
+        table {
+            font-weight: 800 !important;
+        }
+
+        li a {
+            font-weight: 700 !important;
+        }
+
+        table {
+            width: 100%;
+        }
+    </style>
 </head>
 
-
-<style>
-table {
-    width: 100%;
-}
-    </style>
 <body>
     
 <div class="sidebar">
@@ -29,77 +38,82 @@ table {
 </div>
 
 <div class="main-content">
-<h4>Editais</h4>
-<section class="usuarios">
-    <?php
-    $host = "localhost";
-    $dbname = "allume";
-    $username = "root";
-    $password = "";
+    <h4>Editais</h4>
+    <section class="usuarios">
+        <?php
+        $host = "localhost";
+        $dbname = "allume";
+        $username = "root";
+        $password = "";
 
-    // Conexão com o banco de dados MySQL
-    $dbcon = mysqli_connect($host, $username, $password, $dbname);
+        // Conexão com o banco de dados MySQL
+        $dbcon = mysqli_connect($host, $username, $password, $dbname);
 
-    // Verifica se a conexão foi bem sucedida
+        // Verifica se a conexão foi bem sucedida
 
-    $query_editais = "SELECT * FROM editais";
-    $result_editais = mysqli_query($dbcon, $query_editais);
+        $query_editais = "SELECT * FROM editais";
+        $result_editais = mysqli_query($dbcon, $query_editais);
 
-    // Verifique se há linhas retornadas
-    if ($result_editais) {
-        $num_rows = mysqli_num_rows($result_editais);
+        // Verifique se há linhas retornadas
+        if ($result_editais) {
+            $num_rows = mysqli_num_rows($result_editais);
 
-        if ($num_rows > 0) {
-            // Exibir os usuários em uma tabela
-            echo "<table class='funcionarios' id='tabela_editais'>";
-            echo "<thead>";
-            echo "<tr>";
-            echo "<th>Id</th>";
-            echo "<th>Nome do orgão</th>";
-            echo "<th>Numero do edital</th>";
-            echo "<th>Numero do processo</th>";
-            echo "<th>Tipo de documento</th>";
-            echo "<th>Tipo de fornecimento</th>";
-            echo "<th>Data final do edital</th>";
-            echo "<th>Data limite para orçamento</th>";
-            echo "<th>Data de cadastro do edital</th>";
-            echo "<th>Arquivo do Edital</th>";
-            echo "</tr>";
-            echo "</thead>";
-            echo "<tbody>";
-
-            while ($row = mysqli_fetch_assoc($result_editais)) {
+            if ($num_rows > 0) {
+                // Exibir os usuários em uma tabela
+                echo "<table class='funcionarios' id='tabela_editais'>";
+                echo "<thead>";
                 echo "<tr>";
-                echo "<td>" . $row["id_edital"] . "</td>";
-                echo "<td>" . $row["nome_orgao_edital"] . "</td>";
-                echo "<td>" . $row["numero_edital"] . "</td>";
-                echo "<td>" . $row["numero_processo"] . "</td>";
-                echo "<td>" . $row["tipo_documento"] . "</td>";
-                echo "<td>" . $row["tipo_fornecimento"] . "</td>";
-                echo "<td>" . $row["data_final_edital"] . "</td>";
-                echo "<td>" . $row["data_limite_orcamento_edital"] . "</td>";
-                echo "<td>" . $row["data_cadastro_edital"] . "</td>";
-                echo "<td>" . $row["arquivo_edital"] . "</td>";
+                echo "<th>Id</th>";
+                echo "<th>Nome do orgão</th>";
+                echo "<th>Numero do edital</th>";
+                echo "<th>Numero do processo</th>";
+                echo "<th>Tipo de documento</th>";
+                echo "<th>Tipo de fornecimento</th>";
+                echo "<th>Data final do edital</th>";
+                echo "<th>Data limite para orçamento</th>";
+                echo "<th>Data de cadastro do edital</th>";
+                echo "<th>Arquivo do Edital</th>";
                 echo "</tr>";
+                echo "</thead>";
+                echo "<tbody>";
+
+                while ($row = mysqli_fetch_assoc($result_editais)) {
+                    echo "<tr>";
+                    echo "<td>" . $row["id_edital"] . "</td>";
+                    echo "<td>" . $row["nome_orgao_edital"] . "</td>";
+                    echo "<td>" . $row["numero_edital"] . "</td>";
+                    echo "<td>" . $row["numero_processo"] . "</td>";
+                    echo "<td>" . $row["tipo_documento"] . "</td>";
+                    echo "<td>" . $row["tipo_fornecimento"] . "</td>";
+                    echo "<td>" . $row["data_final_edital"] . "</td>";
+                    echo "<td>" . $row["data_limite_orcamento_edital"] . "</td>";
+                    echo "<td>" . $row["data_cadastro_edital"] . "</td>";
+                    // Adicione um link de download para cada arquivo
+                    $arquivos = explode(",", $row["arquivo_edital"]);
+                    echo "<td>";
+                    foreach ($arquivos as $arquivo) {
+                        echo "<a href='uploads/" . $arquivo . "' download>" . $arquivo . "</a><br>";
+                    }
+                    echo "</td>";
+                    echo "</tr>";
+                }
+
+                echo "</tbody>";
+                echo "</table>";
+            } else {
+                // Nenhum usuário encontrado
+                echo "<p>Nenhum usuário encontrado.</p>";
             }
-
-            echo "</tbody>";
-            echo "</table>";
         } else {
-            // Nenhum usuário encontrado
-            echo "<p>Nenhum usuário encontrado.</p>";
+            // Erro na consulta
+            echo "Erro na consulta: " . mysqli_error($dbcon);
         }
-    } else {
-        // Erro na consulta
-        echo "Erro na consulta: " . mysqli_error($dbcon);
-    }
 
-    // Fechar conexão com o banco de dados
-    mysqli_close($dbcon);
-    ?>
-</section>
+        // Fechar conexão com o banco de dados
+        mysqli_close($dbcon);
+        ?>
+    </section>
 </div>
-
 
 </body>
 </html>

@@ -1,33 +1,18 @@
-
-
-.body {
-    margin:0;
-    padding:0;  
-}
-
-p {
+  body {
     font-family: "Inter", sans-serif !important;
     font-optical-sizing: auto !important;
-    font-weight: 500 !important;
+    font-weight: 600 !important;
     font-style: normal !important; 
+    background-color: #FAF9FF !important;
+    margin: 0;
+    padding: 0;
 }
 
-h1 {
-    font-family: "Inter", sans-serif !important;
-    font-optical-sizing: auto !important;
-    font-weight: 500 !important;
-    font-style: normal !important; 
-}
+
 
 
 /*Nav*/
 
-#brand-nav {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 100;
-    font-style: normal;
-}
 
 
 /* FORMULARIO UPLOAD */
@@ -142,9 +127,7 @@ border-radius: 10px;
     box-sizing: border-box;
     padding: 12px 20px;
     color: rgba(0, 0, 0, 0.6);
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: 500;
+    font-weight: 700 !important;
     line-height: inherit;
     transition: 0.3s ease;
 }
@@ -198,208 +181,32 @@ font-size: small;
 
 
 
-@media (max-width: 768px) {
-  
-  .form-group button {
-    outline: none;
-    width: 50%;
-    border: 0;
-    border-radius: 4px;
-    padding: 12px 20px;
-    color: #FFFFFF;
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: 500;
-    line-height: inherit;
-    text-transform: uppercase;
-    cursor: pointer;
+@media (max-width: 850px) {
+
+ 
+.form-panel.one {
+    position: absolute;
+    top: 30;
+    left: 20;
+    display: flex;
+    width: 100%;
+    height: 100%;
 }
 
-   
-.overlay,
-.form-panel.one:before {
+.form-header h1 {
+    z-index: +20;
     position: absolute;
     top: 0;
-    left: 0;
-    display: none;
-    background: rgba(0, 0, 0, 1.2);
-    width: 50%;
-    height: 50%;
+    font-size: 50px!important;
+  
 }
 
-.formulario {
-    z-index: -15;
-    position: relative;
-    background: #FFFFFF;
-    width: 50vh;
-    border-radius: 4px;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-    margin: 100px auto 10px;
-    overflow: hidden;
-}
-
-.form-group {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 0 0 20px;
-}
-
-.form-group:last-child {
-    margin: 0;
-}
-
-.form-group label {
-    display: block;
-    margin: 0 0 10px;
-    color: rgba(0, 0, 0, 0.6);
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 1;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-}
-
-.two .form-group label {
-    color: #FFFFFF;
-}
-
-.form-group input {
-    outline: none;
-    display: block;
-    background: rgba(0, 0, 0, 0.1);
-    width: 100%;
-    border: 0;
-    border-radius: 4px;
-    box-sizing: border-box;
-    padding: 12px 20px;
-    color: rgba(0, 0, 0, 0.6);
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: 500;
-    line-height: inherit;
-    transition: 0.3s ease;
-}
-
-.form-group input:focus {
-    color: rgba(0, 0, 0, 1.2);
-}
-
-.two .form-group input {
-    color: #FFFFFF;
-}
-
-.two .form-group input:focus {
-    color: #FFFFFF;
+  
 }
   
   
   
-  }
 
-  @media only screen and (min-width: 354px) and (max-width: 440px){
-
-
-  
-    .form-group button {
-      outline: none;
-      background: #000000;
-      width: 80%;
-      border: 0;
-      border-radius: 4px;
-      padding: 12px 20px;
-      color: #FFFFFF;
-      font-family: inherit;
-      font-size: inherit;
-      font-weight: 500;
-      line-height: inherit;
-      text-transform: uppercase;
-      cursor: pointer;
-  }
-
-  
-  .overlay,
-  .form-panel.one:before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: none;
-      background: rgba(0, 0, 0, 1.2);
-      width: 50%;
-      height: 50%;
-  }
-  
-  .formulario {
-      z-index: -15;
-      position: relative;
-      background: #FFFFFF;
-      width: 32vh;
-      border-radius: 4px;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-      box-sizing: border-box;
-      margin: 100px auto 10px;
-      overflow: hidden;
-  }
-  
-  .form-group {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      margin: 0 0 20px;
-  }
-  
-  .form-group:last-child {
-      margin: 0;
-  }
-  
-  .form-group label {
-      display: block;
-      margin: 0 0 10px;
-      color: rgba(0, 0, 0, 0.6);
-      font-size: 12px;
-      font-weight: 500;
-      line-height: 1;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-  }
-  
-  .two .form-group label {
-      color: #FFFFFF;
-  }
-  
-  .form-group input {
-      outline: none;
-      display: block;
-      background: rgba(0, 0, 0, 0.1);
-      width: 100%;
-      border: 0;
-      border-radius: 4px;
-      box-sizing: border-box;
-      padding: 12px 20px;
-      color: rgba(0, 0, 0, 0.6);
-      font-family: inherit;
-      font-size: inherit;
-      font-weight: 500;
-      line-height: inherit;
-      transition: 0.3s ease;
-  }
-  
-  .form-group input:focus {
-      color: rgba(0, 0, 0, 1.2);
-  }
-  
-  .two .form-group input {
-      color: #FFFFFF;
-  }
-  
-  .two .form-group input:focus {
-      color: #FFFFFF;
-  }
-    
-    
-    
-}
 
 @media (max-width: 352px) {
   
@@ -564,7 +371,7 @@ font-size: small;
           text-transform: uppercase;
           letter-spacing: 0.2em;
       }
-      
+    
       .two .form-group label {
           color: #FFFFFF;
       }
@@ -644,12 +451,7 @@ button:focus{
 /* side bar */
 
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #ffffff;
-    margin: 0;
-    padding: 0;
-}
+
 
 .nav-wrapper.black .brand-logo.right {
     position: absolute;
@@ -664,12 +466,14 @@ body {
 
 .sidebar {
     width: 250px;
-    background-color: #2E5995;
+    background-color: #5A57FF;
     color: #fff;
     position: fixed;
     top: 0;
     left: 0;
     height: 100%;
+    border-top-right-radius: 10px;
+    border-right: 1px solid black;
     overflow-y: auto;
     transition: width 0.3s ease;
     animation: color 7s infinite;
@@ -703,25 +507,46 @@ body {
     list-style-type: none;
     padding-left: 0;
     margin: 0;
+    
 }
 
 .sidebar ul li {
     display: flex;
     justify-content: center;
     padding: 10px 20px;
+    margin-bottom: 50px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
+.sidebar ul li:last-child {
+    display: flex;
+    justify-content: center;
+    padding: 10px 20px;
+    margin-top: 18vw;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar ul li:first-child {
+    display: flex;
+    justify-content: center;
+    padding: 10px 20px;
+    margin-top: 2vw;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
 .sidebar ul li:hover {
-    background-color: #777777;
+    background-color: #FF5789;
 }
 
 .main-content {
     padding: 20px;
     margin-left: 250px; /* Ajuste para deixar espaço para a barra lateral */
     transition: margin-left 0.3s ease;
-    background-color: #ffffff;
+    background-color: #FAF9FF;
 }
 
 .dashboard-square {
@@ -739,7 +564,7 @@ body {
 
 li a{
     text-decoration: none;
-    color: inherit;
+    color: inherit; 
 }
 .brand-logo {
     display: flex;
@@ -747,6 +572,7 @@ li a{
 }
 
 table{
+    background-color: #fff;
     width: 100%;
 }
 
