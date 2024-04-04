@@ -31,20 +31,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       // Verifica se $arquivos é um array
 if (is_array($arquivos)) {
     // Realiza o upload dos arquivos PDF
+    $nome_nova_pasta = "novapasta"; // Remova a barra no final
+    $nova_pasta = mkdir("uploads/$nome_nova_pasta", 0777, true); // Ajuste o caminho da pasta
     
-    $dir = 'uploads/ '; // Diretório para uploads
-    $nova_pasta =  mkdir($dir, 0777, true);
-    foreach ($_FILES['fileUpload']['tmp_name'] as $key => $tmp_name) {
-        $nome_arquivo = $_FILES['fileUpload']['name'][$key];
-        $caminho_arquivo = $dir . $nome_arquivo;
-        
-        if (move_uploaded_file($tmp_name, $caminho_arquivo)) {
-            // Adiciona o nome do arquivo à lista de arquivos
-            $arquivos[] = $nome_arquivo;
-        } else {
-            // Se ocorrer um erro ao fazer o upload do arquivo, exiba uma mensagem de erro
-            echo "Erro ao fazer o upload do arquivo.";
+    // Verifica se a pasta foi criada com sucesso
+    if ($nova_pasta) {
+        foreach ($_FILES['fileUpload']['tmp_name'] as $key => $tmp_name) {
+            $nome_arquivo = $_FILES['fileUpload']['name'][$key];
+            $caminho_arquivo = "uploads/$nome_nova_pasta/$nome_arquivo"; // Caminho corrigido
+            
+            // Restante do código para mover o arquivo
         }
+    } else {
+        echo "Erro ao criar a nova pasta.";
+    }
+    
     }
 
     // Concatena os nomes dos arquivos em uma única string separada por vírgulas
@@ -67,7 +68,7 @@ if (is_array($arquivos)) {
         
         mysqli_close($dbcon);
     }
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -202,7 +203,7 @@ button{
     <ul>
         <li><a href="paginainicialadmin.php">Dashboard</a></li>
         <li><a href="usuarios.php">Usuários</a></li>
-        <li><a href="editais.php">Produtos</a></li>
+        <li><a href="editais.php">Registro De Editais</a></li>
         <li><a href="tabelaeditais.php">Editais</a></li>
         <li><a href="sair.php">Sair</a></li>
     </ul>
@@ -267,7 +268,60 @@ button{
         </button>
     </div>
 
+</div>
 
+
+    <div class="container">
+    <h2>Conciliação de produtos</h2>
+    <form id="formulario_edital" action="editais.php" method="post" enctype="multipart/form-data">
+        <p>Nome do orgão <input type="text" name="nome_orgao_edital" required /></p>
+        <p>Numero do edital <input type="text" name="numero_edital" required /></p>
+        <p>Numero do processo <input type="text" name="numero_processo" /></p>
+        <p>Documento é SRP?</p>
+        <p>
+            <label>
+                <input name="tipo_documento" type="radio" value="SRP" />
+                <span>Sim</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input name="tipo_documento" type="radio" value="NORMAL" />
+                <span>Não</span>
+            </label>
+        </p>
+        <p>Tipo de fornecimento</p>
+        <p>
+            <label>
+                <input name="tipo_fornecimento" type="radio" value="PRODUTO" />
+                <span>Produto</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input name="tipo_fornecimento" type="radio" value="SERVIÇO" />
+                <span>Serviço</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input name="tipo_fornecimento" type="radio" value="PRODUTOS_SERVIÇOS" />
+                <span>Produtos e Serviços</span>
+            </label>
+        </p>
+        <p>Data final <input type="date" name="data_final_edital" required /></p>
+        <p>Data limite para orçamento <input type="date" name="data_limite_orcamento" required /></p>
+        <p>Data de cadastro <input type="date" name="data_cadastro_edital" required /></p>
+        <input type="file" name="fileUpload[]" multiple>
+
+
+    
+    </form>
+    <p onclick="adicionarNovoUpload()" class="enviar"><input type="submit" value="Adicionar novo upload"></p>
+    <p class="enviar"><input id="botaoEnviar" type="submit" value="Inserir" onclick="enviarFormulario()"></p>
+
+    <p id="erroPreencher" class="red-text"> </p>
+</div>
 
 
 

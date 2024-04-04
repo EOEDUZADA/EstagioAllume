@@ -1,0 +1,27 @@
+TELA DE CADASTRO DE PRODUTOS
+
+conc - lista suspensa - puxar um select com os produtos já cadastrados - vem a marca, valor e etc / PREENCHER COM O MENOR PREÇO
+
+marca - precisa ser com um dropdown
+
+FOCAR NO MENOR PREÇO - PRECISA SER MENOR QUE O VALOR DE REF(VARIÁVEL)(NEM SEMPRE TEM)
+
+cadastro dos itens - QTD(dropdown), UND(int), DESC(varchar), Valor de Ref(float)(calculo do total)
+
+OS PRODUTOS PRECISAM ATENDER COM A DESCRIÇÃO
+
+APÓS PREENCHER - LEVAR ESSES DADOS PARA OUTRA PÁGINA - OPÇÃO DE EDITAR(VOLTAR) OU SALVAR
+
+CARACTERISTICAS PRECISAM ATENDER
+
+ALGUNS NÃO PRECISAM ESTAR PREENCHIDOS - ITEM NÃO FAZ PARTE DO ESCOPO
+
+
+
+SERVIÇOS - NÃO TEM CONCILIAÇÃO - SÓ VALOR DE CUSTO
+
+
+SERVIÇOS - PLANILHA ORÇAMENTÁRIA
+
+
+xvideos.com.br

@@ -603,4 +603,9 @@ table{
     background-color: #ddd;
   }
   
-  
+  /* conciliacao */
+
+
+  #resultado_pesquisa_produtos p:hover {
+    color: #5A57FF;
+  }

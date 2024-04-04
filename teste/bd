@@ -19,3 +19,29 @@ CREATE TABLE usuarios (
     email_usuario varchar(255),
     funcao_usuario varchar(255)
 );
+
+CREATE TABLE produtos (
+ id_produto serial primary key,   
+ qtd_produto int,
+ und_produto varchar(255),
+ desc_produto varchar(255),
+ marca_produto varchar(255),
+ modelo_produto varchar(255),
+ valor_referencia_produto float,
+ valor_custo_produto float,
+ valor_minimo_produto float,
+ valor_cadastro_produto float
+)
+
+CREATE TABLE produtos_conciliados (
+ id_produto serial primary key,
+ qtd_produto int,
+ und_produto varchar(255),
+ desc_produto varchar(255),
+ marca_produto varchar(255),
+ modelo_produto varchar(255),
+ valor_referencia_produto float,
+ valor_custo_produto float,
+ valor_minimo_produto float,
+ valor_cadastro_produto float
+)
