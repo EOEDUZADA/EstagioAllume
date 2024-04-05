@@ -523,7 +523,7 @@ button:focus{
     display: flex;
     justify-content: center;
     padding: 10px 20px;
-    margin-top: 18vw;
+    margin-top: 13vw;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }

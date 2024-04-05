@@ -22,7 +22,8 @@ if (isset($_POST['query'])) {
     // Mostrar os resultados da pesquisa
     if ($results) {
         foreach ($results as $row) {
-            echo "<a href='#' class='collection-item resultado_pesquisa' data-marca='" . $row['marca_produto'] . "' data-modelo='" . $row['modelo_produto'] . "'>" . $row['desc_produto'] . "</a>";
+            echo "<a href='#' class='collection-item resultado_pesquisa' data-marca_produto='" . $row['marca_produto'] . "' data-modelo_produto='" . $row['modelo_produto'] . "' data-valor_referencia_produto='" . $row['valor_referencia_produto'] .  "' data-valor_custo_produto='" . $row['valor_custo_produto'] . "' data-valor_minimo_produto='" . $row['valor_minimo_produto'] . "' data-valor_cadastro_produto='" . $row['valor_cadastro_produto'] . "' data-id_produto='" . $row['id_produto'] . "' data-qtd_produto='" . $row['qtd_produto'] . "' data-und_produto='" . $row['und_produto'] . "' >" . $row['desc_produto'] . "</a>";
+
         }
     } else {
         echo "Nenhum resultado encontrado.";
@@ -47,8 +48,16 @@ if (isset($_POST['query'])) {
 <h2>Pesquisa em Tempo Real</h2>
 
 <input type="text" id="pesquisar_produtos" placeholder="Digite para pesquisar...">
+<input type="text" id="id_produto" placeholder="ID" readonly>
+<input type="text" id="qtd_produto" placeholder="QTD" readonly>
+<input type="text" id="und_produto" placeholder="UN" readonly>
 <input type="text" id="marca_produto" placeholder="Marca do Produto" readonly>
 <input type="text" id="modelo_produto" placeholder="Modelo do Produto" readonly>
+<input type="text" id="valor_referencia_produto" placeholder="Valor de Referencia" readonly>
+<input type="text" id="valor_custo_produto" placeholder="Valor de Custo" readonly>
+<input type="text" id="valor_minimo_produto" placeholder="Valor Minimo" readonly>
+<input type="text" id="valor_cadastro_produto" placeholder="Valor Cadastrado" readonly>
+
 
 <div id="resultado_pesquisa_produtos" class="collection"></div>
 
@@ -74,15 +83,29 @@ $(document).ready(function(){
     // Manipular o clique em um resultado de pesquisa
     $(document).on('click', '.resultado_pesquisa', function(){
         var descricao = $(this).text(); // Obtém o texto do item de pesquisa clicado
-        var marca = $(this).data('marca'); // Obtém a marca do produto usando o atributo de dados 'data-marca'
-        var modelo = $(this).data('modelo'); // Obtém o modelo do produto usando o atributo de dados 'data-modelo'
+        var marca_produto = $(this).data('marca_produto'); // Obtém a marca do produto usando o atributo de dados 'data-marca'
+        var modelo_produto = $(this).data('modelo_produto');
+        var valor_referencia_produto = $(this).data('valor_referencia_produto'); 
+        var valor_custo_produto = $(this).data('valor_custo_produto');
+        var valor_minimo_produto = $(this).data('valor_minimo_produto');
+        var valor_cadastro_produto = $(this).data('valor_cadastro_produto');
+        var id_produto = $(this).data('id_produto');
+        var qtd_produto = $(this).data('qtd_produto');
+        var und_produto = $(this).data('und_produto');// Obtém o modelo do produto usando o atributo de dados 'data-modelo'
         
         // Define o valor do campo de pesquisa com a descrição do item clicado
         $('#pesquisar_produtos').val(descricao);
         
         // Preenche os campos de marca e modelo com os valores correspondentes
-        $('#marca_produto').val(marca);
-        $('#modelo_produto').val(modelo);
+        $('#marca_produto').val(marca_produto);
+        $('#modelo_produto').val(modelo_produto);
+        $('#valor_referencia_produto').val(valor_referencia_produto);
+        $('#valor_custo_produto').val(valor_custo_produto);
+        $('#valor_minimo_produto').val(valor_minimo_produto);
+        $('#valor_cadastro_produto').val(valor_cadastro_produto);
+        $('#id_produto').val(id_produto);
+        $('#qtd_produto').val(qtd_produto);
+        $('#und_produto').val(und_produto);
     });
 });
 </script>

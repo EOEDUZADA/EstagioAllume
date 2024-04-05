@@ -33,6 +33,7 @@
         <li><a href="usuarios.php">Usuários</a></li>
         <li><a href="editais.php">Registro De Editais</a></li>
         <li><a href="tabelaeditais.php">Editais</a></li>
+        <li><a href="cadastroProdutos.php">Cadastro Produtos</a></li>
         <li><a href="sair.php">Sair</a></li>
     </ul>
 </div>
@@ -64,7 +65,7 @@
                 echo "<thead>";
                 echo "<tr>";
                 echo "<th>Id</th>";
-                echo "<th>Nome do orgão</th>";
+                echo "<th><a href='index.php'>Nome do orgão</a></th>"; // Coluna clicável com link para "pagina_destino.php"
                 echo "<th>Numero do edital</th>";
                 echo "<th>Numero do processo</th>";
                 echo "<th>Tipo de documento</th>";
@@ -80,7 +81,7 @@
                 while ($row = mysqli_fetch_assoc($result_editais)) {
                     echo "<tr>";
                     echo "<td>" . $row["id_edital"] . "</td>";
-                    echo "<td>" . $row["nome_orgao_edital"] . "</td>";
+                    echo "<td><a href='index.php'>" . $row["nome_orgao_edital"] . "</a></td>"; // Coluna clicável com link para "pagina_destino.php"
                     echo "<td>" . $row["numero_edital"] . "</td>";
                     echo "<td>" . $row["numero_processo"] . "</td>";
                     echo "<td>" . $row["tipo_documento"] . "</td>";
