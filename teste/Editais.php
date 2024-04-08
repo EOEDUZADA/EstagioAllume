@@ -19,13 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $tipo_fornecimento = mysqli_real_escape_string($dbcon, $_POST["tipo_fornecimento"]);
         $data_final_edital = mysqli_real_escape_string($dbcon, $_POST["data_final_edital"]);
         $data_limite_orcamento = mysqli_real_escape_string($dbcon, $_POST["data_limite_orcamento"]);
-        $data_cadastro_edital = mysqli_real_escape_string($dbcon, $_POST["data_cadastro_edital"]);
-    
-
-
-
-
-
+        date_default_timezone_set('America/Sao_Paulo');
+        $data_cadastro_edital = date("F j, Y, g:i a");
 
         $arquivos = array();
       // Verifica se $arquivos é um array
@@ -100,6 +95,36 @@ function adicionarNovoUpload() {
 
         }
 
+
+        function adicionarNovoProduto() {
+        // Cria um novo elemento div para agrupar os inputs do produto
+        var novoProdutoDiv = document.createElement("div");
+            novoProdutoDiv.className = "novo-produto";
+            botaoAdicionarProduto = document.querySelector('#botaoAdicionarProduto');
+            contador = 0;
+
+
+            botaoAdicionarProduto.addEventListener('click', function() {
+
+    contador++;
+
+  novoProdutoDiv.innerHTML = 
+    '<p>Produto ' + contador + '</p>' +
+    '<br>' +
+    '<p>Item <input type="text" name="item_edital[]" required /></p>' +
+    '<p>Lote <input type="text" name="lote_produto_edital[]"  required/></p>' +
+    '<p>Valor de referência <input type="text" name="valor_unit_ref_produto_edital[]" /></p>';
+
+            // Adiciona o novo elemento div ao formulário
+            var formulario = document.getElementById("formulario_edital");
+            formulario.appendChild(novoProdutoDiv);
+});
+            
+
+            // Adiciona os inputs do produto dentro do novo elemento div
+          
+        }
+
     function validarFormulario() {
         var nomeOrgao = document.getElementsByName("nome_orgao_edital")[0].value;
         var numeroEdital = document.getElementsByName("numero_edital")[0].value;
@@ -161,6 +186,34 @@ form {
 p {
     margin-bottom: 15px;
 }
+
+
+
+
+input[type="button"] {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-bottom: 1px solid yellow;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: black;
+    color: #fff;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: green;
+}
+button{
+    width: 100%;
+    border: 1px solid #ccc;
+}
+
 
 input[type="text"],
 input[type="file"],
@@ -250,12 +303,13 @@ button{
         </p>
         <p>Data final <input type="date" name="data_final_edital" required /></p>
         <p>Data limite para orçamento <input type="date" name="data_limite_orcamento" required /></p>
-        <p>Data de cadastro <input type="date" name="data_cadastro_edital" required /></p>
-        <input type="file" name="fileUpload[]" multiple>
+    
+
 
 
     
-    </form>
+    </form>  <p id="botaoAdicionarProduto" onclick="adicionarNovoProduto()" class="enviar"><input  type="button" class="blue-text" value="Adicionar novo Produto"></p>
+        <input type="file" name="fileUpload[]" multiple>
     <p onclick="adicionarNovoUpload()" class="enviar"><input type="submit" value="Adicionar novo upload"></p>
     <p class="enviar"><input id="botaoEnviar" type="submit" value="Inserir" onclick="enviarFormulario()"></p>
 
@@ -263,68 +317,7 @@ button{
 </div>
 
 
-    <div class="container">
-       <a href="tabelaEditais.php"> <button class="btn waves-effect waves-light black right" id="botaozao" type="submit" name="action">Editais Computados </a>
-            <i class="material-icons right">send</i>
-        </button>
-    </div>
-
-</div>
-
-
-    <div class="container">
-    <h2>Conciliação de produtos</h2>
-    <form id="formulario_edital" action="editais.php" method="post" enctype="multipart/form-data">
-        <p>Nome do orgão <input type="text" name="nome_orgao_edital" required /></p>
-        <p>Numero do edital <input type="text" name="numero_edital" required /></p>
-        <p>Numero do processo <input type="text" name="numero_processo" /></p>
-        <p>Documento é SRP?</p>
-        <p>
-            <label>
-                <input name="tipo_documento" type="radio" value="SRP" />
-                <span>Sim</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input name="tipo_documento" type="radio" value="NORMAL" />
-                <span>Não</span>
-            </label>
-        </p>
-        <p>Tipo de fornecimento</p>
-        <p>
-            <label>
-                <input name="tipo_fornecimento" type="radio" value="PRODUTO" />
-                <span>Produto</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input name="tipo_fornecimento" type="radio" value="SERVIÇO" />
-                <span>Serviço</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input name="tipo_fornecimento" type="radio" value="PRODUTOS_SERVIÇOS" />
-                <span>Produtos e Serviços</span>
-            </label>
-        </p>
-        <p>Data final <input type="date" name="data_final_edital" required /></p>
-        <p>Data limite para orçamento <input type="date" name="data_limite_orcamento" required /></p>
-        <p>Data de cadastro <input type="date" name="data_cadastro_edital" required /></p>
-        <input type="file" name="fileUpload[]" multiple>
-
-
-    
-    </form>
-    <p onclick="adicionarNovoUpload()" class="enviar"><input type="submit" value="Adicionar novo upload"></p>
-    <p class="enviar"><input id="botaoEnviar" type="submit" value="Inserir" onclick="enviarFormulario()"></p>
-
-    <p id="erroPreencher" class="red-text"> </p>
-</div>
-
-
+   
 
     
     <!-- Scripts Materialize -->

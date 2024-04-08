@@ -514,7 +514,7 @@ button:focus{
     display: flex;
     justify-content: center;
     padding: 10px 20px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -523,7 +523,7 @@ button:focus{
     display: flex;
     justify-content: center;
     padding: 10px 20px;
-    margin-top: 13vw;
+    margin-top: 5vw;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }

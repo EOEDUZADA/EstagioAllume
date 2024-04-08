@@ -1,16 +1,28 @@
 CREATE TABLE editais (
-    id_edital serial primary key,
-    nome_edital varchar(255),
-    nome_orgao_edital varchar(255),
-    numero_edital float,
-    numero_processo float,
-    tipo_documento varchar(255),
-    tipo_fornecimento varchar(255),
-    data_final_edital date,
-    data_cadastro_edital date,
-    data_limite_orcamento_edital date,
-    arquivo_edital varchar(255)
+    id_edital SERIAL PRIMARY KEY,
+    nome_edital VARCHAR(255),
+    nome_orgao_edital VARCHAR(255),
+    numero_edital FLOAT,
+    numero_processo FLOAT,
+    modalidade_edital VARCHAR(255),
+    tipo_documento VARCHAR(255),
+    tipo_fornecimento VARCHAR(255),
+    data_final_edital DATE,
+    data_cadastro_edital DATE,
+    data_limite_orcamento_edital DATE,
+    valor_referencia_produto FLOAT,
+    arquivo_edital VARCHAR(255)
 );
+
+CREATE TABLE produtos_do_edital (
+    id_produto_edital SERIAL PRIMARY KEY,
+    id_edital int,
+    lote_produto_edital VARCHAR(255),
+    item_edital VARCHAR(255),
+    valor_unit_ref_produto_edital FLOAT,
+    FOREIGN KEY (id_edital) REFERENCES editais(id_edital)
+);
+
 
 CREATE TABLE usuarios (
     id_usuario serial primary key,
@@ -31,7 +43,7 @@ CREATE TABLE produtos (
  valor_custo_produto float,
  valor_minimo_produto float,
  valor_cadastro_produto float
-)
+);
 
 CREATE TABLE produtos_conciliados (
  id_produto serial primary key,
@@ -44,4 +56,4 @@ CREATE TABLE produtos_conciliados (
  valor_custo_produto float,
  valor_minimo_produto float,
  valor_cadastro_produto float
-)
+);
