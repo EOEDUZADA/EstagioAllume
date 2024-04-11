@@ -17,14 +17,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $descproduto = mysqli_real_escape_string($dbcon, $_POST["desc_produto"]);
         $marcaproduto = mysqli_real_escape_string($dbcon, $_POST["marca_produto"]);
         $modeloproduto = mysqli_real_escape_string($dbcon, $_POST["modelo_produto"]);
-        $valorreferencia_produto = mysqli_real_escape_string($dbcon, $_POST["valor_referencia_produto"]);
         $valorcusto_produto = mysqli_real_escape_string($dbcon, $_POST["valor_custo_produto"]);
         $valorminimo_produto = mysqli_real_escape_string($dbcon, $_POST["valor_minimo_produto"]);
         $valorcadastro_produto = mysqli_real_escape_string($dbcon, $_POST["valor_cadastro_produto"]);
     
 
     // Insere a string de nomes de arquivos no banco de dados
-    $sql_code = "INSERT INTO produtos (qtd_produto, und_produto, desc_produto, marca_produto, modelo_produto, valor_referencia_produto, valor_custo_produto, valor_minimo_produto, valor_cadastro_produto) VALUES ('$qtdproduto', '$undproduto', '$descproduto', '$marcaproduto', '$modeloproduto', '$valorreferencia_produto', '$valorcusto_produto', '$valorminimo_produto', '$valorcadastro_produto')";
+    $sql_code = "INSERT INTO produtos (qtd_produto, und_produto, desc_produto, marca_produto, modelo_produto, valor_referencia_produto, valor_minimo_produto, valor_cadastro_produto) VALUES ('$qtdproduto', '$undproduto', '$descproduto', '$marcaproduto', '$modeloproduto', '$valorcusto_produto', '$valorminimo_produto', '$valorcadastro_produto')";
 
 
     // Executar a consulta SQL
@@ -62,14 +61,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         var descproduto = document.getElementsByName("desc_produto")[0].value;
         var marcaproduto = document.getElementsByName("marca_produto")[0].value;
         var modeloproduto = document.getElementsByName("modelo_produto")[0].value;
-        var valorreferencia_produto = document.getElementsByName("valor_referencia_produto")[0].value;
         var valorcusto_produto = document.getElementsByName("valor_custo_produto")[0].value;
         var valorminimo_produto = document.getElementsByName("valor_minimo_produto")[0].value;
         var valorcadastro_produto = document.getElementsByName("valor_cadastro_produto")[0].value;
 
         var erroPreencher = document.getElementById("erroPreencher");
 
-        if (qtdproduto === "" || undproduto === "" || descproduto === "" || marcaproduto === "" || modeloproduto === "" || valorreferencia_produto === "" || valorcusto_produto === "" || valorminimo_produto === "" || valorcadastro_produto === "" ) {
+        if (qtdproduto === "" || undproduto === "" || descproduto === "" || marcaproduto === "" || modeloproduto === "" || valorcusto_produto === "" || valorminimo_produto === "" || valorcadastro_produto === "" ) {
 
             erroPreencher.innerHTML = "Preencha todos os campos obrigatórios!";
           
@@ -177,7 +175,6 @@ button{
         <p>Descriçao Produto <input type="text" name="desc_produto" /></p>
         <p>Marca Produto <input type="text" name="marca_produto" /></p>
         <p>Modelo Produto <input type="text" name="modelo_produto" /></p>
-        <p>Valor de Referencia<input type="text" name="valor_referencia_produto" /></p>
         <p>Valor de Custo <input type="text" name="valor_custo_produto" /></p>
         <p>Valor Minimo do Produto<input type="text" name="valor_minimo_produto" /></p>
         <p>Valor de Cadastro<input type="text" name="valor_cadastro_produto" /></p>

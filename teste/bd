@@ -1,5 +1,5 @@
 CREATE TABLE editais (
-    id_edital SERIAL PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nome_edital VARCHAR(255),
     nome_orgao_edital VARCHAR(255),
     numero_edital FLOAT,
@@ -11,16 +11,16 @@ CREATE TABLE editais (
     data_cadastro_edital DATE,
     data_limite_orcamento_edital DATE,
     valor_referencia_produto FLOAT,
-    arquivo_edital VARCHAR(255)
+    arquivo_edital VARCHAR(255),
 );
 
 CREATE TABLE produtos_do_edital (
     id_produto_edital SERIAL PRIMARY KEY,
-    id_edital int,
     lote_produto_edital VARCHAR(255),
     item_edital VARCHAR(255),
     valor_unit_ref_produto_edital FLOAT,
-    FOREIGN KEY (id_edital) REFERENCES editais(id_edital)
+    id_edital int,
+    FOREIGN KEY (id_edital) REFERENCES editais(id)
 );
 
 

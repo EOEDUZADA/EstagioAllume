@@ -80,7 +80,7 @@
 
                 while ($row = mysqli_fetch_assoc($result_editais)) {
                     echo "<tr>";
-                    echo "<td>" . $row["id_edital"] . "</td>";
+                    echo "<td>" . $row["id"] . "</td>";
                    
                     echo "<td>" . $row["numero_edital"] . "</td>";
                     echo "<td>" . $row["numero_processo"] . "</td>";

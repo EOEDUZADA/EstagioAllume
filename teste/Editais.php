@@ -22,11 +22,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         date_default_timezone_set('America/Sao_Paulo');
         $data_cadastro_edital = date("F j, Y, g:i a");
 
+
+
+
+        $item_edital = mysqli_real_escape_string($dbcon, $_POST["item_edital"]);
+        $lote_produto_edital = mysqli_real_escape_string($dbcon, $_POST["lote_produto_edital"]);  
+        $valor_unit_ref_produto_edital = mysqli_real_escape_string($dbcon, $_POST["valor_unit_ref_produto_edital"]);   
+
+        
+
+
         $arquivos = array();
       // Verifica se $arquivos é um array
 if (is_array($arquivos)) {
     // Realiza o upload dos arquivos PDF
-    $nome_nova_pasta = "novapasta"; // Remova a barra no final
+    $nome_nova_pasta = " '$nome_orgao' '-' '$numero_edital'" ; // Remova a barra no final
     $nova_pasta = mkdir("uploads/$nome_nova_pasta", 0777, true); // Ajuste o caminho da pasta
     
     // Verifica se a pasta foi criada com sucesso
@@ -34,6 +44,7 @@ if (is_array($arquivos)) {
         foreach ($_FILES['fileUpload']['tmp_name'] as $key => $tmp_name) {
             $nome_arquivo = $_FILES['fileUpload']['name'][$key];
             $caminho_arquivo = "uploads/$nome_nova_pasta/$nome_arquivo"; // Caminho corrigido
+            move_uploaded_file($_FILES['fileUpload']['tmp_name'], $caminho_arquivo);
             
             // Restante do código para mover o arquivo
         }
@@ -47,22 +58,37 @@ if (is_array($arquivos)) {
     $arquivos_string = implode(",", $arquivos);
 
     // Insere a string de nomes de arquivos no banco de dados
-    $sql_code = "INSERT INTO editais (nome_orgao_edital, numero_edital, numero_processo, tipo_documento, tipo_fornecimento, data_final_edital, data_limite_orcamento_edital, data_cadastro_edital, arquivo_edital) VALUES ('$nome_orgao', '$numero_edital', '$numero_processo', '$tipo_documento', '$tipo_fornecimento', '$data_final_edital', '$data_limite_orcamento', '$data_cadastro_edital', '$arquivos_string')";
+   
+    $sql_code_editais = "INSERT INTO editais (nome_orgao_edital, numero_edital, numero_processo, tipo_documento, tipo_fornecimento, data_final_edital, data_limite_orcamento_edital, data_cadastro_edital, arquivo_edital) VALUES ('$nome_orgao', '$numero_edital', '$numero_processo', '$tipo_documento', '$tipo_fornecimento', '$data_final_edital', '$data_limite_orcamento', '$data_cadastro_edital', '$arquivos_string')";
 
-    // Executar a consulta SQL
-    if (mysqli_query($dbcon, $sql_code)) {
-        echo "Dados inseridos com sucesso";
+// Execute a inserção
+if ($dbcon->query($sql_code_editais) === TRUE) {
+    // Recupere o ID do último edital inserido
+    $edital_id = $dbcon->insert_id;
+    
+    // Use o ID do edital para inserir os produtos relacionados
+    $sql_code_produtos = "INSERT INTO produtos_do_edital (id_edital, item_edital, lote_produto_edital, valor_unit_ref_produto_edital) VALUES ('$edital_id', '$item_edital', '$lote_produto_edital', '$valor_unit_ref_produto_edital')";
+    
+    // Execute a inserção de produtos
+    if ($dbcon->query($sql_code_produtos) === TRUE) {
+        // Inserção bem-sucedida
+        echo "Produtos inseridos com sucesso!";
     } else {
-        echo "Erro na consulta de inserção: " . mysqli_error($dbcon);
+        // Se houver algum erro na inserção dos produtos
+        echo "Erro ao inserir produtos: " . $dbcon->error;
     }
 } else {
-    // Se $arquivos não for um array, exiba uma mensagem de erro
-    echo "Erro ao processar os arquivos.";
+    // Se houver algum erro na inserção do edital
+    echo "Erro ao inserir edital: " . $dbcon->error;
 }
+
+    
+
 
         
         mysqli_close($dbcon);
     }
+}
 
 ?>
 <!DOCTYPE html>
@@ -97,45 +123,84 @@ function adicionarNovoUpload() {
 
 
         function adicionarNovoProduto() {
-        // Cria um novo elemento div para agrupar os inputs do produto
-        var novoProdutoDiv = document.createElement("div");
-            novoProdutoDiv.className = "novo-produto";
-            botaoAdicionarProduto = document.querySelector('#botaoAdicionarProduto');
-            contador = 0;
 
 
-            botaoAdicionarProduto.addEventListener('click', function() {
 
-    contador++;
+var contador = 0;
+botaoAdicionarProduto = document.querySelector('#botaoAdicionarProduto'); 
 
-  novoProdutoDiv.innerHTML = 
-    '<p>Produto ' + contador + '</p>' +
-    '<br>' +
-    '<p>Item <input type="text" name="item_edital[]" required /></p>' +
-    '<p>Lote <input type="text" name="lote_produto_edital[]"  required/></p>' +
-    '<p>Valor de referência <input type="text" name="valor_unit_ref_produto_edital[]" /></p>';
+        botaoAdicionarProduto.addEventListener('click', function() {
 
-            // Adiciona o novo elemento div ao formulário
-            var formulario = document.getElementById("formulario_edital");
-            formulario.appendChild(novoProdutoDiv);
-});
-            
 
-            // Adiciona os inputs do produto dentro do novo elemento div
-          
-        }
+            contador++;
+
+    // Cria um novo elemento div para agrupar os inputs do produto
+    var novoProdutoDiv = document.createElement("div");
+        novoProdutoDiv.className = "novo-produto";
+        novoProdutoDiv.innerHTML = "Produto " + contador;
+
+
+
+
+        var pItemEdital = document.createElement("p");
+        pItemEdital.innerHTML = "Item do edital";
+
+
+
+        var InputItemEdital = document.createElement("input");
+        pItemEdital.appendChild(InputItemEdital);
+        InputItemEdital.type = "text";
+        InputItemEdital.name = "item_edital";
+
+
+        var pLoteProdutoEdital = document.createElement("p");
+        pLoteProdutoEdital.innerHTML = "Lote";
+
+        var InputLoteProdutoEdital = document.createElement("input");
+        pLoteProdutoEdital.appendChild(InputLoteProdutoEdital);
+        InputLoteProdutoEdital.type = "text";
+        InputLoteProdutoEdital.name = "lote_produto_edital";
+
+
+        var pValorRefProdutoEdital = document.createElement("p");
+        pValorRefProdutoEdital.innerHTML = "Valor de referência";
+
+        var InputValorRefProdutoEdital = document.createElement("input");
+        pValorRefProdutoEdital.appendChild(InputValorRefProdutoEdital);
+        InputValorRefProdutoEdital.type = "text";
+        InputValorRefProdutoEdital.name = "valor_unit_ref_produto_edital";
+
+
+        // Adiciona o novo elemento div ao formulário
+        var formulario = document.getElementById("formulario_edital");
+        formulario.appendChild(novoProdutoDiv);
+        formulario.appendChild(pItemEdital);
+        formulario.appendChild(InputItemEdital);
+        formulario.appendChild(pLoteProdutoEdital);
+        formulario.appendChild(InputLoteProdutoEdital);
+        formulario.appendChild(pValorRefProdutoEdital);
+        formulario.appendChild(InputValorRefProduto);
+
+        
+
+        // Adiciona os inputs do produto dentro do novo elemento div
+      
+    });
+
+        // Adiciona os inputs do produto dentro do novo elemento div
+      
+}
 
     function validarFormulario() {
         var nomeOrgao = document.getElementsByName("nome_orgao_edital")[0].value;
         var numeroEdital = document.getElementsByName("numero_edital")[0].value;
         var dataFinalEdital = document.getElementsByName("data_final_edital")[0].value;
         var dataLimiteOrcamento = document.getElementsByName("data_limite_orcamento")[0].value;
-        var dataCadastroEdital = document.getElementsByName("data_cadastro_edital")[0].value;
         var tipoDocumento = document.querySelector('input[name="tipo_documento"]:checked');
         var tipoFornecimento = document.querySelector('input[name="tipo_fornecimento"]:checked');
         var erroPreencher = document.getElementById("erroPreencher");
 
-        if (nomeOrgao === "" || numeroEdital === "" || dataFinalEdital === "" || dataLimiteOrcamento === "" || dataCadastroEdital === "" || !tipoDocumento || !tipoFornecimento) {
+        if (nomeOrgao === "" || numeroEdital === "" || dataFinalEdital === "" || dataLimiteOrcamento === "" || !tipoDocumento || !tipoFornecimento) {
 
             erroPreencher.innerHTML = "Preencha todos os campos obrigatórios!";
           
@@ -153,6 +218,7 @@ function adicionarNovoUpload() {
             formulario.submit();
         }
     }
+    
 </script>
 
 </head>
@@ -309,7 +375,7 @@ button{
 
     
     </form>  <p id="botaoAdicionarProduto" onclick="adicionarNovoProduto()" class="enviar"><input  type="button" class="blue-text" value="Adicionar novo Produto"></p>
-        <input type="file" name="fileUpload[]" multiple>
+        <input type="file" name="fileUpload" multiple>
     <p onclick="adicionarNovoUpload()" class="enviar"><input type="submit" value="Adicionar novo upload"></p>
     <p class="enviar"><input id="botaoEnviar" type="submit" value="Inserir" onclick="enviarFormulario()"></p>
 
