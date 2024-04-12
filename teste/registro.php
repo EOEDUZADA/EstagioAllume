@@ -70,10 +70,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 <div class="sidebar">
     <img src="./img/logo3.png" id="brand-logo">
     <ul>
-        <li>Dashboard</li>
-        <li><a href="editais.php">Usuários</a></li>
-        <li><a href="editais.php">Produtos</a></li>
+        <li><a href="registro.php">Registro de Usuarios</a></li>
+        <li><a href="usuarios.php">Usuários</a></li>
+        <li><a href="editais.php">Registro De Editais</a></li>
         <li><a href="tabelaeditais.php">Editais</a></li>
+        <li><a href="cadastroProdutos.php">Cadastro Produtos</a></li>
         <li><a href="sair.php">Sair</a></li>
     </ul>
 </div>

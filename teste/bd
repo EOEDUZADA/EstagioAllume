@@ -7,9 +7,9 @@ CREATE TABLE editais (
     modalidade_edital VARCHAR(255),
     tipo_documento VARCHAR(255),
     tipo_fornecimento VARCHAR(255),
-    data_final_edital DATE,
-    data_cadastro_edital DATE,
-    data_limite_orcamento_edital DATE,
+    data_final_edital TIMESTAMP,
+    data_cadastro_edital TIMESTAMP,
+    data_limite_orcamento_edital TIMESTAMP,
     valor_referencia_produto FLOAT,
     arquivo_edital VARCHAR(255),
 );

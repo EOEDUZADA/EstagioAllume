@@ -12,12 +12,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 
-        $item_edital = mysqli_real_escape_string($dbcon, $_POST["item_edital[]"]);
-        $lote_produto_edital = mysqli_real_escape_string($dbcon, $_POST["lote_produto_edital[]"]);  
-        $valor_ref_produto_edital = mysqli_real_escape_string($dbcon, $_POST["valor_unit_ref_produto_edital[]"]);   
+    if (!isset($_POST["fileUpload"])) {
+        
+
+        $ext = $_FILES['fileUpload']['type']; //Pegando extensão do arquivo
+$nome = $_FILES['fileUpload']['name'];
+$new_name = date("Y.m.d-H.i.s") . $ext; //Definindo um novo nome para o arquivo
+$dir = 'uploads/'; //Diretório para uploads
+move_uploaded_file($_FILES['fileUpload']['tmp_name'], $dir.$nome); //Fazer upload do arquivo
+
+
+
+       print_r($_FILES);
+    
+
+    
+
+        
+        mysqli_close($dbcon);
+    }
 
         
 }
+
+
+
 
 ?>
 <!DOCTYPE html>
@@ -52,82 +71,8 @@ function adicionarNovoUpload() {
 
 
          
-function adicionarNovoProduto() {
 
 
-
-    var contador = 0;
-    botaoAdicionarProduto = document.querySelector('#botaoAdicionarProduto'); 
-
-            botaoAdicionarProduto.addEventListener('click', function() {
-
-
-                contador++;
-
-        // Cria um novo elemento div para agrupar os inputs do produto
-        var novoProdutoDiv = document.createElement("div");
-            novoProdutoDiv.className = "novo-produto";
-            novoProdutoDiv.innerHTML = "Produto " + contador;
-
-    
-
-
-            var pItemEdital = document.createElement("p");
-            pItemEdital.innerHTML = "Item do edital";
-
-
-
-            var InputItemEdital = document.createElement("input");
-            pItemEdital.appendChild(InputItemEdital);
-            InputItemEdital.type = "text";
-            InputItemEdital.name = "item_edital[]";
-
-
-            var pLoteProdutoEdital = document.createElement("p");
-            pLoteProdutoEdital.innerHTML = "Lote";
-
-            var InputLoteProdutoEdital = document.createElement("input");
-            pLoteProdutoEdital.appendChild(InputLoteProdutoEdital);
-            InputLoteProdutoEdital.type = "text";
-            InputLoteProdutoEdital.name = "lote_produto_edital[]";
-
-
-            var pValorRefProdutoEdital = document.createElement("p");
-            pValorRefProdutoEdital.innerHTML = "Valor de referência";
-
-            var InputValorRefProdutoEdital = document.createElement("input");
-            pValorRefProdutoEdital.appendChild(InputValorRefProdutoEdital);
-            InputValorRefProdutoEdital.type = "text";
-            InputValorRefProdutoEdital.name = "valor_unit_ref_produto_edital[]";
-
-
-            // Adiciona o novo elemento div ao formulário
-            var formulario = document.getElementById("formulario_edital");
-            formulario.appendChild(novoProdutoDiv);
-            formulario.appendChild(pItemEdital);
-            formulario.appendChild(InputItemEdital);
-            formulario.appendChild(pLoteProdutoEdital);
-            formulario.appendChild(InputLoteProdutoEdital);
-            formulario.appendChild(pValorRefProdutoEdital);
-            formulario.appendChild(InputValorRefProduto);
-
-            
-
-            // Adiciona os inputs do produto dentro do novo elemento div
-          
-        });
-
-            // Adiciona os inputs do produto dentro do novo elemento div
-          
-    }
-
-
-    function enviarFormulario() {
-        if (validarFormulario()) {
-            var formulario = document.getElementById("formulario_edital");
-            formulario.submit();
-        }
-    }
     
 </script>
 
@@ -234,10 +179,14 @@ button{
 
     <p class="enviar"><input id="botaoEnviar" type="submit" value="Inserir" ></p>
 
+    <input type="file" name="fileUpload" multiple>
+
+    
+
+
     </form> 
-    
-    
-    <p id="botaoAdicionarProduto" onclick="adicionarNovoProduto()" class="enviar"><input  type="button" class="blue-text" value="Adicionar novo Produto"></p>
+    <p onclick="adicionarNovoUpload()" class="enviar"><input type="submit" value="Adicionar novo upload"></p>
+
     
 </body>
 </html>

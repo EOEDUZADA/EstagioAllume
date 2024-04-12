@@ -26,7 +26,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $lote_produto_edital = $_POST["lote_produto_edital"];
         $valor_unit_ref_produto_edital = $_POST["valor_unit_ref_produto_edital"];
 
-
         $arquivos = array();
 
         if (is_array($arquivos)) {
@@ -51,8 +50,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $arquivos_string = implode(",", $arquivos);
 
-
-
         $sql_code_editais = "INSERT INTO editais (nome_orgao_edital, numero_edital, numero_processo, tipo_documento, tipo_fornecimento, data_final_edital, data_limite_orcamento_edital, arquivo_edital) VALUES ('$nome_orgao', '$numero_edital', '$numero_processo', '$tipo_documento', '$tipo_fornecimento', '$data_final_edital', '$data_limite_orcamento', '$arquivos_string')";
 
         if ($dbcon->query($sql_code_editais) === TRUE) {
@@ -64,12 +61,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             foreach ($item_edital as $key => $item) {
                 // Obtém e escapa os valores dos campos
-                $item_edital_value = mysqli_real_escape_string($dbcon, $item);
-                $lote_produto_edital_value = mysqli_real_escape_string($dbcon, $lote_produto_edital[$key]);
-                $valor_unit_ref_produto_edital_value = mysqli_real_escape_string($dbcon, $valor_unit_ref_produto_edital[$key]);
+                $item_edital = mysqli_real_escape_string($dbcon, $item);
+                $lote_produto_edital = mysqli_real_escape_string($dbcon, $lote_produto_edital[$key]);
+                $valor_unit_ref_produto_edital = mysqli_real_escape_string($dbcon, $valor_unit_ref_produto_edital[$key]);
             
                 // Adiciona os valores escapados ao array de valores
-                $values[] = "('$edital_id', '$item_edital_value', '$lote_produto_edital_value', '$valor_unit_ref_produto_edital_value')";
+                $values[] = "('$edital_id', '$item_edital', '$lote_produto_edital', '$valor_unit_ref_produto_edital_value')";
             }
 
 
@@ -112,15 +109,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             formulario.appendChild(novoInput);
         }
 
-    
+        var contador = 0;
 
 function adicionarNovoProduto() {
-    
+    contador++;
 
     // Cria um novo elemento div para agrupar os inputs do produto
     var novoProdutoDiv = document.createElement("div");
     novoProdutoDiv.className = "novo-produto";
-   
+    novoProdutoDiv.innerHTML = "Produto " + contador;
 
     // Cria os inputs para o novo produto
     var pItemEdital = document.createElement("p");
@@ -274,20 +271,6 @@ function adicionarNovoProduto() {
     }
 </style>
 <body>
-
-
-<div class="sidebar">
-    <img src="./img/logo3.png" id="brand-logo">
-    <ul>
-        <li><a href="paginainicialadmin.php">Dashboard</a></li>
-        <li><a href="usuarios.php">Usuários</a></li>
-        <li><a href="editais.php">Registro De Editais</a></li>
-        <li><a href="tabelaeditais.php">Editais</a></li>
-        <li><a href="cadastroProdutos.php">Cadastro Produtos</a></li>
-        <li><a href="sair.php">Sair</a></li>
-    </ul>
-</div>
-
 <div class="container">
     <h2>Cadastro de edital</h2>
     <form id="formulario_edital" action="editais.php" method="post" enctype="multipart/form-data">
@@ -326,8 +309,8 @@ function adicionarNovoProduto() {
                 <span>Produtos e Serviços</span>
             </label>
         </p>
-        <p>Data final <input type="date" name="data_final_edital" required /></p> <!-- Colocar hora -->
-        <p>Data limite para orçamento <input type="date" name="data_limite_orcamento" required /></p>  <!-- Colocar hora -->
+        <p>Data final <input type="date" name="data_final_edital" required /></p>
+        <p>Data limite para orçamento <input type="date" name="data_limite_orcamento" required /></p>
 
         <input type="file" name="fileUpload[]" multiple>
     </form>

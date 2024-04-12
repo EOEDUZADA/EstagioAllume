@@ -63,4 +63,49 @@ PRODUTOS
 
 
 ID/NOME/CODIGO/MENOR VALOR UNITARIO(valor de venda) - Clica - volta para a tela
+person_add
+
+
+
+
+
+
+
+
+
+LOTE/ITEM/DESC DO ITEM/QTD/UND/VALOR REF/VALOR TOTAL REF(qtd x valor unt)
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $arquivos = array();
+
+        if (is_array($arquivos)) {
+
+             $dir = 'uploads/';
+
+            $nome_nova_pasta = " '$nome_orgao' '-' '$numero_edital'" ; // Remova a barra no final
+            $nova_pasta = mkdir("uploads/$nome_nova_pasta", 0777, true); // Ajuste o caminho da pasta
+
+            foreach ($_FILES['fileUpload']['tmp_name'] as $key => $tmp_name) {
+                $nome_arquivo = $_FILES['fileUpload']['name'][$key];
+                $caminho_arquivo = $dir . $nova_pasta . $nome_arquivo;
+                $caminho_arquivo = "uploads/$nome_nova_pasta/$nome_arquivo"; // Caminho corrigido
+
+                if (move_uploaded_file($tmp_name, $caminho_arquivo)) {
+                    $arquivos[] = $nome_arquivo;
+                } else {
+                    echo "Erro ao fazer o upload do arquivo.";
+                }
+            }
+        }
 

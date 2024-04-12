@@ -80,7 +80,7 @@ session_start();
 <nav>
     <div class="nav-wrapper white" style="display: flex; align-items: center; flex-direction: row-reverse;"> 
         <i class="large material-icons brand-logo" style="font-size: 50px;">account_circle</i>
-        <p class="black-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p>
+        <a href="paginaInicialAdmin.php"><p class="black-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p></a>
     </div>
 </nav>
 
@@ -89,7 +89,7 @@ session_start();
 <div class="sidebar">
 <img src="./img/logo3.png" id="brand-logo">
     <ul>
-        <li><a href="paginainicialadmin.php">Dashboard</a></li>
+        <li><a href="registro.php">Registro de Usuarios</a></li>
         <li><a href="usuarios.php">Usuários</a></li>
         <li><a href="editais.php">Registro De Editais</a></li>
         <li><a href="tabelaeditais.php">Editais</a></li>
