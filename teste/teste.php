@@ -83,7 +83,6 @@ if (isset($_POST['query'])) {
 
     
     <input type="text" id="modelo_produto" placeholder="Modelo do Produto" readonly>
-    <input type="text" id="valor_referencia_produto" placeholder="Valor de Referencia" readonly>
     <input type="text" id="valor_custo_produto" placeholder="Valor de Custo" readonly>
     <input type="text" id="valor_minimo_produto" placeholder="Valor Minimo" readonly>
     <input type="text" id="valor_cadastro_produto" placeholder="Valor Cadastrado" readonly>

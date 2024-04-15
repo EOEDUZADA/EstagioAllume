@@ -1,5 +1,5 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     $host = "localhost";
     $dbname = "allume";
     $username = "root";
@@ -12,28 +12,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 
-    if (!isset($_POST["fileUpload"])) {
-        
 
-        $ext = $_FILES['fileUpload']['type']; //Pegando extensão do arquivo
-$nome = $_FILES['fileUpload']['name'];
-$new_name = date("Y.m.d-H.i.s") . $ext; //Definindo um novo nome para o arquivo
-$dir = 'uploads/'; //Diretório para uploads
-move_uploaded_file($_FILES['fileUpload']['tmp_name'], $dir.$nome); //Fazer upload do arquivo
+    if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
+        $valor_unit_ref_produto_edital  = ["100,90,80,70,60,50"];
+        $pieces = implode(",", $valor_unit_ref_produto_edital);
+        echo $pieces[2];
 
-       print_r($_FILES);
-    
 
-    
 
-        
-        mysqli_close($dbcon);
+
+
+      
+
+  
     }
 
-        
-}
 
 
 
@@ -53,21 +48,6 @@ move_uploaded_file($_FILES['fileUpload']['tmp_name'], $dir.$nome); //Fazer uploa
     <script>
 
 
-function adicionarNovoUpload() {
-            // Cria um novo elemento input de tipo arquivo
-            var novoInput = document.createElement("input");
-            novoInput.type = "file";
-            novoInput.name = "fileUpload";
-            
-           
-            
-            // Adiciona o novo input e o novo botão ao formulário existente
-            var formulario = document.getElementById("formulario_edital");
-            formulario.appendChild(novoInput);
-            formulario.insertBefore(novoInput);
-     
-
-        }
 
 
          
@@ -173,20 +153,15 @@ button{
 <body>
     
 <div class="container">
-    <h2>Cadastro de edital</h2>
-    <form id="formulario_edital" action="testes.php" method="post" enctype="multipart/form-data">
+ 
+<form action="testes.php" method="POST">
 
-
-    <p class="enviar"><input id="botaoEnviar" type="submit" value="Inserir" ></p>
-
-    <input type="file" name="fileUpload" multiple>
-
+<p>Valores de referência <input type="text" name="valor_unit_ref_produto_edital" /></p>
     
 
+<button type="submit"></button>
 
-    </form> 
-    <p onclick="adicionarNovoUpload()" class="enviar"><input type="submit" value="Adicionar novo upload"></p>
 
-    
+</form>
 </body>
 </html>

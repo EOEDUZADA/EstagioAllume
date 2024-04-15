@@ -22,6 +22,11 @@
             width: 100%;
         }
     </style>
+
+
+<script>
+
+    </script>
 </head>
 
 <body>
@@ -64,10 +69,10 @@
                 echo "<table class='funcionarios' id='tabela_editais'>";
                 echo "<thead>";
                 echo "<tr>";
-                echo "<th>Id</th>";
+                echo "<th>ID</th>";  
+                echo "<th><a href='index.php'>Nome do orgão</a></th>"; // Coluna clicável com link para "pagina_destino.php"
                 echo "<th>Numero do edital</th>";
                 echo "<th>Numero do processo</th>"; 
-                echo "<th><a href='index.php'>Nome do orgão</a></th>"; // Coluna clicável com link para "pagina_destino.php"
                 echo "<th>SRP/NORMAL</th>";
                 echo "<th>Tipo de fornecimento</th>";
                 echo "<th>Data final do edital</th>";
@@ -76,15 +81,15 @@
                 echo "<th>Arquivo do Edital</th>";
                 echo "</tr>";
                 echo "</thead>";
-                echo "<tbody>";
+                echo "<tbody onclick=\"window.location.href = 'index.php';\">";
+
 
                 while ($row = mysqli_fetch_assoc($result_editais)) {
                     echo "<tr>";
                     echo "<td>" . $row["id"] . "</td>";
-                   
+                     echo "<td><a href='index.php'>" . $row["nome_orgao_edital"] . "</a></td>"; // Coluna clicável com link para "pagina_destino.php"
                     echo "<td>" . $row["numero_edital"] . "</td>";
                     echo "<td>" . $row["numero_processo"] . "</td>";
-                    echo "<td><a href='index.php'>" . $row["nome_orgao_edital"] . "</a></td>"; // Coluna clicável com link para "pagina_destino.php"
                     echo "<td>" . $row["tipo_documento"] . "</td>";
                     echo "<td>" . $row["tipo_fornecimento"] . "</td>";
                     echo "<td>" . $row["data_final_edital"] . "</td>";

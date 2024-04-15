@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
 
     // Insere a string de nomes de arquivos no banco de dados
-    $sql_code = "INSERT INTO produtos (qtd_produto, und_produto, desc_produto, marca_produto, modelo_produto, valor_referencia_produto, valor_minimo_produto, valor_cadastro_produto) VALUES ('$qtdproduto', '$undproduto', '$descproduto', '$marcaproduto', '$modeloproduto', '$valorcusto_produto', '$valorminimo_produto', '$valorcadastro_produto')";
+    $sql_code = "INSERT INTO produtos (qtd_produto, und_produto, desc_produto, marca_produto, modelo_produto, valor_custo_produto, valor_minimo_produto, valor_cadastro_produto) VALUES ('$qtdproduto', '$undproduto', '$descproduto', '$marcaproduto', '$modeloproduto', '$valorcusto_produto', '$valorminimo_produto', '$valorcadastro_produto')";
 
 
     // Executar a consulta SQL
@@ -170,9 +170,9 @@ button{
 <div class="container">
     <h2>Cadastro de Produtos</h2>
     <form id="formulario_edital" action="cadastroProdutos.php" method="post" enctype="multipart/form-data">
+        <p>Descriçao Produto <input type="text" name="desc_produto" /></p>
         <p>Quantidade de Produtos<input type="text" name="qtd_produto" required /></p>
         <p>Unidade Produtos<input type="text" name="und_produto" required /></p>
-        <p>Descriçao Produto <input type="text" name="desc_produto" /></p>
         <p>Marca Produto <input type="text" name="marca_produto" /></p>
         <p>Modelo Produto <input type="text" name="modelo_produto" /></p>
         <p>Valor de Custo <input type="text" name="valor_custo_produto" /></p>

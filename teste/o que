@@ -109,3 +109,9 @@ LOTE/ITEM/DESC DO ITEM/QTD/UND/VALOR REF/VALOR TOTAL REF(qtd x valor unt)
             }
         }
 
+
+
+
+$valor_unit_ref_produto_edital  = "100,90,80,70,60,50";
+        $pieces = implode(",", $valor_unit_ref_produto_edital);
+        echo min($pieces);

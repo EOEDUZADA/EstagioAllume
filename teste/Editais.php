@@ -17,14 +17,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $numero_processo = mysqli_real_escape_string($dbcon, $_POST["numero_processo"]);
         $tipo_documento = mysqli_real_escape_string($dbcon, $_POST["tipo_documento"]);
         $tipo_fornecimento = mysqli_real_escape_string($dbcon, $_POST["tipo_fornecimento"]);
-        $data_final_edital = mysqli_real_escape_string($dbcon, $_POST["data_final_edital"]);
-        $data_limite_orcamento = mysqli_real_escape_string($dbcon, $_POST["data_limite_orcamento"]);
+        $data_final_edital = date("Y-m-d H:i:s", strtotime($_POST["data_final_edital"]));
+        $data_limite_orcamento = date("Y-m-d H:i:s", strtotime($_POST["data_limite_orcamento"]));
         date_default_timezone_set('America/Sao_Paulo');
-        $data_cadastro_edital = date("F j, Y, g:i a");
+        $data_cadastro_edital = date('Y-m-d H:i:s' , time());
+        $nome_edital = $nome_orgao . ' - N° ' . $numero_edital;
+    
 
         $item_edital = $_POST["item_edital"];
         $lote_produto_edital = $_POST["lote_produto_edital"];
         $valor_unit_ref_produto_edital = $_POST["valor_unit_ref_produto_edital"];
+        $desc_produto_edital = $_POST["desc_produto_edital"];
+        $qtd_produto_edital = $_POST["qtd_produto_edital"];
+        $und_produto_edital = $_POST["und_produto_edital"];
 
 
         $arquivos = array();
@@ -52,13 +57,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $arquivos_string = implode(",", $arquivos);
 
 
-
-        $sql_code_editais = "INSERT INTO editais (nome_orgao_edital, numero_edital, numero_processo, tipo_documento, tipo_fornecimento, data_final_edital, data_limite_orcamento_edital, arquivo_edital) VALUES ('$nome_orgao', '$numero_edital', '$numero_processo', '$tipo_documento', '$tipo_fornecimento', '$data_final_edital', '$data_limite_orcamento', '$arquivos_string')";
+        $sql_code_editais = "INSERT INTO editais (nome_orgao_edital, numero_edital, numero_processo, tipo_documento, tipo_fornecimento, data_final_edital, data_limite_orcamento_edital, data_cadastro_edital , arquivo_edital) 
+        VALUES ('$nome_orgao', '$numero_edital', '$numero_processo', '$tipo_documento', '$tipo_fornecimento', NOW(), NOW(), '$data_cadastro_edital', '$arquivos_string')";
+        
 
         if ($dbcon->query($sql_code_editais) === TRUE) {
             $edital_id = $dbcon->insert_id;
 
-            $sql_code_produtos = "INSERT INTO produtos_do_edital (id_edital, item_edital, lote_produto_edital, valor_unit_ref_produto_edital) VALUES ";
+            $sql_code_produtos = "INSERT INTO produtos_do_edital (id_edital, item_edital, lote_produto_edital, valor_unit_ref_produto_edital, desc_produto_edital, qtd_produto_edital, und_produto_edital) VALUES ";
             $values = array();
 
             
@@ -67,9 +73,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $item_edital_value = mysqli_real_escape_string($dbcon, $item);
                 $lote_produto_edital_value = mysqli_real_escape_string($dbcon, $lote_produto_edital[$key]);
                 $valor_unit_ref_produto_edital_value = mysqli_real_escape_string($dbcon, $valor_unit_ref_produto_edital[$key]);
+                $desc_produto_edital_value = mysqli_real_escape_string($dbcon, $desc_produto_edital[$key]);
+                $qtd_produto_edital_value = mysqli_real_escape_string($dbcon, $qtd_produto_edital[$key]);
+                $und_produto_edital_value = mysqli_real_escape_string($dbcon, $und_produto_edital[$key]);
             
                 // Adiciona os valores escapados ao array de valores
-                $values[] = "('$edital_id', '$item_edital_value', '$lote_produto_edital_value', '$valor_unit_ref_produto_edital_value')";
+                $values[] = "('$edital_id', '$item_edital_value', '$lote_produto_edital_value', '$valor_unit_ref_produto_edital_value','$desc_produto_edital_value','$qtd_produto_edital_value','$und_produto_edital_value')";
             }
 
 
@@ -121,21 +130,44 @@ function adicionarNovoProduto() {
     var novoProdutoDiv = document.createElement("div");
     novoProdutoDiv.className = "novo-produto";
    
+   var pLoteProdutoEdital = document.createElement("p");
+    pLoteProdutoEdital.innerHTML = "Lote";
+    var InputLoteProdutoEdital = document.createElement("input");
+    InputLoteProdutoEdital.type = "text";
+    InputLoteProdutoEdital.name = "lote_produto_edital"; // Correção: adicione [] ao nome
+    pLoteProdutoEdital.appendChild(InputLoteProdutoEdital);
 
     // Cria os inputs para o novo produto
     var pItemEdital = document.createElement("p");
-    pItemEdital.innerHTML = "Item do edital";
+    pItemEdital.innerHTML = "Item";
     var InputItemEdital = document.createElement("input");
     InputItemEdital.type = "text";
     InputItemEdital.name = "item_edital[]"; // Correção: adicione [] ao nome
     pItemEdital.appendChild(InputItemEdital);
 
-    var pLoteProdutoEdital = document.createElement("p");
-    pLoteProdutoEdital.innerHTML = "Lote";
-    var InputLoteProdutoEdital = document.createElement("input");
-    InputLoteProdutoEdital.type = "text";
-    InputLoteProdutoEdital.name = "lote_produto_edital[]"; // Correção: adicione [] ao nome
-    pLoteProdutoEdital.appendChild(InputLoteProdutoEdital);
+    var pDescProdutoEdital = document.createElement("p");
+    pDescProdutoEdital.innerHTML = "Descrição do produto";
+    var InputDescProdutoEdital = document.createElement("input");
+    InputDescProdutoEdital.type = "text";
+    InputDescProdutoEdital.name = "desc_produto_edital"; // Correção: adicione [] ao nome
+    pDescProdutoEdital.appendChild(InputDescProdutoEdital);
+
+    
+    var pQuantidadeProdutoEdital = document.createElement("p");
+    pQuantidadeProdutoEdital.innerHTML = "Quantidade";
+    var InputQuantidadeProdutoEdital = document.createElement("input");
+    InputQuantidadeProdutoEdital.type = "text";
+    InputQuantidadeProdutoEdital.name = "qtd_produto_edital"; // Correção: adicione [] ao nome
+    pQuantidadeProdutoEdital.appendChild(InputQuantidadeProdutoEdital);
+
+
+    var pUndProdutoEdital = document.createElement("p");
+    pUndProdutoEdital.innerHTML = "UND";
+    var InputUndProdutoEdital = document.createElement("input");
+    InputUndProdutoEdital.type = "text";
+    InputUndProdutoEdital.name = "und_produto_edital"; // Correção: adicione [] ao nome
+    pUndProdutoEdital.appendChild(InputUndProdutoEdital);
+
 
     var pValorRefProdutoEdital = document.createElement("p");
     pValorRefProdutoEdital.innerHTML = "Valor de referência";
@@ -147,9 +179,12 @@ function adicionarNovoProduto() {
     // Adiciona os elementos ao formulário
     var formulario = document.getElementById("formulario_edital");
     formulario.appendChild(novoProdutoDiv);
+     formulario.appendChild(pLoteProdutoEdital);
     formulario.appendChild(pItemEdital);
-    formulario.appendChild(pLoteProdutoEdital);
     formulario.appendChild(pValorRefProdutoEdital);
+    formulario.appendChild(pDescProdutoEdital);
+    formulario.appendChild(pQuantidadeProdutoEdital);
+    formulario.appendChild(pUndProdutoEdital);
 }
 
 
@@ -326,8 +361,22 @@ function adicionarNovoProduto() {
                 <span>Produtos e Serviços</span>
             </label>
         </p>
-        <p>Data final <input type="date" name="data_final_edital" required /></p> <!-- Colocar hora -->
-        <p>Data limite para orçamento <input type="date" name="data_limite_orcamento" required /></p>  <!-- Colocar hora -->
+
+        <p>Modalidade do edital</p>
+        <p>
+            <label>
+                <input name="modalidade_edital" type="radio" value="SRP" />
+                <span>Sim</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input name="modalidade_edital" type="radio" value="NORMAL" />
+                <span>Não</span>
+            </label>
+      
+        <p>Data final <input type="datetime-local" name="data_final_edital" required /></p> <!-- Colocar hora -->
+        <p>Data limite para orçamento <input type="datetime-local" name="data_limite_orcamento" required /></p>  <!-- Colocar hora -->
 
         <input type="file" name="fileUpload[]" multiple>
     </form>

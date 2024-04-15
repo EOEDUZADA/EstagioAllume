@@ -17,9 +17,12 @@ CREATE TABLE editais (
 CREATE TABLE produtos_do_edital (
     id_produto_edital SERIAL PRIMARY KEY,
     lote_produto_edital VARCHAR(255),
-    item_edital VARCHAR(255),
+    item_edital INT,
+    desc_produto_edital VARCHAR(255),
     valor_unit_ref_produto_edital FLOAT,
-    id_edital int,
+     qtd_produto_edital INT,
+ und_produto_edital INT,
+    id_edital INT,
     FOREIGN KEY (id_edital) REFERENCES editais(id)
 );
 
