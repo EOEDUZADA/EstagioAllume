@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="css/styles.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <title>Document</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
     
@@ -24,13 +23,14 @@
     </style>
 
 
-<script>
-
-    </script>
 </head>
 
 <body>
     
+
+
+            
+
 <div class="sidebar">
     <img src="./img/logo3.png" id="brand-logo">
     <ul>
@@ -81,7 +81,7 @@
                 echo "<th>Arquivo do Edital</th>";
                 echo "</tr>";
                 echo "</thead>";
-                echo "<tbody onclick=\"window.location.href = 'index.php';\">";
+                echo "<tbody>";
 
 
                 while ($row = mysqli_fetch_assoc($result_editais)) {
@@ -96,17 +96,41 @@
                     echo "<td>" . $row["data_limite_orcamento_edital"] . "</td>";
                     echo "<td>" . $row["data_cadastro_edital"] . "</td>";
                     // Adicione um link de download para cada arquivo
-                    $arquivos = explode(",", $row["arquivo_edital"]);
+               
                     echo "<td>";
-                    foreach ($arquivos as $arquivo) {
-                        echo "<a href='uploads/" . $arquivo . "' download>" . $arquivo . "</a><br>";
-                    }
+                   
+                    echo "<a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Detalhes</a>
+
+                    <ul id='dropdown1' class='dropdown-content'>
+                      <li><a href=\"#\">one</a></li>
+                      <li><a href=\"#\">two</a></li>
+                      <li class=\"divider\" tabindex=\"-1\"></li>
+                      <li><a href=\"#\">three</a></li>
+                      <li><a href=\"#\"><i class=\"material-icons\">view_module</i>four</a></li>
+                      <li><a href=\"#\"><i class=\"material-icons\">cloud</i>five</a></li>
+                    </ul>";
+                  
+
                     echo "</td>";
                     echo "</tr>";
+                    echo "
+<div class='card-body'>
+    <form method='post' action='infoEditais.php'>
+        <input type='hidden' name='id' value='" . $row['id'] . "'>
+        <button type='submit' class='btn btn-primary'>
+            <i class='fa fa-cart-plus mr-2'></i>Pegar emprestado
+        </button>
+    </form>
+</div>
+";
+
                 }
 
                 echo "</tbody>";
                 echo "</table>";
+
+          
+
             } else {
                 // Nenhum usuário encontrado
                 echo "<p>Nenhum usuário encontrado.</p>";
@@ -121,6 +145,13 @@
         ?>
     </section>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
 
+$('.dropdown-trigger').dropdown();
+    </script>
 </body>
+
+            
 </html>

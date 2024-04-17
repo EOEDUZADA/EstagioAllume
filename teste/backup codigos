@@ -323,3 +323,112 @@ function adicionarNovoProduto() {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+        
+
+        $host = "localhost";
+$dbname = "allume";
+$username = "root";
+$password = "";
+
+// Conexão com o banco de dados MySQL
+$dbcon = mysqli_connect($host, $username, $password, $dbname);
+
+// Verifica se a conexão foi bem sucedida
+
+$query_editais = "SELECT * FROM produtos_do_edital WHERE id_edital = $id";
+$result_editais = mysqli_query($dbcon, $query_editais);
+
+
+if($result_editais) {
+
+
+$num_rows = mysqli_num_rows($result_editais);
+
+
+if ($num_rows > 0 ) {
+
+
+    echo "<table class='funcionarios' id='tabela_editais'>";
+    echo "<thead>";
+    echo "<tr>";
+    echo "<th>Valor total dos produtos</th>";  
+    echo "</tr>";
+    echo "</thead>";
+    echo "<tbody>";
+
+
+    while ($row = mysqli_fetch_assoc($result_editais)) {
+        echo "<tr>";
+        echo "<td>" . $row["desc_produto_edital"] . "</td>";
+        // Adicione um link de download para cada arquivo
+   
+        echo "<td>";
+      
+ echo "<p class='red-text'>Valor total dos produtos<br><p>" . $row['desc_produto_edital'] . "</p>";
+        echo "</td>";
+        echo "</tr>";
+
+    }
+
+    echo "</tbody>";
+    echo "</table>";
+   
+
+
+    echo "<p>" . $row['lote_produto_edital'] . "</p>";
+    
+
+
+echo $row['lote_produto_edital'];
+
+echo $row['item_edital'];
+
+echo $row['valor_unit_ref_produto_edital'];
+
+echo $row['qtd_produto_edital'];
+
+echo $row['und_produto_edital'];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+}
+
+?>
