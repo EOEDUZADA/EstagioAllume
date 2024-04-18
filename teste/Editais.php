@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $host = "localhost";
     $dbname = "allume";
@@ -127,8 +130,8 @@ function adicionarNovoProduto() {
     
 
     // Cria um novo elemento div para agrupar os inputs do produto
-    var novoProdutoDiv = document.createElement("div");
-    novoProdutoDiv.className = "novo-produto";
+    var novoContainerProdutos = document.createElement("div");
+    novoContainerProdutos.className = "containerProdutos";
    
    var pLoteProdutoEdital = document.createElement("p");
     pLoteProdutoEdital.innerHTML = "Lote";
@@ -176,15 +179,16 @@ function adicionarNovoProduto() {
     InputValorRefProdutoEdital.name = "valor_unit_ref_produto_edital[]"; // Correção: adicione [] ao nome
     pValorRefProdutoEdital.appendChild(InputValorRefProdutoEdital);
 
-    // Adiciona os elementos ao formulário
+    novoContainerProdutos.appendChild(pLoteProdutoEdital);
+    novoContainerProdutos.appendChild(pItemEdital);
+    novoContainerProdutos.appendChild(pValorRefProdutoEdital);
+    novoContainerProdutos.appendChild(pDescProdutoEdital);
+    novoContainerProdutos.appendChild(pQuantidadeProdutoEdital);
+    novoContainerProdutos.appendChild(pUndProdutoEdital);
+
+    // Adiciona o container de produtos ao formulário
     var formulario = document.getElementById("formulario_edital");
-    formulario.appendChild(novoProdutoDiv);
-     formulario.appendChild(pLoteProdutoEdital);
-    formulario.appendChild(pItemEdital);
-    formulario.appendChild(pValorRefProdutoEdital);
-    formulario.appendChild(pDescProdutoEdital);
-    formulario.appendChild(pQuantidadeProdutoEdital);
-    formulario.appendChild(pUndProdutoEdital);
+    formulario.appendChild(novoContainerProdutos);
 }
 
 
@@ -215,6 +219,29 @@ function adicionarNovoProduto() {
     </script>
 </head>
 <style>
+
+    .brand-logo { 
+    color: black;
+    display: flex;
+   
+}
+
+nav .brand-logo {
+    color:black;
+}
+
+.containerProdutos{
+    padding: 20px;
+  
+  border-radius: 5px;
+width:100%;
+
+margin-top: 20px;
+box-shadow: 0px 0px 6px 0px rgba(59,59,59,0.75);
+-webkit-box-shadow: 0px 0px 6px 0px rgba(59,59,59,0.75);
+-moz-box-shadow: 0px 0px 6px 0px rgba(59,59,59,0.75);
+}
+
     body {
         margin: 0;
         padding: 0;
@@ -223,7 +250,7 @@ function adicionarNovoProduto() {
     }
 
     .container {
-        max-width: 700px;
+        max-width: 900px;
         margin: 20px auto;
         padding: 20px;
         background-color: #fff;
@@ -307,9 +334,18 @@ function adicionarNovoProduto() {
     [type="radio"].with-gap:checked+span:after {
         border: 2px solid #ffffff;
     }
+
+
+
 </style>
 <body>
 
+<nav>
+    <div class="nav-wrapper white" style="display: flex; align-items: center; flex-direction: row-reverse;"> 
+        <i class="large material-icons brand-logo" style="font-size: 50px;">account_circle</i>
+        <a href="paginaInicialAdmin.php"><p class="black-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p></a>
+    </div>
+</nav>
 
 <div class="sidebar">
     <img src="./img/logo3.png" id="brand-logo">
@@ -385,6 +421,8 @@ function adicionarNovoProduto() {
     <p class="enviar"><input id="botaoEnviar" type="submit" value="Inserir" onclick="enviarFormulario()"></p>
     <p id="erroPreencher" class="red-text"> </p>
 </div>
+
+
 <!-- Scripts Materialize -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>

@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -89,7 +90,7 @@ session_start();
 <div class="sidebar">
 <img src="./img/logo3.png" id="brand-logo">
     <ul>
-        <li><a href="registro.php">Registro de Usuarios</a></li>
+        <li><a href="paginainicialadmin.php">Dashboard</a></li>
         <li><a href="usuarios.php">Usuários</a></li>
         <li><a href="editais.php">Registro De Editais</a></li>
         <li><a href="tabelaeditais.php">Editais</a></li>
@@ -103,17 +104,12 @@ session_start();
 
     
     <div class="row">
-        <div class="col s12 m4">
-            <div class="card large white darken-1">
-                <div class="card-content black-text">
-                    <span class="card-title">Total de Editais</span>
-                    <p>50</p>
-                </div>
-            </div>
-            <div class="card white  arken-1">
-                <div class="card-content black-text">
-                    <span class="card-title">Total de Produtos</span>
-                    <p>500</p>
+        <div class="col s12 m2">
+            <div class="card white darken-1" style="border-radius: 20px;">
+                <div class="card-content black-text" style="display: flex; justify-content: center; align-items: center;">
+                
+                <a href="registro.php"> <i class="medium material-icons">group_add</i></a>
+                <span style="margin-left: 15px;">Registro de Funcionarios</span>
                 </div>
             </div>
         </div>

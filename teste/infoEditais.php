@@ -27,7 +27,7 @@ if ($num_rows > 0 ) {
 while($row = mysqli_fetch_assoc($result_editais)){
 
 
-echo $row['id'];
+
 
 $nome_orgao = $row['nome_orgao_edital'];
 
@@ -134,6 +134,13 @@ $numero_edital = $row['numero_edital'];
 
         .main-content{
             background-color:white;
+            width:75vw;
+        }
+
+        .container-infoEditais {
+            margin-top: 100px;
+            display:flex;
+            justify-content:center;
         }
       
         
@@ -164,6 +171,8 @@ $numero_edital = $row['numero_edital'];
     </ul>
 </div>
 
+<div class="container-infoEditais">
+
 <div class="main-content">
     
     <h5 class="card-title blue-text">Dados do orçamento</h5> <hr><br>
@@ -192,14 +201,9 @@ $numero_edital = $row['numero_edital'];
 
 
         <h5 class="card-title blue-text">Produtos</h5> <hr><br>
-    
-    <div class="row">
-        <div class="col s6 m12">
-            <div class="card large white darken-1">
-                <div class="card-content black-text">
-                <?php
-        
 
+
+<?php
         $host = "localhost";
 $dbname = "allume";
 $username = "root";
@@ -225,47 +229,68 @@ if ($num_rows > 0 ) {
 
 while($row = mysqli_fetch_assoc($result_editais)){
 
-    echo "<p>" . $row['desc_produto_edital'] . "</p>";
 
-    echo "<p>" . $row['lote_produto_edital'] . "</p>";
-    
-
-
-echo $row['lote_produto_edital'];
-
-echo $row['item_edital'];
-
-echo $row['valor_unit_ref_produto_edital'];
-
-echo $row['qtd_produto_edital'];
-
-echo $row['und_produto_edital'];
-
-
-
-
-
-
-
-
-
-
-
-}
-
-
-
-}
-
-}
-
-?>
+    echo '<div class="row">
+    <div class="col s6 m12">
+        <div class="card large white darken-1">
+            <div class="card-content black-text">
+                <div class="row">
+                    <div class="col s4">
+                        <div class="input-field">
+                            <input id="input1" type="text" class="validate" value="' . $row['desc_produto_edital'] . '">
+                            <label for="input1">Produto</label>
+                        </div>
+                    </div>
+                    <div class="col s2">
+                        <div class="input-field">
+                            <input id="input2" type="text" class="validate" value= "' . $row['qtd_produto_edital'] . '">
+                            <label for="input2">QTD</label>
+                        </div>
+                    </div>
+                    <div class="col s1">
+                        <div class="input-field">
+                            <input id="input3" type="text" class="validate">
+                            <label for="input3">Input 3</label>
+                        </div>
+                    </div>
+                    <div class="col s1">
+                        <div class="input-field">
+                            <input id="input4" type="text" class="validate">
+                            <label for="input4">Input 4</label>
+                        </div>
+                    </div>
+                    <div class="col s2">
+                        <div class="input-field">
+                            <input id="input5" type="text" class="validate">
+                            <label for="input5">Input 5</label>
+                        </div>
+                    </div>
+                    <div class="col s2">
+                        <div class="input-field">
+                            <input id="input6" type="text" class="validate">
+                            <label for="input6">Input 6</label>
+                        </div>
+                    </div>
                 </div>
-                
             </div>
         </div>
+    </div>
+</div>';
 
 
+
+}
+
+
+
+}
+
+}
+
+
+?>
+    
+   
 
         <h5 class="card-title blue-text">Totais do orçamento</h5> <hr><br>
     
@@ -366,6 +391,8 @@ echo $row['und_produto_edital'];
         </div>
     </div>
        
+
+</div>
 
 </div>
 

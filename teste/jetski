@@ -76,7 +76,7 @@
                 // Exibir os usuários em uma tabela
                 echo "<table class='funcionarios' id='tabela_editais'>";
                 echo "<thead>";
-                echo "<tr  onclick=\"enviarFormulario('" . $row['id'] . "')\">";
+                echo "<tr>";
                 echo "<th>ID</th>";  
                 echo "<th><a href='index.php'>Nome do orgão</a></th>"; // Coluna clicável com link para "pagina_destino.php"
                 echo "<th>Numero do edital</th>";
@@ -89,7 +89,7 @@
                 echo "<th>Arquivo do Edital</th>";
                 echo "</tr>";
                 echo "</thead>";
-                echo "<tbody>";
+                echo "<tbody onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["id"] .  ">";
 
 
                     echo "<tr>";
@@ -109,15 +109,7 @@
                     echo "<a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Detalhes</a>
 
                     <ul id='dropdown1' class='dropdown-content'>
-                      <li>
-                      <div class='card-body'>
-    <form method='post' action='conciliacao.php'>
-        <input type='hidden' name='id' value='" . $row['id'] . "'>
-        <button type='submit' class='btn btn-primary'>
-            <i class='fa fa-cart-plus mr-2'></i>Conciliar
-        </button>
-    </form>
-</div></li>
+                      <li><a href=\"conciliacao.php\">Conciliar</a></li>
                       <li><a href=\"#\">two</a></li>
                       <li class=\"divider\" tabindex=\"-1\"></li>
                       <li><a href=\"#\">three</a></li>
@@ -139,6 +131,9 @@
                 echo "<div class='card-body'>
                 <form id='formulario_info_editais' method='post' action='infoEditais.php'>
                     <input type='hidden' id='id_editais' name='id' value='" . $row['id'] . "'>
+                    <button type='submit' class='btn btn-primary'>
+                        <i class='fa fa-cart-plus mr-2'></i>Mais info
+                    </button>
                 </form>
             </div>";
             

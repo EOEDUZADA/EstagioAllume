@@ -12,6 +12,16 @@
 /*Nav*/
 
 
+.brand-logo { 
+    color: black;
+    display: flex;
+   
+}
+
+nav .brand-logo {
+    color:black;
+}
+
 
 /* FORMULARIO UPLOAD */
 
