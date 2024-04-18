@@ -1,9 +1,17 @@
+<?php
+
+session_start();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css" />
     <title>Document</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
@@ -20,6 +28,19 @@
         table {
             width: 100%;
         }
+
+        
+    .brand-logo { 
+    color: black;
+    display: flex;
+   
+}
+
+nav .brand-logo {
+    color:black;
+}
+
+
     </style>
 
 
@@ -31,7 +52,12 @@
     
 
 
-            
+<nav>
+    <div class="nav-wrapper white" style="display: flex; align-items: center; flex-direction: row-reverse;"> 
+        <i class="large material-icons brand-logo" style="font-size: 50px;">account_circle</i>
+        <a href="paginaInicialAdmin.php"><p class="black-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p></a>
+    </div>
+</nav>  
 
 <div class="sidebar">
     <img src="./img/logo3.png" id="brand-logo">
