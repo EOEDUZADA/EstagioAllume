@@ -40,6 +40,23 @@ nav .brand-logo {
     color:black;
 }
 
+.btn-detalhes {
+    /* Adicione seus estilos personalizados aqui */
+    background-color: #007bff;
+    z-index: +2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    text-decoration: none;
+    
+}
+
+.btn-detalhes:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+
 
     </style>
 
@@ -102,7 +119,7 @@ nav .brand-logo {
                 // Exibir os usuários em uma tabela
                 echo "<table class='funcionarios' id='tabela_editais'>";
                 echo "<thead>";
-                echo "<tr  onclick=\"enviarFormulario('" . $row['id'] . "')\">";
+                echo "<tr  >";
                 echo "<th>ID</th>";  
                 echo "<th><a href='index.php'>Nome do orgão</a></th>"; // Coluna clicável com link para "pagina_destino.php"
                 echo "<th>Numero do edital</th>";
@@ -119,37 +136,39 @@ nav .brand-logo {
 
 
                     echo "<tr>";
-                    echo "<td>" . $row["id"] . "</td>";
-                     echo "<td><a href='index.php'>" . $row["nome_orgao_edital"] . "</a></td>"; // Coluna clicável com link para "pagina_destino.php"
-                    echo "<td>" . $row["numero_edital"] . "</td>";
-                    echo "<td>" . $row["numero_processo"] . "</td>";
-                    echo "<td>" . $row["tipo_documento"] . "</td>";
-                    echo "<td>" . $row["tipo_fornecimento"] . "</td>";
-                    echo "<td>" . $row["data_final_edital"] . "</td>";
-                    echo "<td>" . $row["data_limite_orcamento_edital"] . "</td>";
-                    echo "<td>" . $row["data_cadastro_edital"] . "</td>";
+                    echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["id"] . "</td>";
+                     echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\" ><a href='index.php'>" . $row["nome_orgao_edital"] . "</a></td>"; // Coluna clicável com link para "pagina_destino.php"
+                    echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["numero_edital"] . "</td>";
+                    echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["numero_processo"] . "</td>";
+                    echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["tipo_documento"] . "</td>";
+                    echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["tipo_fornecimento"] . "</td>";
+                    echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["data_final_edital"] . "</td>";
+                    echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["data_limite_orcamento_edital"] . "</td>";
+                    echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["data_cadastro_edital"] . "</td>";
                     // Adicione um link de download para cada arquivo
                
                     echo "<td>";
                    
-                    echo "<a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Detalhes</a>
+                   echo "<a class='dropdown-trigger btn btn-detalhes' href='#' data-target='dropdown1'>Detalhes</a>
 
-                    <ul id='dropdown1' class='dropdown-content'>
-                      <li>
-                      <div class='card-body'>
-    <form method='post' action='conciliacao.php'>
-        <input type='hidden' name='id' value='" . $row['id'] . "'>
-        <button type='submit' class='btn btn-primary'>
-            <i class='fa fa-cart-plus mr-2'></i>Conciliar
-        </button>
-    </form>
-</div></li>
-                      <li><a href=\"#\">two</a></li>
-                      <li class=\"divider\" tabindex=\"-1\"></li>
-                      <li><a href=\"#\">three</a></li>
-                      <li><a href=\"#\"><i class=\"material-icons\">view_module</i>four</a></li>
-                      <li><a href=\"#\"><i class=\"material-icons\">cloud</i>five</a></li>
-                    </ul>";
+<ul id='dropdown1' class='dropdown-content'>
+    <li>
+        <div class='card-body'>
+            <form method='post' action='conciliacao.php'>
+                <input type='hidden' name='id' value='" . $row['id'] . "'>
+                <button type='submit' class='btn btn-primary'>
+                    <i class='fa fa-cart-plus mr-2'></i>Conciliar
+                </button>
+            </form>
+        </div>
+    </li>
+    <li><a href=\"#\">two</a></li>
+    <li class=\"divider\" tabindex=\"-1\"></li>
+    <li><a href=\"#\">three</a></li>
+    <li><a href=\"#\"><i class=\"material-icons\">view_module</i>four</a></li>
+    <li><a href=\"#\"><i class=\"material-icons\">cloud</i>five</a></li>
+</ul>";
+
                   
 
                     echo "</td>";

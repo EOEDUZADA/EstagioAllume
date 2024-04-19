@@ -27,20 +27,6 @@ session_start();
         }
   
 
-        .sidebar ul {
-            list-style-type: none;
-            padding-left: 0;
-            margin: 0;
-        }
-
-        .sidebar ul li {
-            display: flex;
-            justify-content: center;
-            padding: 10px 20px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
         
 
 
@@ -70,7 +56,7 @@ session_start();
         nav .brand-logo {
             color:black;
         }
-      
+
         
     </style>
 </head>
@@ -82,12 +68,14 @@ session_start();
     <div class="nav-wrapper white" style="display: flex; align-items: center; flex-direction: row-reverse;"> 
         <i class="large material-icons brand-logo" style="font-size: 50px;">account_circle</i>
         <a href="paginaInicialAdmin.php"><p class="black-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p></a>
+        <a href="#" id="sidebar-toggle" class="right black"><i class="material-icons">menu</i></a>
+
     </div>
 </nav>
 
 
 
-<div class="sidebar">
+<div class="sidebar" class="sidenav">
 <img src="./img/logo3.png" id="brand-logo">
     <ul>
         <li><a href="paginainicialadmin.php">Dashboard</a></li>
@@ -133,5 +121,20 @@ session_start();
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.sidenav');
+  var instances = M.Sidenav.init(elems);
+
+  var sidebarToggle = document.getElementById('sidebar-toggle');
+  sidebarToggle.addEventListener('click', function() {
+    var sidenavInstance = M.Sidenav.getInstance(elems[0]);
+    sidenavInstance.isOpen ? sidenavInstance.close() : sidenavInstance.open();
+    sidebarToggle.innerHTML = sidenavInstance.isOpen ? '<i class="material-icons">menu</i>' : '<i class="material-icons">menu</i>';
+  });
+});
+
+</script>
+
 </body>
 </html>

@@ -250,7 +250,7 @@ box-shadow: 0px 0px 6px 0px rgba(59,59,59,0.75);
     }
 
     .container {
-        max-width: 900px;
+        max-width: 700px;
         margin: 20px auto;
         padding: 20px;
         background-color: #fff;

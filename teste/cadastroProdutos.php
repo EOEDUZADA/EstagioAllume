@@ -113,7 +113,7 @@ nav .brand-logo {
 }
 
 .container {
-    max-width: 900px;
+    max-width: 700px;
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;

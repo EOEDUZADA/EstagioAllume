@@ -128,3 +128,21 @@ $valor_unit_ref_produto_edital  = "100,90,80,70,60,50";
                         echo "<a href='uploads/" . $arquivo . "' download>" . $arquivo . "</a><br>";
                     }
                     echo "</td>";
+
+
+
+
+ideia de dezaine.
+-colocar uma sidebar retratil pros guris ficarem forte
+
+
+
+
+Valor de referencia do banco - Precisa ser menor |
+
+
+Valores de custo - já no bd
+
+Valores mínimos
+
+
