@@ -472,7 +472,7 @@ button:focus{
     margin-bottom: 3vh;
 }
 
-.sidebar {
+#sidebar {
     width: 250px;
     background-color: #5A57FF;
     color: #fff;
@@ -511,42 +511,45 @@ button:focus{
 }
 */
 
-.sidebar ul {
+#sidebar ul {
     list-style-type: none;
     padding-left: 0;
     margin: 0;
     
 }
 
-.sidebar ul li {
+#sidebar ul li{
     display: flex;
     justify-content: center;
-    padding: 10px 20px;
-    margin-bottom: 30px;
+    padding: 1px 5px;
+    margin-bottom: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    text-decoration: none;
+    color: white; 
 }
-
-.sidebar ul li:last-child {
+#sidebar ul li:first-child {
     display: flex;
     justify-content: center;
-    padding: 10px 20px;
-    margin-top: 5vw;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.sidebar ul li:first-child {
-    display: flex;
-    justify-content: center;
-    padding: 10px 20px;
+    padding: 1px 10px;
     margin-top: 2vw;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
+#sidebar ul li:last-child {
+    display: flex;
+    justify-content: center;
+    padding: 5px 10px;
+    margin-top: 5vw;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
-.sidebar ul li:hover {
+
+
+
+#sidebar li:hover {
     background-color: #FF5789;
 }
 
@@ -572,7 +575,7 @@ button:focus{
 
 li a{
     text-decoration: none;
-    color: inherit; 
+    color: inherit !important;
 }
 .brand-logo {
     display: flex;
@@ -617,3 +620,7 @@ table{
   #resultado_pesquisa_produtos p:hover {
     color: #5A57FF;
   }
+
+
+
+  
