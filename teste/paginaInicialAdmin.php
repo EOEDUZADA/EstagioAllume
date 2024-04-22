@@ -57,7 +57,10 @@ session_start();
             color:black;
         }
 
+     .dropdown-content{
+        background-color: #5A57FF;
         
+    }
     </style>
 </head>
 
@@ -75,13 +78,19 @@ session_start();
 
 
 
-<div class="sidebar" class="sidenav">
+<div id="sidebar" class="sidenav">
 <img src="./img/logo3.png" id="brand-logo">
     <ul>
         <li><a href="paginainicialadmin.php">Dashboard</a></li>
         <li><a href="usuarios.php">Usuários</a></li>
-        <li><a href="editais.php">Registro De Editais</a></li>
-        <li><a href="tabelaeditais.php">Editais</a></li>
+
+        <li class="dropdown">
+            <a href="#" class="dropdown-trigger" data-target="dropdown1">Editais</a>
+            <ul id="dropdown1" class="dropdown-content">
+                <li><a href="editais.php">Registro De Editais</a></li>
+                <li><a href="tabelaeditais.php">Tabela De Editais</a></li>
+            </ul>
+        </li>
         <li><a href="cadastroProdutos.php">Cadastro Produtos</a></li>
         <li><a href="sair.php">Sair</a></li>
     </ul>
@@ -134,6 +143,13 @@ session_start();
   });
 });
 
+
+document.addEventListener('DOMContentLoaded', function() {
+        var dropdowns = document.querySelectorAll('.dropdown-trigger');
+        M.Dropdown.init(dropdowns, {
+            coverTrigger: false
+        });
+    });
 </script>
 
 </body>
