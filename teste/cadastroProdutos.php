@@ -101,6 +101,27 @@ nav .brand-logo {
             formulario.submit();
         }
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.sidenav');
+  var instances = M.Sidenav.init(elems);
+
+  var sidebarToggle = document.getElementById('sidebar-toggle');
+  sidebarToggle.addEventListener('click', function() {
+    var sidenavInstance = M.Sidenav.getInstance(elems[0]);
+    sidenavInstance.isOpen ? sidenavInstance.close() : sidenavInstance.open();
+    sidebarToggle.innerHTML = sidenavInstance.isOpen ? '<i class="material-icons" style="margin-left: 50px;">menu</i>' : '<i class="material-icons" style="margin-left: 50px;">menu</i>';
+
+  });
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+        var dropdowns = document.querySelectorAll('.dropdown-trigger');
+        M.Dropdown.init(dropdowns, {
+            coverTrigger: false
+        });
+    });
 </script>
 
 </head>
@@ -173,14 +194,15 @@ button{
 
 
 <nav>
-    <div class="nav-wrapper white" style="display: flex; align-items: center; flex-direction: row-reverse;"> 
-        <i class="large material-icons brand-logo" style="font-size: 50px;">account_circle</i>
-        <a href="paginaInicialAdmin.php"><p class="black-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p></a>
+    <div class="nav-wrapper white" style="display: flex; align-items: center;">
+        <a href="#" id="sidebar-toggle" class="right"><i class="material-icons" style="margin-left: 50px;">menu</i></a>
+        <a href="paginaInicialAdmin.php" style="margin-left: auto;"><p class="black-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p></a>
+        <i class="large material-icons brand-logo right" style="font-size: 50px;">account_circle</i>
     </div>
 </nav>
 
     
-<div class="sidebar">
+<div id="sidebar" class="sidenav">
     <img src="./img/logo3.png" id="brand-logo">
     <ul>
         <li><a href="paginainicialadmin.php">Dashboard</a></li>

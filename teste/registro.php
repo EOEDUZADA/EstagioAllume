@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 </head>
 <body>
 
-<div class="sidebar">
+<div id="sidebar">
     <img src="./img/logo3.png" id="brand-logo">
     <ul>
         <li><a href="paginainicialadmin.php">Dashboard</a></li>

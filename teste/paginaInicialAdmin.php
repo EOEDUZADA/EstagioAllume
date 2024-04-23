@@ -16,51 +16,12 @@ session_start();
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: white;
-            margin: 0;
-            padding: 0;
-        }
-        nav{
-            height: 85px;
-        }
-  
-
-        
-
-
-        .dashboard-square {
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: box-shadow 0.3s ease;
-        }
-
-        .dashboard-square:hover {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        li a{
-            text-decoration: none;
-            color: inherit;
-        }
-        .brand-logo { 
-            color: black;
-            display: flex;
-           
-        }
-        
-        nav .brand-logo {
+     
+       nav .brand-logo {
             color:black;
         }
 
-     .dropdown-content{
-        background-color: #5A57FF;
-        
-    }
+
     </style>
 </head>
 
@@ -68,11 +29,10 @@ session_start();
 
 
 <nav>
-    <div class="nav-wrapper white" style="display: flex; align-items: center; flex-direction: row-reverse;"> 
-        <i class="large material-icons brand-logo" style="font-size: 50px;">account_circle</i>
-        <a href="paginaInicialAdmin.php"><p class="black-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p></a>
-        <a href="#" id="sidebar-toggle" class="right black"><i class="material-icons">menu</i></a>
-
+    <div class="nav-wrapper white" style="display: flex; align-items: center;">
+        <a href="#" id="sidebar-toggle" class="right"><i class="large material-icons" style="margin-left: 50px;">menu</i></a>
+        <a href="paginaInicialAdmin.php" style="margin-left: auto;"><p class="black-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p></a>
+        <i class="large material-icons brand-logo right" style="font-size: 50px;">account_circle</i>
     </div>
 </nav>
 
@@ -83,14 +43,8 @@ session_start();
     <ul>
         <li><a href="paginainicialadmin.php">Dashboard</a></li>
         <li><a href="usuarios.php">Usuários</a></li>
-
-        <li class="dropdown">
-            <a href="#" class="dropdown-trigger" data-target="dropdown1">Editais</a>
-            <ul id="dropdown1" class="dropdown-content">
-                <li><a href="editais.php">Registro De Editais</a></li>
-                <li><a href="tabelaeditais.php">Tabela De Editais</a></li>
-            </ul>
-        </li>
+        <li><a href="editais.php">Registro De Editais</a></li>
+        <li><a href="tabelaeditais.php">Editais</a></li>
         <li><a href="cadastroProdutos.php">Cadastro Produtos</a></li>
         <li><a href="sair.php">Sair</a></li>
     </ul>
@@ -131,7 +85,7 @@ session_start();
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.sidenav');
   var instances = M.Sidenav.init(elems);
 
@@ -139,17 +93,11 @@ session_start();
   sidebarToggle.addEventListener('click', function() {
     var sidenavInstance = M.Sidenav.getInstance(elems[0]);
     sidenavInstance.isOpen ? sidenavInstance.close() : sidenavInstance.open();
-    sidebarToggle.innerHTML = sidenavInstance.isOpen ? '<i class="material-icons">menu</i>' : '<i class="material-icons">menu</i>';
+    
+    
+    sidebarToggle.innerHTML = sidenavInstance.isOpen ? '<i class="material-icons" style="margin-left: 50px;">menu</i>' : '<i class="material-icons" style="margin-left: 50px;">menu</i>';
   });
 });
-
-
-document.addEventListener('DOMContentLoaded', function() {
-        var dropdowns = document.querySelectorAll('.dropdown-trigger');
-        M.Dropdown.init(dropdowns, {
-            coverTrigger: false
-        });
-    });
 </script>
 
 </body>

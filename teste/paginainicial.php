@@ -35,13 +35,22 @@ h3{
 .row{
   margin-top: 40px;
 }
+.nav-wrapper{
+    background-color: #5A57FF;
+    color: #fff;
+    height: 70px;
+    border-right: 1px solid black;
+  
+}
 
 </style>
 <body>
-    
-<div class="sidebar">
-    <img src="./img/logo3.png" id="brand-logo">
-</div>
+<nav>
+    <div class="nav-wrapper" style="display: flex; align-items: center; height: 70px;">
+       <img src="./img/logo3.png" id="brand-logo">
+    </div>
+</nav>
+
 
     <main>
 

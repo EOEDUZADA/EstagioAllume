@@ -1,9 +1,9 @@
-  body {
+body {
     font-family: "Inter", sans-serif !important;
     font-optical-sizing: auto !important;
     font-weight: 600 !important;
     font-style: normal !important; 
-    background-color: #FAF9FF !important;
+    background-color: #e4e4e7 !important;
     margin: 0;
     padding: 0;
 }
@@ -486,7 +486,7 @@ button:focus{
     transition: width 0.3s ease;
     animation: color 7s infinite;
 }
-/*@keyframes color{
+@keyframes color{
     0%{
         border: 1px solid red;
         box-shadow: 5px 5px 5px red;
@@ -509,13 +509,11 @@ button:focus{
     }
     
 }
-*/
+
 
 #sidebar ul {
     list-style-type: none;
     padding-left: 0;
-    margin: 0;
-    
 }
 
 #sidebar ul li{
@@ -540,8 +538,8 @@ button:focus{
 #sidebar ul li:last-child {
     display: flex;
     justify-content: center;
-    padding: 5px 10px;
-    margin-top: 5vw;
+    padding: 5px 5px;
+    margin-top: 4vw;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -553,11 +551,23 @@ button:focus{
     background-color: #FF5789;
 }
 
+#sidebar-toggle i {
+    color: black;
+}
+
+ul#dropdown1.dropdown-content{
+    background-color: #5A57FF;
+    width: 200px !important;
+    overflow: hidden;
+    position: fixed;
+    left: 20%;
+}
+
 .main-content {
     padding: 20px;
-    margin-left: 250px; /* Ajuste para deixar espaço para a barra lateral */
     transition: margin-left 0.3s ease;
-    background-color: #FAF9FF;
+    background-color: #e4e4e7;
+    margin-top: 10px;
 }
 
 .dashboard-square {
