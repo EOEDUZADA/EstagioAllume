@@ -149,27 +149,14 @@ $numero_edital = $row['numero_edital'];
 
 <body>
 
-
 <nav>
-    <div class="nav-wrapper white" style="display: flex; align-items: center; flex-direction: row-reverse;"> 
-        <i class="large material-icons brand-logo" style="font-size: 50px;">account_circle</i>
-        <a href="paginaInicialAdmin.php"><p class="black-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p></a>
+    <div class="nav-wrapper white" style="display: flex; align-items: center;">
+        <a href="tabelaEditais.php" id="sidebar-toggle" class="right"><i class="large material-icons" style="margin-left: 50px;">arrow_back</i></a>
+        <a href="paginaInicialAdmin.php" style="margin-left: auto;"><p class="black-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p></a>
+        <i class="large material-icons brand-logo right" style="font-size: 50px;">account_circle</i>
     </div>
 </nav>
 
-
-
-<div class="sidebar">
-<img src="./img/logo3.png" id="brand-logo">
-    <ul>
-        <li><a href="registro.php">Registro de Usuarios</a></li>
-        <li><a href="usuarios.php">Usuários</a></li>
-        <li><a href="editais.php">Registro De Editais</a></li>
-        <li><a href="tabelaeditais.php">Editais</a></li>
-        <li><a href="cadastroProdutos.php">Cadastro Produtos</a></li>
-        <li><a href="sair.php">Sair</a></li>
-    </ul>
-</div>
 
 <div class="container-infoEditais">
 

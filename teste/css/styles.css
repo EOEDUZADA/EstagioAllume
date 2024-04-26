@@ -6,6 +6,7 @@ body {
     background-color: #e4e4e7 !important;
     margin: 0;
     padding: 0;
+   
 }
 
 
@@ -555,13 +556,6 @@ button:focus{
     color: black;
 }
 
-ul#dropdown1.dropdown-content{
-    background-color: #5A57FF;
-    width: 200px !important;
-    overflow: hidden;
-    position: fixed;
-    left: 20%;
-}
 
 .main-content {
     padding: 20px;
@@ -613,7 +607,7 @@ table{
   }
   
   .funcionarios th {
-      background-color: rgb(77, 82, 90);
+      background-color: rgb(1, 69, 179);
     color: white;
     font-weight: bold;
     text-align: left;

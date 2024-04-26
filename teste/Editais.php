@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($dbcon->query($sql_code_editais) === TRUE) {
             $edital_id = $dbcon->insert_id;
 
-            $sql_code_produtos = "INSERT INTO produtos_do_edital (id_edital, item_edital, lote_produto_edital, valor_unit_ref_produto_edital, desc_produto_edital, qtd_produto_edital, und_produto_edital) VALUES ";
+            $sql_code_produtos = "INSERT INTO produtos_do_edital (id_edital, item_edital, lote_produto_edital, valor_unit_ref_produto_edital, desc_produto_edital, qtd_produto_edital, und_produto_edital) VALUES  ";
             $values = array();
 
             
@@ -85,10 +85,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
 
-            print_r($values);
+           
             $sql_code_produtos .= implode(",", $values);
 
-            print_r($sql_code_produtos);
+      
 
             if ($dbcon->query($sql_code_produtos) === TRUE) {
                 echo "Produtos inseridos com sucesso!";
@@ -152,7 +152,7 @@ function adicionarNovoProduto() {
     pDescProdutoEdital.innerHTML = "Descrição do produto";
     var InputDescProdutoEdital = document.createElement("input");
     InputDescProdutoEdital.type = "text";
-    InputDescProdutoEdital.name = "desc_produto_edital"; // Correção: adicione [] ao nome
+    InputDescProdutoEdital.name = "desc_produto_edital[]"; // Correção: adicione [] ao nome
     pDescProdutoEdital.appendChild(InputDescProdutoEdital);
 
     
@@ -201,7 +201,7 @@ function adicionarNovoProduto() {
             var tipoFornecimento = document.querySelector('input[name="tipo_fornecimento"]:checked');
             var erroPreencher = document.getElementById("erroPreencher");
 
-            if (nomeOrgao === "" || numeroEdital === "" || dataFinalEdital === "" || dataLimiteOrcamento === "" || !tipoDocumento || !tipoFornecimento) {
+            if (nomeOrgao === "" || numeroEdital === "" || dataFinalEdital === "" || dataLimiteOrcamento === "" || !tipoDocumento) {
                 erroPreencher.innerHTML = "Preencha todos os campos obrigatórios!";
                 return false;
             }
@@ -217,6 +217,7 @@ function adicionarNovoProduto() {
             }
         }
 
+
         document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.sidenav');
   var instances = M.Sidenav.init(elems);
@@ -230,13 +231,7 @@ function adicionarNovoProduto() {
   });
 });
 
-
-document.addEventListener('DOMContentLoaded', function() {
-        var dropdowns = document.querySelectorAll('.dropdown-trigger');
-        M.Dropdown.init(dropdowns, {
-            coverTrigger: false
-        });
-    });
+    
     </script>
 </head>
 <style>

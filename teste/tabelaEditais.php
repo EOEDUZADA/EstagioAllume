@@ -150,27 +150,17 @@ nav .brand-logo {
                
                     echo "<td>";
                    
-                   echo "<a class='dropdown-trigger btn btn-detalhes' href='#' data-target='dropdown1'>Detalhes</a>
+                    echo "
+                    <div class='card-body'>
+                        <form method='post' action='conciliacao.php'>
+                            <input type='hidden' name='id' value='" . $row['id'] . "'>
+                            <button type='submit' class='btn btn-primary'>
+                                <i class='fa fa-cart-plus mr-2'></i>Conciliar
+                            </button>
+                        </form>
+                    </div>    
+                   ";
 
-<ul id='dropdown1' class='dropdown-content'>
-    <li>
-        <div class='card-body'>
-            <form method='post' action='conciliacao.php'>
-                <input type='hidden' name='id' value='" . $row['id'] . "'>
-                <button type='submit' class='btn btn-primary'>
-                    <i class='fa fa-cart-plus mr-2'></i>Conciliar
-                </button>
-            </form>
-        </div>
-    </li>
-    <li><a href=\"#\">two</a></li>
-    <li class=\"divider\" tabindex=\"-1\"></li>
-    <li><a href=\"#\">three</a></li>
-    <li><a href=\"#\"><i class=\"material-icons\">view_module</i>four</a></li>
-    <li><a href=\"#\"><i class=\"material-icons\">cloud</i>five</a></li>
-</ul>";
-
-                  
 
                     echo "</td>";
                     echo "</tr>";
