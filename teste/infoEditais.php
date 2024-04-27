@@ -134,7 +134,7 @@ $numero_edital = $row['numero_edital'];
 
         .main-content{
             background-color:white;
-            width:75vw;
+            width:85vw;
         }
 
         .container-infoEditais {
@@ -166,7 +166,7 @@ $numero_edital = $row['numero_edital'];
     
     <div class="row">
         <div class="col s6 m6">
-            <div class="card large white darken-1">
+            <div class="card small white darken-1">
                 <div class="card-content black-text">
                 
                             <p> Cliente <input type="text" value=<?php echo $nome_orgao;?> /></p>
@@ -176,7 +176,7 @@ $numero_edital = $row['numero_edital'];
         </div>
 
         <div class="col s6 m6">
-            <div class="card large white darken-1">
+            <div class="card small white darken-1">
                 <div class="card-content black-text">
                             
                             <p> Número do Edital <input type="text" value=<?php echo $numero_edital;?> /></p>
@@ -189,93 +189,72 @@ $numero_edital = $row['numero_edital'];
 
         <h5 class="card-title blue-text">Produtos</h5> <hr><br>
 
+<div class="row"> 
+      <div class="col s12 m12">
+                        <div class="card small white darken-1">
+                            <div class="card-content black-text">
+    <?php
+    $host = "localhost";
+    $dbname = "allume";
+    $username = "root";
+    $password = "";
 
-<?php
-        $host = "localhost";
-$dbname = "allume";
-$username = "root";
-$password = "";
+    // Conexão com o banco de dados MySQL
+    $dbcon = mysqli_connect($host, $username, $password, $dbname);
 
-// Conexão com o banco de dados MySQL
-$dbcon = mysqli_connect($host, $username, $password, $dbname);
+    // Verifica se a conexão foi bem sucedida
+    $query_editais = "SELECT * FROM produtos_conciliados WHERE id_edital = $id";
+    $result_editais = mysqli_query($dbcon, $query_editais);
 
-// Verifica se a conexão foi bem sucedida
+    if ($result_editais) {
+        $num_rows = mysqli_num_rows($result_editais);
 
-$query_editais = "SELECT * FROM produtos_do_edital WHERE id_edital = $id";
-$result_editais = mysqli_query($dbcon, $query_editais);
-
-
-if($result_editais) {
-
-
-$num_rows = mysqli_num_rows($result_editais);
-
-
-if ($num_rows > 0 ) {
-
-
-while($row = mysqli_fetch_assoc($result_editais)){
-
-
-    echo '<div class="row">
-    <div class="col s6 m12">
-        <div class="card large white darken-1">
-            <div class="card-content black-text">
-                <div class="row">
-                    <div class="col s4">
-                        <div class="input-field">
-                            <input id="input1" type="text" class="validate" value="' . $row['desc_produto_edital'] . '">
-                            <label for="input1">Produto</label>
-                        </div>
-                    </div>
-                    <div class="col s2">
-                        <div class="input-field">
-                            <input id="input2" type="text" class="validate" value= "' . $row['qtd_produto_edital'] . '">
-                            <label for="input2">QTD</label>
-                        </div>
-                    </div>
-                    <div class="col s1">
-                        <div class="input-field">
-                            <input id="input3" type="text" class="validate">
-                            <label for="input3">Input 3</label>
-                        </div>
-                    </div>
-                    <div class="col s1">
-                        <div class="input-field">
-                            <input id="input4" type="text" class="validate">
-                            <label for="input4">Input 4</label>
-                        </div>
-                    </div>
-                    <div class="col s2">
-                        <div class="input-field">
-                            <input id="input5" type="text" class="validate">
-                            <label for="input5">Input 5</label>
-                        </div>
-                    </div>
-                    <div class="col s2">
-                        <div class="input-field">
-                            <input id="input6" type="text" class="validate">
-                            <label for="input6">Input 6</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        if ($num_rows > 0) {
+            while ($row = mysqli_fetch_assoc($result_editais)) {
+             
+                             echo  '<div class="row">
+                                    <div class="col s4">
+                                        <div class="input-field">
+                                            <input id="input1" type="text" class="validate " value="' . $row['desc_produto'] . '" readonly>
+                                            <label for="input1">Produto</label>
+                                        </div>
+                                    </div>
+                                    <div class="col s2">
+                                        <div class="input-field">
+                                            <input id="input2" type="text" class="validate " value="' . $row['qtd_produto'] . '" readonly>
+                                            <label for="input2">QTD</label>
+                                        </div>
+                                    </div>
+                                    <div class="col s2">
+                                        <div class="input-field">
+                                            <input id="input3" type="text" class="validate " value="' . $row['und_produto'] . '" readonly>
+                                            <label for="input3">Unidade</label>
+                                        </div>
+                                    </div>
+                                    <div class="col s2">
+                                        <div class="input-field">
+                                            <input id="input4" type="text" class="validate " value="' . $row['valor_cadastro_produto'] . '" readonly>
+                                            <label for="input4">Valor Cadastro</label>
+                                        </div>
+                                    </div>
+                                    <div class="col s2">
+                                        <div class="input-field">
+                                            <input id="input5" type="text" class="validate " value="' . $row['valor_minimo_produto'] . '" readonly>
+                                            <label for="input5">Valor Mínimo</label>
+                                        </div>
+                                    </div>
+                                </div>';
+                            
+            }
+        }
+    }
+    ?>
     </div>
-</div>';
+                        </div>
+                    </div>
 
+</div>
 
-
-}
-
-
-
-}
-
-}
-
-
-?>
     
    
 

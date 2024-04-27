@@ -540,13 +540,15 @@ button:focus{
     display: flex;
     justify-content: center;
     padding: 5px 5px;
-    margin-top: 4vw;
+    margin-top: 2vw;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 
-
+.sidenav li>a:hover {
+     background-color: rgba(0, 0, 0, 0); 
+}
 
 #sidebar li:hover {
     background-color: #FF5789;

@@ -1,25 +1,16 @@
 <?php
 session_start(); 
 
+
 ?>
 
 <?php
 
 
 
-if (isset($_GET['status_envio'])){
+// Verificar se os dadosTabelas foram recebidos
 
-    
-    echo "baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-    
-    
-        }
-    
-    
-        var_dump($_POST);
-    
-    
-   
+
 
 
 // Verifica se o parâmetro 'query' foi enviado via POST
@@ -34,14 +25,7 @@ if (isset($_POST['query'])) {
 
     // Recuperar a consulta de pesquisa do parâmetro POST
     $query = $_POST['query'];
-
-
-    echo $query;
-
     $tab = $_POST['tab'];
-
-
-
     // Consulta SQL para pesquisar no banco de dados
     $sql = "SELECT * FROM produtos WHERE desc_produto LIKE :query ORDER BY valor_cadastro_produto ASC LIMIT 1  ";
     $stmt = $conn->prepare($sql);
@@ -73,17 +57,7 @@ if (isset($_POST['query'])) {
                 $query = $_POST['query'];
             
                 $tab = $_POST['tab'];
-            echo $query;
-                // Consulta SQL para pesquisar no banco de dados
-              
-
-                
-                
-
-               
-
-
-                    echo $query;
+          
                 
                     $sql = "SELECT * FROM produtos WHERE desc_produto LIKE :query";
                     $stmt = $conn->prepare($sql);
@@ -221,7 +195,6 @@ $password = "";
 
 $id = $_POST['id'];
 
-echo $id;
 
 // Conexão com o banco de dados MySQL
 $dbcon = mysqli_connect($host, $username, $password, $dbname);
@@ -324,11 +297,13 @@ if ($result_editais) {
                         </td>
                         <td>
                             <div class='input-field'>
-                                <input type='text' id='valor_cadastro_produto_$i' placeholder='Valor Cadastrado' readonly required>
+                                q<input type='text' id='valor_cadastro_produto_$i' placeholder='Valor Cadastrado' readonly required>
                                 <label for='valor_cadastro_produto'>Valor Cadastrado</label>
                             </div>
                         </td>";
             echo "</tr>";
+
+           echo " <button type='submit' id='botaoSubmit' style='display: none;'>Enviar</button>";
             echo "</form>";
 
             echo "</tr>";
@@ -342,7 +317,13 @@ if ($result_editais) {
                     </form>
                 </div>";
         }
+
+
+
     }
+
+
+
 } else {
     // Erro na consulta
     echo "Erro na consulta: " . mysqli_error($dbcon);
@@ -353,6 +334,9 @@ mysqli_close($dbcon);
 ?>
 
     </div>
+
+
+    <div class="novadiv"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -399,7 +383,6 @@ mysqli_close($dbcon);
                 $('#valor_custo_produto_' + i).val(valor_custo_produto);
                 $('#valor_minimo_produto_' + i).val(valor_minimo_produto);
                 $('#valor_cadastro_produto_' + i).val(valor_cadastro_produto);
-
                 $('#qtd_produto_' + i).val(qtd_produto);
                 $('#und_produto_' + i).val(und_produto);
             });
@@ -452,9 +435,10 @@ mysqli_close($dbcon);
                 $('#modelo_produto_' + i).val(modelo_produto);
                 $('#valor_custo_produto_' + i).val(valor_custo_produto);
                 $('#valor_minimo_produto_' + i).val(valor_minimo_produto);
-                $('#valor_cadastro_produto_' + i).val(valor_cadastro_produto);
                 $('#qtd_produto_' + i).val(qtd_produto);
                 $('#und_produto_' + i).val(und_produto);
+
+            
             });
             });
 
@@ -462,13 +446,85 @@ mysqli_close($dbcon);
            
 
            
-        
+         
+
 
          
-    
+ 
+
+
+
 
 
         }
+
+
+
+
+        $(document).ready(function() {
+    $('#btnSalvar').click(function() {
+        // Array para armazenar os dados de todas as tabelas
+        var dadosTabelas = [];
+
+        // Iterar sobre todas as tabelas com a classe '.funcionarios'
+        $('table').each(function(i) {
+            i++;
+
+            // Objeto para armazenar os dados de uma tabela específica
+            var dadosTabela = {};
+
+            // Obter os valores dos inputs dentro da tabela atual
+            var desc_produto = $(this).find('#pesquisar_produtos_' + i).val();
+            var marca = $(this).find('#marca_produto_' + i).val();
+            var modelo = $(this).find('#modelo_produto_' + i).val();
+            var valor_minimo = $(this).find('#valor_minimo_produto_' + i).val();
+            var valor_custo = $(this).find('#valor_custo_produto_' + i).val();
+            var valor_cadastro = $(this).find('#valor_cadastro_produto_' + i).val();
+            var qtd = $(this).find('#qtd_produto_' + i).val();
+            var und = $(this).find('#und_produto_' + i).val();
+           
+            
+
+            // Adicionar os dados ao objeto dadosTabela
+            
+            dadosTabela['desc_produto_' + i] = desc_produto;
+            dadosTabela['marca_produto_' + i] = marca;
+            dadosTabela['modelo_produto_' + i] = modelo;
+            dadosTabela['valor_minimo_produto_' + i] = valor_minimo;
+            dadosTabela['valor_cadastro_produto_' + i] = valor_cadastro;
+            dadosTabela['qtd_produto_' + i] = qtd;
+            dadosTabela['und_produto_' + i] = und;
+
+            // Adicionar os dados da tabela atual ao array dadosTabelas
+            dadosTabelas.push(dadosTabela);
+
+            console.log(dadosTabela);
+        });
+
+        var id = <?php echo $_POST['id']; ?>
+
+        // Enviar os dados para o PHP via AJAX
+        $.ajax({
+            type: "POST",
+            url: "atualizar_produtos_conciliados.php",
+            data: { 
+                id:id,
+                dadosTabelas: dadosTabelas },
+            success: function(data) {
+                // Lidar com a resposta do servidor, se necessário
+                console.log(data);
+                console.log(dadosTabelas);
+                $('.novadiv').html(data);
+            },
+            error: function(xhr, status, error) {
+                // Lidar com erros de requisição, se necessário
+                console.error(xhr.responseText);
+            }
+        });
+    });
+});
+
+
 
         $(document).ready(function() {
             // Inicialização do Materialize
@@ -485,31 +541,23 @@ mysqli_close($dbcon);
         });
 
 
-        function enviarFormulario() {
-    var status_envio = "apertou";
+      
 
-    $.ajax({
-        url: '',
-        method: 'POST',
-        data: {
-            status_envio: status_envio
-        },
-        success: function(data) {
-            console.log("e enviou pro php");
-            console.log(status_envio);
-        }
-    });
-}
+
+
+      
+
+
 
     </script>
 
 <div class='card-body'>
-                        <form method='post' action='atualizar_produtos_conciliados.php'>
-                            <input type='hidden' name='id' value='" . $row['id'] . "'>
-                            <button type='submit' class='btn btn-primary'>
-                                <i class='fa fa-cart-plus mr-2'></i>Conciliar
+                        
+                            
+                            <button type='submit' id="btnSalvar" class='btn btn-primary'>
+                                <i class='fa fa-cart-plus mr-2'></i>Salvar
                             </button>
-                        </form>
+                       
                     </div> 
 
 </body>
@@ -517,26 +565,3 @@ mysqli_close($dbcon);
 </html>
 
 
-
-<?php
-
-$i = 0;
-
-foreach($result_editais as $row) {
-
-
-    $i++;
-
-
-    $s = $_GET['marca_produto_' . $i];
-
-
-
-
-
-
-
-
-}
-
-?>
