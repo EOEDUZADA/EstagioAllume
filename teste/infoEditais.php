@@ -35,7 +35,7 @@ $numero_edital = $row['numero_edital'];
 
 
 
-   $numero_processo_edital =  $row['numero_processo'];
+    $numero_processo_edital =  $row['numero_processo'];
 
     $modalidade_edital = $row['modalidade_edital'];
 
@@ -48,11 +48,6 @@ $numero_edital = $row['numero_edital'];
     $data_cadastro_edital = $row['data_cadastro_edital'];
 
     $data_limite_orcamento_edital = $row['data_limite_orcamento_edital'];
-
-    $valor_referencia_produto = $row['valor_referencia_produto'];
-
-
-
 
 
 }
@@ -162,7 +157,7 @@ $numero_edital = $row['numero_edital'];
 
 <div class="main-content">
     
-    <h5 class="card-title blue-text">Dados do orçamento</h5> <hr><br>
+    <h5 class="card-title blue-text">Dados do Edital</h5> <hr><br>
     
     <div class="row">
         <div class="col s6 m6">
@@ -219,16 +214,16 @@ $numero_edital = $row['numero_edital'];
                                             <label for="input1">Produto</label>
                                         </div>
                                     </div>
-                                    <div class="col s2">
+                                    <div class="col s1">
                                         <div class="input-field">
-                                            <input id="input2" type="text" class="validate " value="' . $row['qtd_produto'] . '" readonly>
-                                            <label for="input2">QTD</label>
+                                            <input id="input2" type="text" class="validate " value="' . $row['marca_produto'] . '" readonly>
+                                            <label for="input2">Marca</label>
                                         </div>
                                     </div>
-                                    <div class="col s2">
+                                    <div class="col s1">
                                         <div class="input-field">
-                                            <input id="input3" type="text" class="validate " value="' . $row['und_produto'] . '" readonly>
-                                            <label for="input3">Unidade</label>
+                                            <input id="input3" type="text" class="validate " value="' . $row['modelo_produto'] . '" readonly>
+                                            <label for="input3">Modelo</label>
                                         </div>
                                     </div>
                                     <div class="col s2">
@@ -243,6 +238,12 @@ $numero_edital = $row['numero_edital'];
                                             <label for="input5">Valor Mínimo</label>
                                         </div>
                                     </div>
+                                    <div class="col s2">
+                                    <div class="input-field">
+                                        <input id="input6" type="text" class="validate " value="' . $row['qtd_produto'] . '" readonly>
+                                        <label for="input6">QTD</label>
+                                    </div>
+                                </div>
                                 </div>';
                             
             }
@@ -318,20 +319,7 @@ if ($num_rows > 0 ) {
    
 
 
-    echo "<p>" . $row['lote_produto_edital'] . "</p>";
-    
-
-
-echo $row['lote_produto_edital'];
-
-echo $row['item_edital'];
-
-echo $row['valor_unit_ref_produto_edital'];
-
-echo $row['qtd_produto_edital'];
-
-echo $row['und_produto_edital'];
-
+   
 
 
 

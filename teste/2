@@ -1,0 +1,49 @@
+<?php
+
+$id = $_POST['id'];
+
+if (isset($_POST['dadosTabelas'])) {
+    $host = "localhost";
+    $dbname = "allume";
+    $username = "root";
+    $password = "";
+
+    $dbcon = mysqli_connect($host, $username, $password, $dbname);
+
+    // Acessar os dadosTabelas
+    $dadosTabelas = $_POST['dadosTabelas'];
+
+    // Fazer o SELECT para obter os IDs dos produtos
+    $query = "SELECT id_produto FROM produtos_conciliados WHERE id_edital = $id";
+    $result = mysqli_query($dbcon, $query);
+    $i = 0;
+
+    // Verificar se a consulta foi bem-sucedida
+    if ($result) {
+        // Iterar sobre os resultados
+        while ($row = mysqli_fetch_assoc($result)) {
+
+
+            $num_rows = mysqli_num_rows($result);
+          
+            if ($num_rows > 0 ) {
+            $id_produto = $row['id_produto'];
+
+$i++;
+            echo "ba negao $i";
+            
+            // Verificar se há dados correspondentes para este ID de produto
+            foreach ($dadosTabelas as $indice => $dadosTabela) {
+
+    
+                echo "ba negao $i"; 
+        
+            }
+             
+        }
+    }
+    } else {
+        echo "Erro ao consultar o banco de dados";
+    }
+}
+?>

@@ -487,6 +487,7 @@ button:focus{
     transition: width 0.3s ease;
     animation: color 7s infinite;
 }
+/*
 @keyframes color{
     0%{
         border: 1px solid red;
@@ -510,7 +511,7 @@ button:focus{
     }
     
 }
-
+*/
 
 #sidebar ul {
     list-style-type: none;

@@ -1,13 +1,8 @@
 <?php
-session_start(); 
-
-
-
-
+session_start();
 
 
 ?>
-
 
 <?php
 
@@ -42,8 +37,8 @@ if (isset($_POST['query'])) {
     if ($results) {
         // Defina uma variável para contar o número de tabelas
         $num_tabelas = $_POST['num_tabelas'];
-    
-        foreach ($results as $row) { 
+   
+        foreach ($results as $row) {
             // Exiba a opção de pesquisa apenas uma vez para cada tabela
 
 
@@ -55,25 +50,26 @@ if (isset($_POST['query'])) {
                 $dbname = "allume";
                 $username = "root";
                 $password = "";
-            
+           
                 $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-            
+           
                 // Recuperar a consulta de pesquisa do parâmetro POST
                 $query = $_POST['query'];
-            
+           
                 $tab = $_POST['tab'];
-          
-                
+         
+               
                     $sql = "SELECT * FROM produtos WHERE desc_produto LIKE :query";
                     $stmt = $conn->prepare($sql);
                     $stmt->bindValue(':query', '%' . $query . '%');
                     $stmt->execute();
                     $results = $stmt->fetchAll();
 
-                
+
+               
                     // Mostrar os resultados da pesquisa
                         // Defina uma variável para contar o número de tabelas
-                    
+                   
                         $productData = array(); // Array para armazenar os dados dos produtos
 
                         // Iterando sobre os resultados para criar arrays associativos para cada linha
@@ -85,44 +81,43 @@ if (isset($_POST['query'])) {
                                 'valor_minimo' => $row['valor_minimo_produto'],
                                 'valor_cadastro' => $row['valor_cadastro_produto'],
                                 'id' => $row['id_produto'],
+                                'quantidade' => $row['qtd_produto'],
                                 'unidade' => $row['und_produto']
                             );
-                        
+                       
                             // Adicionando o array associativo do produto ao array principal
                             $productData[] = $product;
                         }
-                        
+                       
                         // Agora você pode usar $productData em outro loop foreach separado
                         foreach ($productData as $product) {
                             // Acessando os valores do produto usando chaves associativas
-                    
+                   
 
 
 
  echo "<div class='collection'>";
-                echo "<a href='#' class='collection-item resultado_pesquisa_marca_produtos_$tab ' data-marca_produto_$tab='" . $product['marca'] . "' data-modelo_produto_$tab='" . $product['modelo'] .   "' data-valor_custo_produto_$tab='" . $product['valor_custo'] . "' data-valor_minimo_produto_$tab='" . $product['valor_minimo'] . "' data-valor_cadastro_produto_$tab='" . $product['valor_cadastro'] . "' data-id_produto_$tab='" .  $product['id'] . "' data-und_produto_$tab='" .  $product['unidade'] . "' >" . $product['marca'] . "</a>";
+                echo "<a href='#' class='collection-item resultado_pesquisa_marca_produtos_$tab ' data-marca_produto_$tab='" . $product['marca'] . "' data-modelo_produto_$tab='" . $product['modelo'] .   "' data-valor_custo_produto_$tab='" . $product['valor_custo'] . "' data-valor_minimo_produto_$tab='" . $product['valor_minimo'] . "' data-valor_cadastro_produto_$tab='" . $product['valor_cadastro'] . "' data-id_produto_$tab='" .  $product['id'] . "' data-qtd_produto_$tab='" .  $product['quantidade'] . "' data-und_produto_$tab='" .  $product['unidade'] . "' >" . $product['marca'] . "</a>";
                 echo "</div>";
 
 
                         }
-                        
+                       
 
                
-            
+           
 
-                
+               
             }
 
             else {
                
 
             echo "<div class='collection'>";
-            echo "<a href='#' class='collection-item resultado_pesquisa_$tab' data-marca_produto_$tab='" . $row['marca_produto'] . "' data-modelo_produto_$tab='" . $row['modelo_produto'] .   "' data-valor_custo_produto_$tab='" . $row['valor_custo_produto'] . "' data-valor_minimo_produto_$tab='" . $row['valor_minimo_produto'] . "' data-valor_cadastro_produto_$tab='" . $row['valor_cadastro_produto'] . "' data-id_produto_$tab='" . $row['id_produto'] . "' data-und_produto_$tab='" . $row['und_produto'] . "' >" . $row['desc_produto'] . "</a>";
+            echo "<a href='#' class='collection-item resultado_pesquisa_$tab' data-marca_produto_$tab='" . $row['marca_produto'] . "' data-modelo_produto_$tab='" . $row['modelo_produto'] .   "' data-valor_custo_produto_$tab='" . $row['valor_custo_produto'] . "' data-valor_minimo_produto_$tab='" . $row['valor_minimo_produto'] . "' data-valor_cadastro_produto_$tab='" . $row['valor_cadastro_produto'] . "' data-id_produto_$tab='" . $row['id_produto'] . "' data-qtd_produto_$tab='" . $row['qtd_produto'] . "' data-und_produto_$tab='" . $row['und_produto'] . "' >" . $row['desc_produto'] . "</a>";
             echo "</div>";
-
-
             }
-            
+           
            
         }
     }
@@ -193,6 +188,29 @@ if (isset($_POST['query'])) {
     <div class="container-tabela">
         <h2>Conciliação de produtos</h2>
 
+ <table class='funcionarios' id='tabela_editais'>
+         <thead>
+            <tr>
+            <th>Lote</th>
+            <th>Item</th>
+           
+            <th>QTD</th>
+            <th>UND</th>
+         
+            <th>Produtos</th>
+
+            <th>Pesquisa</th>
+            <th>Marca</th>
+            <th>UN</th>
+
+            <th>Modelo</th>
+            <th>Val Ref</th>
+           <th>Valor de Custo</th>
+            <th>Valor Cadastrado</th>
+
+            </tr>
+            </thead>
+
 <?php
         $host = "localhost";
 $dbname = "allume";
@@ -210,125 +228,79 @@ $dbcon = mysqli_connect($host, $username, $password, $dbname);
 $query_editais = "SELECT * FROM produtos_do_edital WHERE id_edital = $id";
 $result_editais = mysqli_query($dbcon, $query_editais);
 
-
-
-
-$host = "localhost";
-$dbname = "allume";
-$username = "root";
-$password = "";
-
-$conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-
-
-$sql = "SELECT * FROM produtos_conciliados WHERE id_edital = $id";
-$dbcon = mysqli_connect($host, $username, $password, $dbname);
-$ultimo_dado = mysqli_query($dbcon, $sql);
-
-
-$jatem = "";
-
-
-echo $jatem;
-
-
 // Verifique se há linhas retornadas
-if (mysqli_num_rows($result_editais) > 0  and  mysqli_num_rows($ultimo_dado) > 0 ) {
+if ($result_editais) {
     $i = 0;
-    while ($row = mysqli_fetch_assoc($result_editais) and ($row2 = mysqli_fetch_assoc($ultimo_dado))){
+    while ($row = mysqli_fetch_assoc($result_editais)) {
         $i++;
         $num_rows = mysqli_num_rows($result_editais);
-        $num_rows2 = mysqli_num_rows($ultimo_dado);
-        if ($num_rows > 0 and $num_rows2 > 0) {
+        if ($num_rows > 0) {
             // Exibir os usuários em uma tabela
-            echo "<table class='funcionarios' id='tabela_editais'>";
-            echo "<thead>";
-            echo "<tr  onclick=\"enviarFormulario('" . $row['id_edital'] . "')\">";
+           
 
-
-            
-
-            echo "<th>Lote</th>";
-            echo "<th>Item</th>";
-            echo "<th>QTD</th>";
-            echo "<th>UND</th>";
-        
-            echo "<th>Produtos</th>";
-
-            echo "<th>Pesquisa</th>";
-            echo "<th>Marca</th>";
-            echo "<th>UN</th>";
-            echo "<th>Modelo</th>";
-            echo "<th>Val Ref</th>";
-         
-            echo "<th>Valor Mínimo</th>";
-            echo "<th>Valor Cadastrado</th>";
-
-            echo "</tr>";
-            echo "</thead>";
             echo "<tbody>";
 
 
-            echo "<tr>"; 
+            echo "<tr>";
             echo "<td>" . $row["lote_produto_edital"] . "</td>";
             echo "<td>" . $row["item_edital"] . "</td>";
 
-         
+           
 
-            echo "<td id='qtd_produto_$i'>" . $row["qtd_produto_edital"] . "</td>";
+            echo "<td>" . $row["qtd_produto_edital"] . "</td>";
 
-            echo "<td>" . $row["und_produto_edital"] . "</td>";
+            echo "<td id='und_produto_edital_$i'>" . $row["und_produto_edital"] . "</td>";
 
-            
+           
+
             echo "<td>" . $row["desc_produto_edital"] . "</td>";
 
             echo "<form id='formulario_edital_$i' action='conciliacao.php' method='post' enctype='multipart/form-data'>";
 
 
+       
 
             echo "<td>
-            <div class='input-field'>
-                <input type='text' id='pesquisar_produtos_$i' placeholder='Pesquisa' value='" . $row2['desc_produto'] . "' required>
-                <label for='pesquisar_produtos_$i'>Produtos</label>
-                <div id='resultado_pesquisa_produtos_$i' class='collection'></div>
-            </div>
-        </td>
-        <td>
+                            <div class='input-field'>
+                                <input type='text' id='pesquisar_produtos_$i' placeholder='Pesquisa' required>
+                                <label for='pesquisar_produtos_$i'>Produtos</label>
+                                <div id='resultado_pesquisa_produtos_$i' class='collection'></div>
+                            </div>
+                        </td>
+                      <td>
 
                             <div class='input-field'>
-                                <input type='text' id='marca_produto_$i' placeholder='Marca do Produto' value='" . $row2['marca_produto'] . "' required>
+                                <input type='text' id='marca_produto_$i' placeholder='Marca do Produto'  required>
                                 <label for='marca_produto_$i'>Marca</label>
                                 <div id='resultado_pesquisa_marca_produtos_$i' class='collection'></div>
                             </div>
                         </td>
+               
                         <td>
                             <div class='input-field'>
-                                <input type='text' id='und_produto_$i' placeholder='UN' value='" . $row2['und_produto'] . "' readonly required>
+                                <input type='text' id='und_produto_$i' placeholder='UN' readonly required>
                                 <label for='und_produto_$i'>UN</label>
-                                
+
+                                <p class='red-text' id='und_nao_compativel_$i' style='display: none;'>Unidade não compatível</p>
                             </div>
                         </td>
-                        
+                       
                         <td>
                             <div class='input-field'>
-                                <input type='text' id='modelo_produto_$i' placeholder='Modelo do Produto' value='" . $row2['modelo_produto'] . "' readonly required>
+                                <input type='text' id='modelo_produto_$i' placeholder='Modelo do Produto' readonly required>
                                 <label for='modelo_produto_$i'>Modelo</label>
                             </div>
                         </td>
-                        
-                        
-                        
-                        <td>" . $row["valor_unit_ref_produto_edital"] . "</td>
-
+                    <td>" . $row["valor_unit_ref_produto_edital"] . "</td>
                         <td>
                             <div class='input-field'>
-                                <input type='text' id='valor_minimo_produto_$i' placeholder='Valor Mínimo' value='" . $row2['valor_minimo_produto'] . "' readonly required>
+                                <input type='text' id='valor_minimo_produto_$i' placeholder='Valor Mínimo' readonly required>
                                 <label for='valor_minimo_produto'>Valor Mínimo</label>
                             </div>
                         </td>
                         <td>
                             <div class='input-field'>
-                                <input type='text' id='valor_cadastro_produto_$i' placeholder='Valor Cadastrado' value='" . $row2['valor_cadastro_produto'] . "' readonly required>
+                                <input type='text' id='valor_cadastro_produto_$i' placeholder='Valor Cadastrado' readonly required>
                                 <label for='valor_cadastro_produto'>Valor Cadastrado</label>
                             </div>
                         </td>";
@@ -340,24 +312,7 @@ if (mysqli_num_rows($result_editais) > 0  and  mysqli_num_rows($ultimo_dado) > 0
             echo "</tr>";
 
             echo "</tbody>";
-
-
-            if($row["und_produto_edital"] !== $row2['und_produto'] ) {
-
-
-echo "ba ta errado cpx";
-
-
-            }
-
-            else {
-
-
-                echo "ta certinho";
-
-            }
-
-            echo "</table>";
+           
 
             echo "<div class='card-body'>
                     <form id='formulario_info_editais' method='post' action='conciliacao.php'>
@@ -366,146 +321,21 @@ echo "ba ta errado cpx";
                 </div>";
         }
 
-$jatem = 'true';
+
 
     }
 
 
 
 } else {
-
-
-    if ($result_editais) {
-        $i = 0;
-        while ($row = mysqli_fetch_assoc($result_editais)) {
-            $i++;
-            $num_rows = mysqli_num_rows($result_editais);
-            if ($num_rows > 0) {
-                // Exibir os usuários em uma tabela
-                echo "<table class='funcionarios' id='tabela_editais'>";
-                echo "<thead>";
-                echo "<tr  onclick=\"enviarFormulario('" . $row['id_edital'] . "')\">";
-    
-                echo "<th>Lote</th>";
-                echo "<th>Item</th>";
-                echo "<th>QTD</th>";
-                echo "<th>UND</th>";
-            
-                echo "<th>Produtos</th>";
-    
-                echo "<th>Pesquisa</th>";
-                echo "<th>Marca</th>";
-                echo "<th>UN</th>";
-                echo "<th>Modelo</th>";
-                echo "<th>Val Ref</th>";
-             
-                echo "<th>Valor Mínimo</th>";
-                echo "<th>Valor Cadastrado</th>";
-    
-    
-                echo "</tr>";
-                echo "</thead>";
-                echo "<tbody>";
-    
-    
-                echo "<tr>"; 
-                echo "<td>" . $row["lote_produto_edital"] . "</td>";
-                echo "<td>" . $row["item_edital"] . "</td>";
-    
-              
-    
-                echo "<td id='qtd_produto_$i' >" . $row["qtd_produto_edital"] . "</td>";
-
-    
-                echo "<td>" . $row["und_produto_edital"] . "</td>";
-    
-              
-    
-                echo "<td>" . $row["desc_produto_edital"] . "</td>";
-    
-                echo "<form id='formulario_edital_$i' action='conciliacao.php' method='post' enctype='multipart/form-data'>";
-    
-    
-            
-    
-                echo "<td>
-                                <div class='input-field'>
-                                    <input type='text' id='pesquisar_produtos_$i' placeholder='Pesquisa' required>
-                                    <label for='pesquisar_produtos_$i'>Produtos</label>
-                                    <div id='resultado_pesquisa_produtos_$i' class='collection'></div>
-                                </div>
-                            </td>
-                          <td>
-    
-                                <div class='input-field'>
-                                    <input type='text' id='marca_produto_$i' placeholder='Marca do Produto'  required>
-                                    <label for='marca_produto_$i'>Marca</label>
-                                    <div id='resultado_pesquisa_marca_produtos_$i' class='collection'></div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class='input-field'>
-                                    <input type='text' id='und_produto_$i' placeholder='UN' readonly required>
-                                    <label for='und_produto_$i'>UN</label>
-                                </div>
-                            </td>
-                            
-                            <td>
-                                <div class='input-field'>
-                                    <input type='text' id='modelo_produto_$i' placeholder='Modelo do Produto' readonly required>
-                                    <label for='modelo_produto_$i'>Modelo</label>
-                                </div>
-                            </td> 
-                            <td>" . $row["valor_unit_ref_produto_edital"] . "</td>
-                            <td>
-                                <div class='input-field'>
-                                    <input type='text' id='valor_minimo_produto_$i' placeholder='Valor Mínimo' readonly required>
-                                    <label for='valor_minimo_produto'>Valor Mínimo</label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class='input-field'>
-                                    <input type='text' id='valor_cadastro_produto_$i' placeholder='Valor Cadastrado' readonly required>
-                                    <label for='valor_cadastro_produto'>Valor Cadastrado</label>
-                                </div>
-                            </td>";
-                echo "</tr>";
-    
-               echo " <button type='submit' id='botaoSubmit' style='display: none;'>Enviar</button>";
-                echo "</form>";
-    
-                echo "</tr>";
-    
-                echo "</tbody>";
-                echo "</table>";
-    
-                echo "<div class='card-body'>
-                        <form id='formulario_info_editais' method='post' action='conciliacao.php'>
-                            <input type='hidden' id='id_editais' name='id' value='" . $row['id_edital'] . "'>
-                        </form>
-                    </div>";
-            }
-    
-    
-    
-        }
-    
-    
-    
-    }
-
-
-echo "Else está funcionando";
-
-
     // Erro na consulta
-    
+    echo "Erro na consulta: " . mysqli_error($dbcon);
 }
 
 // Fechar conexão com o banco de dados
 mysqli_close($dbcon);
 ?>
-
+</table>
     </div>
 
 
@@ -518,7 +348,6 @@ mysqli_close($dbcon);
             $('#pesquisar_produtos_' + i).keyup(function() {
                 var query = $(this).val();
                 var num_tabelas = document.querySelectorAll("#tabela_editais").length;
-                var id = <?php echo $_POST['id']; ?>;
                 var tab = i;
                 console.log(tab);
                 if (query.length > 0) {
@@ -526,7 +355,6 @@ mysqli_close($dbcon);
                         url: 'conciliacao.php',
                         method: 'POST',
                         data: {
-                            id:id,
                             query: query,
                             num_tabelas:num_tabelas,
                             tab:tab
@@ -537,9 +365,9 @@ mysqli_close($dbcon);
                     });
                 } else {
                     $('#resultado_pesquisa_produtos_' + i).html('');
-                } 
-                
-                
+                }
+               
+               
             $(document).on('click', '.resultado_pesquisa_' + i, function() {
                 $('#resultado_pesquisa_produtos_' + i).html('');
                 var descricao = $(this).text();
@@ -549,15 +377,39 @@ mysqli_close($dbcon);
                 var valor_minimo_produto = $(this).data('valor_minimo_produto_'+i);
                 var valor_cadastro_produto = $(this).data('valor_cadastro_produto_'+i);
 
-               
+                var qtd_produto = $(this).data('qtd_produto_'+i);
+                
+                var und_produto_edital = document.querySelector('#und_produto_edital_'+i);
+                var und_produto_edital_value = und_produto_edital.textContent;
+                console.log(und_produto_edital_value);
                 var und_produto = $(this).data('und_produto_'+i);
+
+     var p_und_nao_compativel = document.getElementById('und_nao_compativel_'+i);
+
+                if (und_produto_edital_value !== und_produto) {
+
+     p_und_nao_compativel.style.display = "block";
+   
+}
+
+else {
+    p_und_nao_compativel.style.display = "none";
+
+}
+
+
                 $('#pesquisar_produtos_' + i).val(descricao);
                 $('#marca_produto_' + i).val(marca_produto);
                 $('#modelo_produto_' + i).val(modelo_produto);
                 $('#valor_custo_produto_' + i).val(valor_custo_produto);
                 $('#valor_minimo_produto_' + i).val(valor_minimo_produto);
                 $('#valor_cadastro_produto_' + i).val(valor_cadastro_produto);
+                $('#qtd_produto_' + i).val(qtd_produto);
+                $('#und_produto_edital_' + i).val(und_produto_edital);
                 $('#und_produto_' + i).val(und_produto);
+               
+console.log(und_produto);
+               
             });
 
 
@@ -565,7 +417,7 @@ mysqli_close($dbcon);
  ///MARCA
 
                 $('#marca_produto_' + i).click(function() {
-                  
+                 
                 var num_tabelas = document.querySelectorAll("#tabela_editais").length;
                 var tab = i;
                 var query_marca = query;
@@ -589,7 +441,7 @@ mysqli_close($dbcon);
                 }
             });
 
-            
+           
 
             $(document).on('click', '.resultado_pesquisa_marca_produtos_' + i, function() {
                 $('#resultado_pesquisa_marca_produtos_' + i).html('');
@@ -601,32 +453,19 @@ mysqli_close($dbcon);
                 var valor_custo_produto = $(this).data('valor_custo_produto_'+i);
                 var valor_minimo_produto = $(this).data('valor_minimo_produto_'+i);
                 var valor_cadastro_produto = $(this).data('valor_cadastro_produto_'+i);
+                var qtd_produto = $(this).data('qtd_produto_'+i);
                 var und_produto = $(this).data('und_produto_'+i);
                 $('#pesquisar_produtos_' + i).val(descricao);
                 $('#marca_produto_' + i).val(marca_produto);
                 $('#modelo_produto_' + i).val(modelo_produto);
                 $('#valor_custo_produto_' + i).val(valor_custo_produto);
                 $('#valor_minimo_produto_' + i).val(valor_minimo_produto);
+                $('#qtd_produto_' + i).val(qtd_produto);
                 $('#und_produto_' + i).val(und_produto);
 
-
-                
-            
+           
             });
             });
-
-
-           
-
-           
-         
-
-
-         
-         
-
-
-
 
 
         }
@@ -653,124 +492,44 @@ mysqli_close($dbcon);
             var valor_minimo = $(this).find('#valor_minimo_produto_' + i).val();
             var valor_custo = $(this).find('#valor_custo_produto_' + i).val();
             var valor_cadastro = $(this).find('#valor_cadastro_produto_' + i).val();
+            var qtd = $(this).find('#qtd_produto_' + i).val();
             var und = $(this).find('#und_produto_' + i).val();
-
-            // Para pegar o valor da célula com o ID específico usando getElementById
-var qtdProduto = document.getElementById('qtd_produto_' + i).innerText;
-console.log(qtdProduto);
-
-
-
-
-            console.log(qtdProduto);
            
-            
+           
 
             // Adicionar os dados ao objeto dadosTabela
-            
+           
             dadosTabela['desc_produto_' + i] = desc_produto;
             dadosTabela['marca_produto_' + i] = marca;
             dadosTabela['modelo_produto_' + i] = modelo;
             dadosTabela['valor_minimo_produto_' + i] = valor_minimo;
             dadosTabela['valor_cadastro_produto_' + i] = valor_cadastro;
+            dadosTabela['qtd_produto_' + i] = qtd;
             dadosTabela['und_produto_' + i] = und;
-            dadosTabela['qtd_produto_' + i] = qtdProduto;
 
             // Adicionar os dados da tabela atual ao array dadosTabelas
             dadosTabelas.push(dadosTabela);
 
             console.log(dadosTabela);
         });
-
+var status_conciliacao = "conciliado";
         var id = <?php echo $_POST['id']; ?>
-
-        // Enviar os dados para o PHP via AJAX
-        $.ajax({
-            type: "POST",
-            url: "inserir_produtos_conciliados.php",
-            data: { 
-                id:id,
-                dadosTabelas: dadosTabelas },
-            success: function(data) {
-                // Lidar com a resposta do servidor, se necessário
-                console.log(data);
-                console.log(dadosTabelas);
-                $('.novadiv').html(data);
-            },
-            error: function(xhr, status, error) {
-                // Lidar com erros de requisição, se necessário
-                console.error(xhr.responseText);
-            }
-        });
-    });
-});
-
-
-/// BOTAO UPDATE
-
-$(document).ready(function() {
-    $('#btnUpdate').click(function() {
-        // Array para armazenar os dados de todas as tabelas
-        var dadosTabelas = [];
-
-        // Iterar sobre todas as tabelas com a classe '.funcionarios'
-        $('table').each(function(i) {
-            i++;
-
-            // Objeto para armazenar os dados de uma tabela específica
-            var dadosTabela = {};
-
-            // Obter os valores dos inputs dentro da tabela atual
-            var desc_produto = $(this).find('#pesquisar_produtos_' + i).val();
-            var marca = $(this).find('#marca_produto_' + i).val();
-            var modelo = $(this).find('#modelo_produto_' + i).val();
-            var valor_minimo = $(this).find('#valor_minimo_produto_' + i).val();
-            var valor_custo = $(this).find('#valor_custo_produto_' + i).val();
-            var valor_cadastro = $(this).find('#valor_cadastro_produto_' + i).val();
-            var und = $(this).find('#und_produto_' + i).val();
-            
-            
-            // Para pegar o valor da célula com o ID específico usando getElementById
-var qtdProduto = document.getElementById('qtd_produto_' + i).innerText;
-console.log(qtdProduto);
-
-
-
-
-            console.log(qtdProduto);
-           
-            
-
-            // Adicionar os dados ao objeto dadosTabela
-            
-            dadosTabela['desc_produto_' + i] = desc_produto;
-            dadosTabela['marca_produto_' + i] = marca;
-            dadosTabela['modelo_produto_' + i] = modelo;
-            dadosTabela['valor_minimo_produto_' + i] = valor_minimo;
-            dadosTabela['valor_cadastro_produto_' + i] = valor_cadastro;
-            dadosTabela['und_produto_' + i] = und;
-            dadosTabela['qtd_produto_' + i] = qtdProduto;
-
-            // Adicionar os dados da tabela atual ao array dadosTabelas
-            dadosTabelas.push(dadosTabela);
-
-            console.log(dadosTabela);
-        });
-
-        var id = <?php echo $_POST['id']; ?>
+       
 
         // Enviar os dados para o PHP via AJAX
         $.ajax({
             type: "POST",
             url: "atualizar_produtos_conciliados.php",
-            data: { 
+            data: {
                 id:id,
+                status_conciliacao: status_conciliacao,
                 dadosTabelas: dadosTabelas },
             success: function(data) {
                 // Lidar com a resposta do servidor, se necessário
                 console.log(data);
                 console.log(dadosTabelas);
-                $('.novadiv').html(data);
+                console.log(status_conciliacao);
+                $('.novadiv').html(status_conciliacao);
             },
             error: function(xhr, status, error) {
                 // Lidar com erros de requisição, se necessário
@@ -779,11 +538,6 @@ console.log(qtdProduto);
         });
     });
 });
-
-
-
-
-
 
 
 
@@ -802,55 +556,25 @@ console.log(qtdProduto);
         });
 
 
-      
+     
 
 
 
-      
+     
 
 
 
     </script>
 
-<?php
-
-if($jatem !== "true") {
-
-
-echo " <div class='card-body'>
-                        
-    <button type='submit' id='btnSalvar' class='btn btn-primary'>
-    <i class='fa fa-cart-plus mr-2'></i>Salvar
-</button>
-
-</div> ";
-
-
-}
-
-?>
-
-
-                    <?php
-
-if($jatem == "true") {
-
-
-echo " <div class='card-body'>
-                        
-    <button type='submit' id='btnUpdate' class='btn btn-primary'>
-    <i class='fa fa-cart-plus mr-2'></i>Update
-</button>
-
-</div> ";
-
-
-}
-
-?>
+<div class='card-body'>
+                       
+                           
+                            <button type='submit' id="btnSalvar" class='btn btn-primary' >
+                                <i class='fa fa-cart-plus mr-2'></i>Salvar
+                            </button>
+                       
+                    </div>
 
 </body>
 
 </html>
-
-

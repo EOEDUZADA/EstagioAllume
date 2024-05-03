@@ -21,7 +21,7 @@ session_start();
             font-weight: 800 !important;
         }
 
-       
+  
         table {
             width: 100%;
         }
@@ -53,6 +53,8 @@ nav .brand-logo {
     background-color: #0056b3;
     color: #fff;
 }
+
+
 .adiferente {
     color: black;
     text-decoration: none;  
@@ -62,7 +64,6 @@ nav .brand-logo {
    color: #5A57FF;
     
 }
-
     </style>
 
 
@@ -94,7 +95,8 @@ nav .brand-logo {
 </div>
 
 <div class="main-content">
-    <h4>Editais <a href="editais.php" class="adiferente">-> Cadastro Editais</a></h4>
+    <h4>Produtos <a href="cadastroProdutos.php" class="adiferente">-> Cadastro Produtos</a></h4>
+    
     <section class="usuarios">
 
 
@@ -110,61 +112,47 @@ nav .brand-logo {
 
         // Verifica se a conexão foi bem sucedida
 
-        $query_editais = "SELECT * FROM editais";
-        $result_editais = mysqli_query($dbcon, $query_editais);
+        $query_produtos = "SELECT * FROM produtos";
+        $result_produtos = mysqli_query($dbcon, $query_produtos);
 
         // Verifique se há linhas retornadas
-        if ($result_editais) {
+        if ($result_produtos) {
            
 
-                while ($row = mysqli_fetch_assoc($result_editais)) {
-                     $num_rows = mysqli_num_rows($result_editais);
+                while ($row = mysqli_fetch_assoc($result_produtos)) {
+                     $num_rows = mysqli_num_rows($result_produtos);
 
             if ($num_rows > 0) {
                 // Exibir os usuários em uma tabela
-                echo "<table class='funcionarios' id='tabela_editais'>";
+                echo "<table class='funcionarios' id='tabela_usuarios'>";
                 echo "<thead>";
-                echo "<tr  >";
+                echo "<tr>";
                 echo "<th>ID</th>";  
-                echo "<th><a href='index.php'>Nome do orgão</a></th>"; // Coluna clicável com link para "pagina_destino.php"
-                echo "<th>Numero do edital</th>";
-                echo "<th>Numero do processo</th>"; 
-                echo "<th>SRP/NORMAL</th>";
-                echo "<th>Tipo de fornecimento</th>";
-                echo "<th>Data final do edital</th>";
-                echo "<th>Data limite para orçamento</th>";
-                echo "<th>Data de cadastro do edital</th>";
-                echo "<th>Arquivo do Edital</th>";
+                echo "<th>Qtd</th>";
+                echo "<th>Und</th>";
+                echo "<th>Descrição</th>"; 
+                echo "<th>Marca</th>";
+                echo "<th>Modelo</th>";
+                echo "<th>Valor de Custo</th>";
+                echo "<th>Valor Minimo</th>";
+                echo "<th>Valor de cadastro</th>";
                 echo "</tr>";
                 echo "</thead>";
                 echo "<tbody>";
-
-
-                    echo "<tr>";
-                    echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["id"] . "</td>";
-                     echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\" ><a href='index.php'>" . $row["nome_orgao_edital"] . "</a></td>"; // Coluna clicável com link para "pagina_destino.php"
-                    echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["numero_edital"] . "</td>";
-                    echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["numero_processo"] . "</td>";
-                    echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["tipo_documento"] . "</td>";
-                    echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["tipo_fornecimento"] . "</td>";
-                    echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["data_final_edital"] . "</td>";
-                    echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["data_limite_orcamento_edital"] . "</td>";
-                    echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["data_cadastro_edital"] . "</td>";
-                    // Adicione um link de download para cada arquivo
                
-                    echo "<td>";
-                   
-                    echo "
-                    <div class='card-body'>
-                        <form method='post' action='conciliacao.php'>
-                            <input type='hidden' name='id' value='" . $row['id'] . "'>
-                            <button type='submit' class='btn btn-primary'>
-                                <i class='fa fa-cart-plus mr-2'></i>Conciliar
-                            </button>
-                        </form>
-                    </div>    
-                   ";
+                echo "<tr>";
+                
+                    echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["id_produto"] . "</td>";
+                    echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["qtd_produto"] . "</td>";
+                    echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["und_produto"] . "</td>";
+                    echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["desc_produto"] . "</td>";
+                    echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["marca_produto"] . "</td>";
+                    echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["modelo_produto"] . "</td>";
+                    echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["valor_custo_produto"] . "</td>";
+                    echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["valor_minimo_produto"] . "</td>";
+                    echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["valor_cadastro_produto"] . "</td>";
 
+                    
 
                     echo "</td>";
                     echo "</tr>";
@@ -177,8 +165,8 @@ nav .brand-logo {
 
           
                 echo "<div class='card-body'>
-                <form id='formulario_info_editais' method='post' action='infoEditais.php'>
-                    <input type='hidden' id='id_editais' name='id' value='" . $row['id'] . "'>
+                <form id='formulario_info_produtos' method='post'>
+                    <input type='hidden' id='id_produto' name='id' value='" . $row['id_produto'] . "'>
                 </form>
             </div>";
             
@@ -207,9 +195,9 @@ $('.dropdown-trigger').dropdown();
 
 function enviarFormulario(id) {
         // Obtém o formulário pelo ID
-        var form = document.getElementById('formulario_info_editais');
+        var form = document.getElementById('formulario_info_produtos');
         // Define o valor do input hidden com o ID da linha clicada
-        document.getElementById('id_editais').value = id;
+        document.getElementById('id_produto').value = id;
         // Envia o formulário
         form.submit();
     }

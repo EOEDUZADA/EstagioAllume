@@ -13,65 +13,101 @@ if (isset($_POST['dadosTabelas'])) {
 
     $dbcon = mysqli_connect($host, $username, $password, $dbname);
 
-    // Acessar os dadosTabelas
-    $dadosTabelas = $_POST['dadosTabelas'];
 
+
+    
+    // Fazer o SELECT para obter os IDs dos produtos
+    $query = "SELECT id_produto FROM produtos_conciliados WHERE id_edital = $id";
+    $result = mysqli_query($dbcon, $query);
+    $i = 0;
+
+    // Verificar se a consulta foi bem-sucedida
+ 
+  
+
+    if ($result) {      
+        while ($row = mysqli_fetch_assoc($result)) {
+       // Verificar se há linhas retornadas
+       $num_rows = mysqli_num_rows($result);
+       if ($num_rows > 0) {
+           $id_produto = $row['id_produto']; // Obtém o valor de id_produto
+           $id_produtos[] = $id_produto;
+           }
+       } 
+   
+   } 
+
+   print_r($id_produtos);
+
+$i++;
+
+ $dadosTabelas = $_POST['dadosTabelas'];
+    
+    $j = 0;
     $id = $_POST['id'];
- $i = 0;
+
     // Supondo que $dadosTabelas contenha o array que você mostrou
     foreach ($dadosTabelas as $indice => $dadosTabela) {
 
-        $i++;
-        // Imprimir os valores individualmente
-        $Desc=   $dadosTabela['desc_produto_' . $i] ; 
-        $Marca=   $dadosTabela['marca_produto_' . $i]; 
-        $Modelo=   $dadosTabela['modelo_produto_' . $i] ; 
-        $Valor_Minimo=   $dadosTabela['valor_minimo_produto_' . $i];  
-        $Valor_Cadastro=   $dadosTabela['valor_cadastro_produto_' . $i] ; 
-        $Qtd=  $dadosTabela['qtd_produto_' . $i] ;
-        $Und = $dadosTabela['und_produto_' . $i] ;
+$j++;
 
 
-         // Adicionar uma quebra de linha para separar cada conjunto de dados
+    
+
+        echo 'Marca ' . $dadosTabela['marca_produto_'. $j];
+
+        $sql_code = "UPDATE produtos_conciliados SET
+        und_produto = '" . $dadosTabela['und_produto_' . $j] . "',
+        qtd_produto = '" . $dadosTabela['qtd_produto_' . $j] . "',
+        desc_produto = '" . $dadosTabela['desc_produto_' . $j] . "',
+        marca_produto = '" . $dadosTabela['marca_produto_' . $j] . "',
+        modelo_produto = '" . $dadosTabela['modelo_produto_' . $j] . "',
+        valor_minimo_produto = '" . $dadosTabela['valor_minimo_produto_' . $j] . "',
+        valor_cadastro_produto = '" . $dadosTabela['valor_cadastro_produto_' . $j] . "'
+     WHERE id_produto = $id_produtos[$indice]";
 
 
-         $sql_code = "INSERT INTO produtos_conciliados (
-            qtd_produto,
-            und_produto,
-            desc_produto,
-            marca_produto,
-            modelo_produto,
-            valor_referencia_produto,
-            valor_custo_produto,
-            valor_minimo_produto,
-            valor_cadastro_produto,
-            id_edital
-        ) VALUES (
-            '$Qtd',
-            '$Und',
-            '$Desc', 
-            '$Marca',
-            '$Modelo',
-            '', 
-            '$Valor_Cadastro',
-            '$Valor_Minimo',
-            '$Valor_Cadastro',
-            '$id' 
-        )";
+
+       
+       
+       if (mysqli_query($dbcon, $sql_code)) {
+           echo "Dados atualizados com sucesso";
+
+           print_r($sql_code);
+           echo $id;
+        } else {
+            echo "Erro na consulta de inserção:";
+        }
+
         
-        
-        if (mysqli_query($dbcon, $sql_code)) {
-            echo "Dados inseridos com sucesso";
-         } else {
-             echo "Erro na consulta de inserção:";
-         }
-         
+        echo " UPDATE $id_produtos[$indice] ";
 
     }
+
+
+
+  
+
+
+
+
+
+
+
+        }
+   
+ else {
+    echo "Erro ao consultar o banco de dados: " . mysqli_error($dbcon);
+}
+
+
+
+    // Acessar os dadosTabelas
+   
     
 
     
-}
+
 
 
 

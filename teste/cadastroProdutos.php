@@ -207,9 +207,8 @@ button{
     <ul>
         <li><a href="paginainicialadmin.php">Dashboard</a></li>
         <li><a href="usuarios.php">Usuários</a></li>
-        <li><a href="editais.php">Registro De Editais</a></li>
         <li><a href="tabelaeditais.php">Editais</a></li>
-        <li><a href="cadastroProdutos.php">Cadastro Produtos</a></li>
+        <li><a href="tabelaprodutos.php">Produtos</a></li>
         <li><a href="sair.php">Sair</a></li>
     </ul>
 </div>
