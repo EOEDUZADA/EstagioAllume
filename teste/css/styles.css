@@ -3,7 +3,7 @@ body {
     font-optical-sizing: auto !important;
     font-weight: 600 !important;
     font-style: normal !important; 
-    background-color: #e4e4e7 !important;
+    background-color: #cccccc !important;
     margin: 0;
     padding: 0;
    
@@ -563,7 +563,7 @@ button:focus{
 .main-content {
     padding: 20px;
     transition: margin-left 0.3s ease;
-    background-color: #e4e4e7;
+    background-color: #cccccc;
     margin-top: 10px;
 }
 
@@ -600,21 +600,28 @@ table{
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    border-radius: 10px;
+    border-radius: 25px;
     overflow: hidden;
   }
   
   .funcionarios th, .funcionarios td {
-    border: 1px solid #dddddd;
+    
     padding: 10px;
   }
   
   .funcionarios th {
-      background-color: rgb(1, 69, 179);
-    color: white;
+      background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     font-weight: bold;
-    text-align: left;
+    text-align: center;
+    font-size: 17px;
   }
+  .funcionarios td {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    font-size: 13px;
+  
+}
   
   
   .funcionarios tbody tr:hover {

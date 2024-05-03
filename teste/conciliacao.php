@@ -345,7 +345,7 @@ if (mysqli_num_rows($result_editais) > 0  and  mysqli_num_rows($ultimo_dado) > 0
             if($row["und_produto_edital"] !== $row2['und_produto'] ) {
 
 
-echo "ba ta errado cpx";
+
 
 
             }

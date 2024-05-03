@@ -117,11 +117,9 @@ nav .brand-logo {
 
         // Verifique se há linhas retornadas
         if ($result_produtos) {
-           
+           $num_rows = mysqli_num_rows($result_produtos);
 
-                while ($row = mysqli_fetch_assoc($result_produtos)) {
-                     $num_rows = mysqli_num_rows($result_produtos);
-
+                
             if ($num_rows > 0) {
                 // Exibir os usuários em uma tabela
                 echo "<table class='funcionarios' id='tabela_usuarios'>";
@@ -139,9 +137,11 @@ nav .brand-logo {
                 echo "</tr>";
                 echo "</thead>";
                 echo "<tbody>";
-               
-                echo "<tr>";
-                
+
+
+               while ($row = mysqli_fetch_assoc($result_produtos)) {
+
+                    echo "<tr>";
                     echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["id_produto"] . "</td>";
                     echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["qtd_produto"] . "</td>";
                     echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["und_produto"] . "</td>";
@@ -152,23 +152,20 @@ nav .brand-logo {
                     echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["valor_minimo_produto"] . "</td>";
                     echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["valor_cadastro_produto"] . "</td>";
 
-                    
 
+                    
+                   echo "
+                            <form id='formulario_info_produtos' method='post' action='infoEditais.php'>
+                             <input type='hidden' id='id_produto' name='id' value='" . $row['id_produto'] . "'>
+                            </form>";
+                   
                     echo "</td>";
                     echo "</tr>";
-                   
 
-                }
 
-                echo "</tbody>";
-                echo "</table>";
-
-          
-                echo "<div class='card-body'>
-                <form id='formulario_info_produtos' method='post'>
-                    <input type='hidden' id='id_produto' name='id' value='" . $row['id_produto'] . "'>
-                </form>
-            </div>";
+          }
+           echo "</tbody>";
+           echo "</table>";
             
 
             } 

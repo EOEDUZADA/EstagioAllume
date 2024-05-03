@@ -14,7 +14,7 @@ session_start();
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css" />
     <title>Document</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap" rel="stylesheet">
     
     <style>
         table {
@@ -62,10 +62,10 @@ nav .brand-logo {
    color: #5A57FF;
     
 }
-
+.nav-wrapper.white ul li{
+    color: black;
+}
     </style>
-
-
 
 
 </head>
@@ -75,15 +75,9 @@ nav .brand-logo {
 
 
 <nav>
-    <div class="nav-wrapper white" style="display: flex; align-items: center;">
-        <a href="#" id="sidebar-toggle" class="right"><i class="material-icons" style="margin-left: 50px;">menu</i></a>
-        <a href="paginaInicialAdmin.php" style="margin-left: auto;"><p class="black-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p></a>
-        <i class="large material-icons brand-logo right" style="font-size: 50px;">account_circle</i>
-    </div>
-</nav>
+    <div class="nav-wrapper deep-purple accent-3" style="display: flex; align-items: center;">
+        <img src="./img/logo3.png" id="brand-logo">
 
-<div id="sidebar" class="sidenav">
-    <img src="./img/logo3.png" id="brand-logo">
     <ul>
         <li><a href="paginainicialadmin.php">Dashboard</a></li>
         <li><a href="usuarios.php">Usuários</a></li>
@@ -91,10 +85,20 @@ nav .brand-logo {
         <li><a href="tabelaprodutos.php">Produtos</a></li>
         <li><a href="sair.php">Sair</a></li>
     </ul>
-</div>
+        <a href="paginaInicialAdmin.php" style="margin-left: auto;"><p class="black-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p></a>
+        <i class="large material-icons brand-logo right" style="font-size: 50px;">account_circle</i>
+    </div>
+</nav>
 
 <div class="main-content">
     <h4>Editais <a href="editais.php" class="adiferente">-> Cadastro Editais</a></h4>
+<div class="container-botao-tabelaEditais">
+ <div class="row">
+        <div class="col s6 m6">
+        <a class="waves-effect waves-light btn-small">Button</a>
+        </div>
+</div>
+
     <section class="usuarios">
 
 
@@ -115,18 +119,16 @@ nav .brand-logo {
 
         // Verifique se há linhas retornadas
         if ($result_editais) {
-           
+           $num_rows = mysqli_num_rows($result_editais);
 
-                while ($row = mysqli_fetch_assoc($result_editais)) {
-                     $num_rows = mysqli_num_rows($result_editais);
-
+               
             if ($num_rows > 0) {
                 // Exibir os usuários em uma tabela
                 echo "<table class='funcionarios' id='tabela_editais'>";
                 echo "<thead>";
                 echo "<tr  >";
                 echo "<th>ID</th>";  
-                echo "<th><a href='index.php'>Nome do orgão</a></th>"; // Coluna clicável com link para "pagina_destino.php"
+                echo "<th>Nome do orgão</th>"; // Coluna clicável com link para "pagina_destino.php"
                 echo "<th>Numero do edital</th>";
                 echo "<th>Numero do processo</th>"; 
                 echo "<th>SRP/NORMAL</th>";
@@ -134,15 +136,16 @@ nav .brand-logo {
                 echo "<th>Data final do edital</th>";
                 echo "<th>Data limite para orçamento</th>";
                 echo "<th>Data de cadastro do edital</th>";
-                echo "<th>Arquivo do Edital</th>";
+                echo "<th>Mais</th>";
                 echo "</tr>";
                 echo "</thead>";
                 echo "<tbody>";
 
+            while ($row = mysqli_fetch_assoc($result_editais)) {
 
                     echo "<tr>";
                     echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["id"] . "</td>";
-                     echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\" ><a href='index.php'>" . $row["nome_orgao_edital"] . "</a></td>"; // Coluna clicável com link para "pagina_destino.php"
+                    echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\" >" . $row["nome_orgao_edital"] . "</td>"; // Coluna clicável com link para "pagina_destino.php"
                     echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["numero_edital"] . "</td>";
                     echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["numero_processo"] . "</td>";
                     echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["tipo_documento"] . "</td>";
@@ -166,6 +169,12 @@ nav .brand-logo {
                    ";
 
 
+            echo "<div class='card-body'>
+                <form id='formulario_info_editais' method='post' action='infoEditais.php'>
+                    <input type='hidden' id='id_editais' name='id' value='" . $row['id'] . "'>
+                </form>
+            </div>";
+
                     echo "</td>";
                     echo "</tr>";
                    
@@ -173,14 +182,11 @@ nav .brand-logo {
                 }
 
                 echo "</tbody>";
+                
                 echo "</table>";
 
           
-                echo "<div class='card-body'>
-                <form id='formulario_info_editais' method='post' action='infoEditais.php'>
-                    <input type='hidden' id='id_editais' name='id' value='" . $row['id'] . "'>
-                </form>
-            </div>";
+               
             
 
             } 
@@ -213,27 +219,6 @@ function enviarFormulario(id) {
         // Envia o formulário
         form.submit();
     }
-
-    document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.sidenav');
-  var instances = M.Sidenav.init(elems);
-
-  var sidebarToggle = document.getElementById('sidebar-toggle');
-  sidebarToggle.addEventListener('click', function() {
-    var sidenavInstance = M.Sidenav.getInstance(elems[0]);
-    sidenavInstance.isOpen ? sidenavInstance.close() : sidenavInstance.open();
-    sidebarToggle.innerHTML = sidenavInstance.isOpen ? '<i class="material-icons" style="margin-left: 50px;">menu</i>' : '<i class="material-icons" style="margin-left: 50px;">menu</i>';
-
-  });
-});
-
-
-document.addEventListener('DOMContentLoaded', function() {
-        var dropdowns = document.querySelectorAll('.dropdown-trigger');
-        M.Dropdown.init(dropdowns, {
-            coverTrigger: false
-        });
-    });
     </script>
 </body>
 
