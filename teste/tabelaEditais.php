@@ -62,8 +62,12 @@ nav .brand-logo {
    color: #5A57FF;
     
 }
-.nav-wrapper.white ul li{
-    color: black;
+
+.dropdown-content{
+    border-radius: 5px;   
+}
+.card-body-2{
+    display: none;
 }
     </style>
 
@@ -74,28 +78,43 @@ nav .brand-logo {
     
 
 
-<nav>
-    <div class="nav-wrapper deep-purple accent-3" style="display: flex; align-items: center;">
-        <img src="./img/logo3.png" id="brand-logo">
 
-    <ul>
-        <li><a href="paginainicialadmin.php">Dashboard</a></li>
-        <li><a href="usuarios.php">Usuários</a></li>
-        <li><a href="tabelaeditais.php">Editais</a></li>
-        <li><a href="tabelaprodutos.php">Produtos</a></li>
-        <li><a href="sair.php">Sair</a></li>
-    </ul>
-        <a href="paginaInicialAdmin.php" style="margin-left: auto;"><p class="black-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p></a>
-        <i class="large material-icons brand-logo right" style="font-size: 50px;">account_circle</i>
+
+<nav>
+    <div class="nav-wrapper light-blue darken-3" id="nav" style="display: flex; align-items: center;">
+    <img src="./img/logo3.png" id="brand-logo" style="margin: 0;">
+        <ul class="right" style="margin-left: 50px;">
+            <li><a href="paginainicialadmin.php">Dashboard</a></li>
+            <li><a href="usuarios.php">Usuários</a></li>
+            <li><a href="tabelaeditais.php">Editais</a></li>
+            <li><a href="tabelaprodutos.php">Produtos</a></li>
+        </ul>
+        <a href="paginaInicialAdmin.php" style="margin-left: auto;"><p class="white-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p></a>
+        <i class="dropdown-trigger large material-icons brand-logo right "data-target="dropdown-account" style="font-size: 50px;color: white;">account_circle</i>
     </div>
+    
 </nav>
+
+<ul id="dropdown-account" class="dropdown-content">
+    <li><a href="sair.php">Sair</a></li>
+</ul>
 
 <div class="main-content">
     <h4>Editais <a href="editais.php" class="adiferente">-> Cadastro Editais</a></h4>
 <div class="container-botao-tabelaEditais">
  <div class="row">
-        <div class="col s6 m6">
-        <a class="waves-effect waves-light btn-small">Button</a>
+        <div class="col s1">
+            <button class="btn">cadastro</button>
+        </div>
+        <div class="col s1">
+        <button class="btn">imprimir</button>
+        </div>
+        <div class="col s1">
+        <button class="btn">excluir</button>
+        </div>
+        <div class="col s1">
+        <button class="btn">mais ações</button>
+
         </div>
 </div>
 
@@ -169,7 +188,7 @@ nav .brand-logo {
                    ";
 
 
-            echo "<div class='card-body'>
+            echo "<div class='card-body-2'>
                 <form id='formulario_info_editais' method='post' action='infoEditais.php'>
                     <input type='hidden' id='id_editais' name='id' value='" . $row['id'] . "'>
                 </form>
@@ -219,6 +238,16 @@ function enviarFormulario(id) {
         // Envia o formulário
         form.submit();
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.dropdown-trigger');
+        var instances = M.Dropdown.init(elems, {
+            alignment: 'right',
+            hover: true,
+            coverTrigger: false,
+            constrainWidth: false
+        });
+    });
     </script>
 </body>
 

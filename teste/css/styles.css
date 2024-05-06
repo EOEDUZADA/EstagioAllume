@@ -3,7 +3,7 @@ body {
     font-optical-sizing: auto !important;
     font-weight: 600 !important;
     font-style: normal !important; 
-    background-color: #cccccc !important;
+    background-color: #ffffff !important;
     margin: 0;
     padding: 0;
    
@@ -461,110 +461,30 @@ button:focus{
 
 
 
-
-.nav-wrapper.black .brand-logo.right {
-    position: absolute;
-    right: 10px;
-}
-
 #brand-logo{
  
     margin-left: 50px;
     margin-bottom: 3vh;
 }
 
-#sidebar {
-    width: 250px;
-    background-color: #5A57FF;
-    color: #fff;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    border-top-right-radius: 10px;
-    border-right: 1px solid black;
-    overflow-y: auto;
-    transition: width 0.3s ease;
-    animation: color 7s infinite;
-}
-/*
-@keyframes color{
-    0%{
-        border: 1px solid red;
-        box-shadow: 5px 5px 5px red;
-    }
-    25%{
-        border: 1px solid rgb(30, 255, 0);
-        box-shadow: 5px 5px 5px rgb(30, 255, 0);
-    }
-    50%{
-        border: 1px solid rgb(255, 251, 0);
-        box-shadow: 5px 5px 5px rgb(255, 251, 0);
-    }
-    75%{
-        border: 1px solid rgb(0, 17, 255);
-        box-shadow: 5px 5px 5px rgb(0, 17, 255);
-    }
-    100%{
-        border: 1px solid rgb(255, 0, 255);
-        box-shadow: 5px 5px 5px rgb(255, 0, 255);
-    }
+nav {
+    color: #ffffff;
+    height: 70px;
     
 }
-*/
-
-#sidebar ul {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-#sidebar ul li{
-    display: flex;
-    justify-content: center;
-    padding: 1px 5px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-decoration: none;
-    color: white; 
-}
-#sidebar ul li:first-child {
-    display: flex;
-    justify-content: center;
-    padding: 1px 10px;
-    margin-top: 2vw;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#sidebar ul li:last-child {
-    display: flex;
-    justify-content: center;
-    padding: 5px 5px;
-    margin-top: 2vw;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
 
 
-.sidenav li>a:hover {
-     background-color: rgba(0, 0, 0, 0); 
-}
-
-#sidebar li:hover {
-    background-color: #FF5789;
-}
-
-#sidebar-toggle i {
-    color: black;
+#nav li:hover {
+    background-color: #ababab;
 }
 
 
 .main-content {
     padding: 20px;
     transition: margin-left 0.3s ease;
-    background-color: #cccccc;
     margin-top: 10px;
+    background-color: #ffffff !important;
+
 }
 
 .dashboard-square {
@@ -600,20 +520,17 @@ table{
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    border-radius: 25px;
     overflow: hidden;
+    border-radius: 10px;
   }
   
-  .funcionarios th, .funcionarios td {
-    
-    padding: 10px;
-  }
+  
   
   .funcionarios th {
-      background-color: rgb(255, 255, 255);
+    background-color: rgb(237, 237, 237);
     color: rgb(0, 0, 0);
     font-weight: bold;
-    text-align: center;
+    text-align: left;
     font-size: 17px;
   }
   .funcionarios td {
@@ -635,6 +552,31 @@ table{
     color: #5A57FF;
   }
 
+  .btn {
+    text-align: center;
+    line-height: 15px; /* Adicione esta linha */
+    background-color: #dedede;
+    font-size: 10px;
+    opacity: 0.8;
+    color: #000000;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 1px solid #000000;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    transition: .4s;
+}
 
+   
+   .btn:hover {
+    transition: .4s;
+    border: 1px dashed #0f66ad;
+    background-color: #fff;
+    color: #0f66ad;
+   }
+   
+   .btn:active {
+    background-color: #87dbd0;
+   }
 
   
+   
