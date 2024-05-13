@@ -195,23 +195,12 @@ button{
 
 <nav>
     <div class="nav-wrapper white" style="display: flex; align-items: center;">
-        <a href="#" id="sidebar-toggle" class="right"><i class="material-icons" style="margin-left: 50px;">menu</i></a>
+    <a href="tabelaprodutos.php" id="sidebar-toggle" class="right"><i class="large material-icons" style="margin-left: 50px;color:black">arrow_back</i></a>
         <a href="paginaInicialAdmin.php" style="margin-left: auto;"><p class="black-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p></a>
         <i class="large material-icons brand-logo right" style="font-size: 50px;">account_circle</i>
     </div>
 </nav>
 
-    
-<div id="sidebar" class="sidenav">
-    <img src="./img/logo3.png" id="brand-logo">
-    <ul>
-        <li><a href="paginainicialadmin.php">Dashboard</a></li>
-        <li><a href="usuarios.php">Usuários</a></li>
-        <li><a href="tabelaeditais.php">Editais</a></li>
-        <li><a href="tabelaprodutos.php">Produtos</a></li>
-        <li><a href="sair.php">Sair</a></li>
-    </ul>
-</div>
 
 <div class="container">
     <h2>Cadastro de Produtos</h2>

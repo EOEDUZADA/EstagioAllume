@@ -14,7 +14,7 @@ session_start();
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap" rel="stylesheet">
     <style>
      
        nav .brand-logo {
@@ -29,25 +29,20 @@ session_start();
 
 
 <nav>
-    <div class="nav-wrapper white" style="display: flex; align-items: center;">
-        <a href="#" id="sidebar-toggle" class="right"><i class="large material-icons" style="margin-left: 50px;">menu</i></a>
-        <a href="paginaInicialAdmin.php" style="margin-left: auto;"><p class="black-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p></a>
-        <i class="large material-icons brand-logo right" style="font-size: 50px;">account_circle</i>
+    <div class="nav-wrapper light-blue darken-3" id="nav" style="display: flex; align-items: center;">
+    <img src="./img/logo3.png" id="brand-logo" style="margin: 0;">
+        <ul class="right" style="margin-left: 50px;">
+            <li><a href="paginainicialadmin.php">Dashboard</a></li>
+            <li><a href="usuarios.php">Usuários</a></li>
+            <li><a href="tabelaeditais.php">Editais</a></li>
+            <li><a href="tabelaprodutos.php">Produtos</a></li>
+        </ul>
+        <a href="paginaInicialAdmin.php" style="margin-left: auto;"><p class="white-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p></a>
+        <i class="dropdown-trigger large material-icons brand-logo right "data-target="dropdown-account" style="font-size: 50px;color: white;">account_circle</i>
     </div>
+    
 </nav>
 
-
-
-<div id="sidebar" class="sidenav">
-<img src="./img/logo3.png" id="brand-logo">
-    <ul>
-        <li><a href="paginainicialadmin.php">Dashboard</a></li>
-        <li><a href="usuarios.php">Usuários</a></li>
-        <li><a href="tabelaeditais.php">Editais</a></li>
-        <li><a href="tabelaprodutos.php">Produtos</a></li>
-        <li><a href="sair.php">Sair</a></li>
-    </ul>
-</div>
 
 <div class="main-content">
     

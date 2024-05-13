@@ -1,3 +1,7 @@
+<?php
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,12 +11,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <title>Document</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
 </head>
 
 <style>
-
+        .brand-logo { 
+            color: black;
+            display: flex;
+           
+        }
+        
+        nav .brand-logo {
+            color:black;
+        }
 .container-produtos{
 margin: 0 auto;
 }
@@ -38,10 +51,28 @@ body {
   font-variation-settings:
     "slnt" 0;
 }
-
+.container-infoProduto{
+  border-radius: 10px;
+  margin: 50px;
+  -webkit-box-shadow: 0px 0px 19px -10px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 19px -10px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 19px -10px rgba(0,0,0,0.75);
+}
+.container{
+  padding: 30px;
+}
 
     </style>
 <body>
+
+<nav>
+    <div class="nav-wrapper white" style="display: flex; align-items: center;">
+        <a href="tabelaprodutos.php" id="sidebar-toggle" class="right"><i class="large material-icons" style="margin-left: 50px;color: black">arrow_back</i></a>
+        <a href="paginaInicialAdmin.php" style="margin-left: auto;"><p class="black-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p></a>
+        <i class="large material-icons brand-logo right" style="font-size: 50px;">account_circle</i>
+    </div>
+</nav>
+<div class="container-infoProduto">
 
 <div class="container">
 <div class="row">
@@ -190,7 +221,7 @@ body {
        
       </div>
 </div>
-
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>

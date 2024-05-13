@@ -58,10 +58,7 @@ nav .brand-logo {
     text-decoration: none;  
 }
 
-.adiferente:hover {
-   color: #5A57FF;
-    
-}
+
 
 .dropdown-content{
     border-radius: 5px;   
@@ -76,8 +73,6 @@ nav .brand-logo {
 
 <body>
     
-
-
 
 
 <nav>
@@ -100,11 +95,12 @@ nav .brand-logo {
 </ul>
 
 <div class="main-content">
-    <h4>Editais <a href="editais.php" class="adiferente">-> Cadastro Editais</a></h4>
+    <br>
+    <h4>Editais</h4>
 <div class="container-botao-tabelaEditais">
  <div class="row">
         <div class="col s1">
-            <button class="btn">cadastro</button>
+            <button class="btn"><a href="editais.php" class="adiferente">Cadastro</a></button>
         </div>
         <div class="col s1">
         <button class="btn">imprimir</button>
@@ -145,7 +141,7 @@ nav .brand-logo {
                 // Exibir os usuários em uma tabela
                 echo "<table class='funcionarios' id='tabela_editais'>";
                 echo "<thead>";
-                echo "<tr  >";
+                echo "<tr>";
                 echo "<th>ID</th>";  
                 echo "<th>Nome do orgão</th>"; // Coluna clicável com link para "pagina_destino.php"
                 echo "<th>Numero do edital</th>";

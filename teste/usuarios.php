@@ -12,7 +12,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
     <link rel="stylesheet" href="css/styles.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -37,47 +37,37 @@ nav .brand-logo {
     </style>
 <body>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.sidenav');
-  var instances = M.Sidenav.init(elems);
-
-  var sidebarToggle = document.getElementById('sidebar-toggle');
-  sidebarToggle.addEventListener('click', function() {
-    var sidenavInstance = M.Sidenav.getInstance(elems[0]);
-    sidenavInstance.isOpen ? sidenavInstance.close() : sidenavInstance.open();
-    sidebarToggle.innerHTML = sidenavInstance.isOpen ? '<i class="material-icons" style="margin-left: 50px;">menu</i>' : '<i class="material-icons" style="margin-left: 50px;">menu</i>';
-
-  });
-});
-
 
 document.addEventListener('DOMContentLoaded', function() {
-        var dropdowns = document.querySelectorAll('.dropdown-trigger');
-        M.Dropdown.init(dropdowns, {
-            coverTrigger: false
+        var elems = document.querySelectorAll('.dropdown-trigger');
+        var instances = M.Dropdown.init(elems, {
+            alignment: 'right',
+            hover: true,
+            coverTrigger: false,
+            constrainWidth: false
         });
     });
+
 </script>
 
 <nav>
-    <div class="nav-wrapper white" style="display: flex; align-items: center;">
-        <a href="#" id="sidebar-toggle" class="right"><i class="material-icons" style="margin-left: 50px;">menu</i></a>
-        <a href="paginaInicialAdmin.php" style="margin-left: auto;"><p class="black-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p></a>
-        <i class="large material-icons brand-logo right" style="font-size: 50px;">account_circle</i>
+    <div class="nav-wrapper light-blue darken-3" id="nav" style="display: flex; align-items: center;">
+    <img src="./img/logo3.png" id="brand-logo" style="margin: 0;">
+        <ul class="right" style="margin-left: 50px;">
+            <li><a href="paginainicialadmin.php">Dashboard</a></li>
+            <li><a href="usuarios.php">Usuários</a></li>
+            <li><a href="tabelaeditais.php">Editais</a></li>
+            <li><a href="tabelaprodutos.php">Produtos</a></li>
+        </ul>
+        <a href="paginaInicialAdmin.php" style="margin-left: auto;"><p class="white-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p></a>
+        <i class="dropdown-trigger large material-icons brand-logo right "data-target="dropdown-account" style="font-size: 50px;color: white;">account_circle</i>
     </div>
+    
 </nav>
 
-    
-<div id="sidebar" class="sidenav">
-    <img src="./img/logo3.png" id="brand-logo">
-    <ul>
-        <li><a href="paginainicialadmin.php">Dashboard</a></li>
-        <li><a href="usuarios.php">Usuários</a></li>
-        <li><a href="tabelaeditais.php">Editais</a></li>
-        <li><a href="tabelaprodutos.php">Produtos</a></li>
-        <li><a href="sair.php">Sair</a></li>
-    </ul>
-</div>
+<ul id="dropdown-account" class="dropdown-content">
+    <li><a href="sair.php">Sair</a></li>
+</ul>
 
 <div class="main-content">
 <h4>Usuários</h4>
