@@ -217,20 +217,6 @@ function adicionarNovoProduto() {
             }
         }
 
-
-        document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.sidenav');
-  var instances = M.Sidenav.init(elems);
-
-  var sidebarToggle = document.getElementById('sidebar-toggle');
-  sidebarToggle.addEventListener('click', function() {
-    var sidenavInstance = M.Sidenav.getInstance(elems[0]);
-    sidenavInstance.isOpen ? sidenavInstance.close() : sidenavInstance.open();
-    sidebarToggle.innerHTML = sidenavInstance.isOpen ? '<i class="material-icons" style="margin-left: 50px;">menu</i>' : '<i class="material-icons" style="margin-left: 50px;">menu</i>';
-
-  });
-});
-
     
     </script>
 </head>
@@ -363,18 +349,106 @@ box-shadow: 0px 0px 6px 0px rgba(59,59,59,0.75);
         <i class="large material-icons brand-logo right" style="font-size: 50px;">account_circle</i>
     </div>
 </nav>
+<h5 class="card-title black-text">Dados do Edital</h5> <hr><br>
+    
+    <div class="row">
+        <div class="col s12 m12">
+            <div class="row">
+                <div class="card small white darken-1">
+                <div class="card-content black-text">
+                    <div class="col s9">
+                            <p> Cliente <input type="text" /></p>
+                    </div>
+                    <div class="col s3">
+                            <p> Número do Edital <input type="text" /></p>
+                            <br>
+                    </div>
+                    <div class="col s3">
+                            <p> Número do processo <input type="text" /></p>
+                            
+                    </div>
+                
 
-<div id="sidebar" class="sidenav">
-    <img src="./img/logo3.png" id="brand-logo">
-    <ul>
-        <li><a href="paginainicialadmin.php">Dashboard</a></li>
-        <li><a href="usuarios.php">Usuários</a></li>
-        <li><a href="tabelaeditais.php">Editais</a></li>
-        <li><a href="tabelaprodutos.php">Produtos</a></li>
-        <li><a href="sair.php">Sair</a></li>
-    </ul>
-</div>
+                <div class="col s12">
+                    <br>
+            <div class="row">
+                <div class="col s6">
+                    <p>Documento é SRP?</p>
+                <p>
+                    <label>
+                        <input name="tipo_documento" type="radio" value="SRP" />
+                        <span>Sim</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="tipo_documento" type="radio" value="NORMAL" />
+                        <span>Não</span>
+                    </label>
+                </p>
+            </div>
+                <div class="col s2 offset-s4">
+                    <p>Data final <input type="datetime-local" name="data_final_edital" required /></p> <!-- Colocar hora -->
+                </div>
+        </div>
+                </div>
+                <br>
+                <div class="col s12">
+                    <br>
 
+            <div class="row">
+                <div class="col s6">
+                    <p>Tipo de fornecimento</p>
+                <p>
+                    <label>
+                        <input name="tipo_fornecimento" type="radio" value="PRODUTO" />
+                        <span>Produto</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="tipo_fornecimento" type="radio" value="SERVIÇO" />
+                        <span>Serviço</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="tipo_fornecimento" type="radio" value="PRODUTOS_SERVIÇOS" />
+                        <span>Produtos e Serviços</span>
+                    </label>
+                </p>
+    </div>
+            <div class="col s2 offset-s4">
+                <p>Data limite para orçamento <input type="datetime-local" name="data_limite_orcamento" required /></p>  <!-- Colocar hora -->
+            </div>
+            
+            </div>
+                </div>
+                <br>
+
+            <div class="col s12">
+                    <br>
+            <p>Modalidade do edital</p>
+                <p>
+                    <label>
+                        <input name="modalidade_edital" type="radio" value="SRP" />
+                        <span>Sim</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="modalidade_edital" type="radio" value="NORMAL" />
+                        <span>Não</span>
+                    </label>
+                </p>
+        
+    </div>      
+                
+            </div>
+            </div>
+        </div>
+
+    </div>
 <div class="container">
     <h2>Cadastro de edital</h2>
     <form id="formulario_edital" action="editais.php" method="post" enctype="multipart/form-data">
@@ -426,6 +500,7 @@ box-shadow: 0px 0px 6px 0px rgba(59,59,59,0.75);
                 <input name="modalidade_edital" type="radio" value="NORMAL" />
                 <span>Não</span>
             </label>
+        </p>
       
         <p>Data final <input type="datetime-local" name="data_final_edital" required /></p> <!-- Colocar hora -->
         <p>Data limite para orçamento <input type="datetime-local" name="data_limite_orcamento" required /></p>  <!-- Colocar hora -->

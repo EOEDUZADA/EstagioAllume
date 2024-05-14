@@ -2,6 +2,8 @@
 
 session_start();
 
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $host = "localhost";
     $dbname = "allume";
@@ -14,32 +16,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Erro ao conectar ao banco de dados: " . mysqli_connect_error());
     }
 
-    if (!isset($_POST["fileUpload"])) {
-        $qtdproduto = mysqli_real_escape_string($dbcon, $_POST["qtd_produto"]);
-        $undproduto = mysqli_real_escape_string($dbcon, $_POST["und_produto"]);
-        $descproduto = mysqli_real_escape_string($dbcon, $_POST["desc_produto"]);
-        $marcaproduto = mysqli_real_escape_string($dbcon, $_POST["marca_produto"]);
-        $modeloproduto = mysqli_real_escape_string($dbcon, $_POST["modelo_produto"]);
-        $valorcusto_produto = mysqli_real_escape_string($dbcon, $_POST["valor_custo_produto"]);
-        $valorminimo_produto = mysqli_real_escape_string($dbcon, $_POST["valor_minimo_produto"]);
-        $valorcadastro_produto = mysqli_real_escape_string($dbcon, $_POST["valor_cadastro_produto"]);
     
+    // Verifica se o array "marca_produto" existe no $_POST
+   
+    if(isset($_POST["contador"])) {
+        // Atribui o número de contêineres à variável $contador
+        $contador = $_POST["contador"];
 
-    // Insere a string de nomes de arquivos no banco de dados
-    $sql_code = "INSERT INTO produtos (qtd_produto, und_produto, desc_produto, marca_produto, modelo_produto, valor_custo_produto, valor_minimo_produto, valor_cadastro_produto) VALUES ('$qtdproduto', '$undproduto', '$descproduto', '$marcaproduto', '$modeloproduto', '$valorcusto_produto', '$valorminimo_produto', '$valorcadastro_produto')";
+        // Loop para iterar sobre cada contêiner de marca
+        for ($i = 1; $i <= $contador; $i++) {
+            // Obtém o valor da marca do contêiner atual
+            $marca = $_POST["marca_produto_$i"];
+            
+            // Executa o SQL correspondente para adicionar a marca
+            $sql = "ALTER TABLE produtos ADD marca_produto_$i VARCHAR(255)";
 
-
-    // Executar a consulta SQL
-    if (mysqli_query($dbcon, $sql_code)) {
-        echo "Dados inseridos com sucesso";
+            if(mysqli_query($dbcon, $sql)) {
+                echo "Coluna 'marca_produto_$i' adicionada com sucesso.<br>";
+            } else {
+                echo "Erro ao adicionar coluna 'marca_produto_$i': " . mysqli_error($dbcon) . "<br>";
+            }
+        }
     } else {
-        echo "Erro na consulta de inserção: " . mysqli_error($dbcon);
+        echo "Nenhum contêiner de marca foi enviado.";
     }
-} else {
-    // Se $arquivos não for um array, exiba uma mensagem de erro
-    echo "Erro ao processar os arquivos.";
-}
-
+  
+    
         
         mysqli_close($dbcon);
     }
@@ -54,6 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
 
@@ -68,38 +71,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 nav .brand-logo {
     color:black;
 }
+
+
         </style>
     <script>
 
-    function validarFormulario() {
-        var qtdproduto = document.getElementsByName("qtd_produto")[0].value;
-        var undproduto = document.getElementsByName("und_produto")[0].value;
-        var descproduto = document.getElementsByName("desc_produto")[0].value;
-        var marcaproduto = document.getElementsByName("marca_produto")[0].value;
-        var modeloproduto = document.getElementsByName("modelo_produto")[0].value;
-        var valorcusto_produto = document.getElementsByName("valor_custo_produto")[0].value;
-        var valorminimo_produto = document.getElementsByName("valor_minimo_produto")[0].value;
-        var valorcadastro_produto = document.getElementsByName("valor_cadastro_produto")[0].value;
-
-        var erroPreencher = document.getElementById("erroPreencher");
-
-        if (qtdproduto === "" || undproduto === "" || descproduto === "" || marcaproduto === "" || modeloproduto === "" || valorcusto_produto === "" || valorminimo_produto === "" || valorcadastro_produto === "" ) {
-
-            erroPreencher.innerHTML = "Preencha todos os campos obrigatórios!";
-          
-            return false; // Impede o envio do formulário
-        }
-
-        erroPreencher.innerHTML = "";
-
-        return true; // Permite o envio do formulário
-    }
+ 
 
     function enviarFormulario() {
-        if (validarFormulario()) {
-            var formulario = document.getElementById("formulario_edital");
+    
+            var formulario = document.getElementById("formulario_cadastroProdutos");
             formulario.submit();
-        }
+        
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -122,6 +105,96 @@ document.addEventListener('DOMContentLoaded', function() {
             coverTrigger: false
         });
     });
+
+
+
+
+
+
+
+var i = 0;
+
+function adicionarMarca() {
+   i++;
+
+  
+  // Cria um novo elemento div para agrupar os inputs do produto
+  var novoContainerMarcas = document.createElement("div");
+    novoContainerMarcas.className = "containerMarcas";
+
+   
+
+   var pMarca = document.createElement("p");
+    pMarca.innerHTML = "Marca";
+    var inputMarca = document.createElement("input");
+    inputMarca.type = "text";
+    inputMarca.name = "marca_produto_" + i;
+    console.log(inputMarca) // Correção: adicione [] ao nome
+    pMarca.appendChild(inputMarca);
+
+    // Cria os inputs para o novo produto
+    var pModelo = document.createElement("p");
+    pModelo.innerHTML = "Modelo";
+    var inputModelo = document.createElement("input");
+    inputModelo.type = "text";
+    inputModelo.name = "modelo_produto_edital[]"; // Correção: adicione [] ao nome
+    console.log(inputModelo);
+    pModelo.appendChild(inputModelo);
+
+    var pVlrCompra = document.createElement("p");
+    pVlrCompra.innerHTML = "VLR Compra";
+    var inputVlrCompra = document.createElement("input");
+    inputVlrCompra.type = "text";
+    inputVlrCompra.name = "valor_compra_produto[]"; // Correção: adicione [] ao nome
+    pVlrCompra.appendChild(inputVlrCompra);
+
+    
+    var pVlrVenda = document.createElement("p");
+    pVlrVenda.innerHTML = "VLR Venda";
+    var inputVlrVenda = document.createElement("input");
+    inputVlrVenda.type = "text";
+    inputVlrVenda.name = "valor_venda_produto[]"; // Correção: adicione [] ao nome
+    pVlrVenda.appendChild(inputVlrVenda);
+
+
+    var pVlrCusto = document.createElement("p");
+    pVlrCusto.innerHTML = "VLR Custo";
+    var inputVlrCusto = document.createElement("input");
+    inputVlrCusto.type = "text";
+    inputVlrCusto.name = "valor_custo_produto[]"; // Correção: adicione [] ao nome
+    pVlrCusto.appendChild(inputVlrCusto);
+
+
+    var pValorRefProdutoEdital = document.createElement("p");
+    pValorRefProdutoEdital.innerHTML = "Valor de referência";
+    var InputValorRefProdutoEdital = document.createElement("input");
+    InputValorRefProdutoEdital.type = "text";
+    InputValorRefProdutoEdital.name = "valor_unit_ref_produto_edital[]"; // Correção: adicione [] ao nome
+    pValorRefProdutoEdital.appendChild(InputValorRefProdutoEdital);
+
+    novoContainerMarcas.appendChild(pMarca);
+    novoContainerMarcas.appendChild(pModelo);
+    novoContainerMarcas.appendChild(pValorRefProdutoEdital);
+    novoContainerMarcas.appendChild(pVlrCompra);
+    novoContainerMarcas.appendChild(pVlrVenda);
+    novoContainerMarcas.appendChild(pVlrCusto);
+
+    // Adiciona o container de produtos ao formulário
+    var formulario = document.getElementById("formulario_cadastroProdutos");
+    formulario.appendChild(novoContainerMarcas);
+
+
+    /// input que vai levar o numero de marcas para o php
+    var inputI = document.createElement("input");
+    inputI.type = "hidden";
+    inputI.name = "contador";
+    inputI.value = i;
+    formulario.appendChild(inputI);
+
+}
+
+
+
 </script>
 
 </head>
@@ -204,18 +277,12 @@ button{
 
 <div class="container">
     <h2>Cadastro de Produtos</h2>
-    <form id="formulario_edital" action="cadastroProdutos.php" method="post" enctype="multipart/form-data">
+    <form id="formulario_cadastroProdutos" action="cadastroProdutos.php" method="post" enctype="multipart/form-data">
         <p>Descriçao Produto <input type="text" name="desc_produto" /></p>
         <p>Quantidade de Produtos<input type="text" name="qtd_produto" required /></p>
-        <p>Unidade Produtos<input type="text" name="und_produto" required /></p>
-        <p>Marca Produto <input type="text" name="marca_produto" /></p>
-        <p>Modelo Produto <input type="text" name="modelo_produto" /></p>
-        <p>Valor de Custo <input type="text" name="valor_custo_produto" /></p>
-        <p>Valor Minimo do Produto<input type="text" name="valor_minimo_produto" /></p>
-        <p>Valor de Cadastro<input type="text" name="valor_cadastro_produto" /></p>
-        
-    
+        <p>Unidade Produtos<input type="text" name="und_produto" required /></p>    
     </form>
+    <p id="botaoAdicionarMarca" onclick="adicionarMarca()" class="enviar"><input type="button" class="blue-text" value="Adicionar Marca"></p>
     <p class="enviar"><input id="botaoEnviar" type="submit" value="Inserir" onclick="enviarFormulario()"></p>
 
     <p id="erroPreencher" class="red-text"> </p>

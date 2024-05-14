@@ -99,7 +99,7 @@ nav .brand-logo {
     <div class="container-botao-tabelaEditais">
  <div class="row">
         <div class="col s1">
-            <button class="btn"><a href="cadastroprodutos.php" class="adiferente">Adicionar Produtos</a></button>
+            <button class="btn"><a href="infoProduto.php" class="adiferente">Adicionar Produtos</a></button>
         </div>
         <div class="col s1">
         <button class="btn">Imprimir</button>

@@ -128,24 +128,24 @@ box-shadow: 0px 0px 19px -10px rgba(0,0,0,0.75);
 <div class="row">
     <h5> Melhor marca </h5>
         <div class="input-field col s2">
-          <input id="marca" type="text" class="validate">
-          <label for="marca">Marca</label>
+          <input id="melhor_marca" type="text" class="validate">
+          <label for="melhor_marca">Marca</label>
         </div>
         <div class="input-field col s2">
-          <input id="modelo" type="text" class="validate">
-          <label for="modelo">Modelo</label>
+          <input id="melhor_modelo" type="text" class="validate">
+          <label for="melhor_modelo">Modelo</label>
         </div>
         <div class="input-field col s2">
-          <input id="vcr_custo" type="text" class="validate">
-          <label for="vcr_custo">VCR Custo</label>
+          <input id="melhor_vcr_custo" type="text" class="validate">
+          <label for="melhor_vcr_custo">VCR Custo</label>
         </div>
         <div class="input-field col s2">
-          <input id="markup" type="text" class="validate">
-          <label for="markup">MARKUP</label>
+          <input id="melhor_markup" type="text" class="validate">
+          <label for="melhor_markup">MARKUP</label>
         </div>
         <div class="input-field col s2">
-          <input id="vcr_venda" type="text" class="validate">
-          <label for="vcr_venda">VCR Venda</label>
+          <input id="melhor_vcr_venda" type="text" class="validate">
+          <label for="melhor_vcr_venda">VCR Venda</label>
         </div>
       </div>
 </div>
@@ -157,7 +157,7 @@ box-shadow: 0px 0px 19px -10px rgba(0,0,0,0.75);
     <h5> Estoque </h5>
         <div class="input-field col s2">
           <input id="localizacao_estoque" type="text" class="validate">
-          <label for="localizacao_estoque">localizacao_estoque</label>
+          <label for="localizacao_estoque">Localização no estoque</label>
         </div>
         <div class="input-field col s2">
           <input id="estoque_atual" type="text" class="validate">
@@ -178,48 +178,247 @@ box-shadow: 0px 0px 19px -10px rgba(0,0,0,0.75);
 <div class="container">
 
 <div class="row">
-        <div class="input-field col s1">
-          <input id="marca" type="text" class="validate">
-          <label for="marca">Marca</label>
+<div class=" col s1">
+         1
         </div>
         <div class="input-field col s1">
-          <input id="modelo" type="text" class="validate">
-          <label for="modelo">Modelo</label>
+          <input id="marca_1" type="text" class="validate">
+          <label for="marca_1">Marca</label>
         </div>
         <div class="input-field col s1">
-          <input id="vcr_compra" type="text" class="validate">
-          <label for="vcr_compra">VCR Compra</label>
+          <input id="modelo_1" type="text" class="validate">
+          <label for="modelo_1">Modelo</label>
         </div>
         <div class="input-field col s1">
-          <input id="ipi" type="text" class="validate">
-          <label for="ipi">IPI</label>
+          <input id="vcr_compra_1" type="text" class="validate">
+          <label for="vcr_compra_1">VCR Compra</label>
         </div>
         <div class="input-field col s1">
-          <input id="%_ipi" type="text" class="validate">
-          <label for="%_ipi">%</label>
+          <input id="ipi_1" type="text" class="validate">
+          <label for="ipi_1">IPI</label>
         </div>
         <div class="input-field col s1">
-          <input id="icms_difal" type="text" class="validate">
-          <label for="icms_difal">ICMS-DIFAL</label>
+          <input id="%_ipi_1" type="text" class="validate">
+          <label for="%_ipi_1">%</label>
         </div>
         <div class="input-field col s1">
-          <input id="%_icms_difal" type="text" class="validate">
-          <label for="%_icms_difal">%</label>
+          <input id="icms_difal_1" type="text" class="validate">
+          <label for="icms_difal_1">ICMS-DIFAL</label>
         </div>
         <div class="input-field col s1">
-          <input id="frete" type="text" class="validate">
-          <label for="frete">Frete</label>
+          <input id="%_icms_difal_1" type="text" class="validate">
+          <label for="%_icms_difal_1">%</label>
         </div>
         <div class="input-field col s1">
-          <input id="%_frete" type="text" class="validate">
-          <label for="%_frete">%</label>
+          <input id="frete_1" type="text" class="validate">
+          <label for="frete_1">Frete</label>
         </div>
         <div class="input-field col s1">
-          <input id="vcr_custo" type="text" class="validate">
-          <label for="vcr_custo">VCR Custo</label>
+          <input id="%_frete_1" type="text" class="validate">
+          <label for="%_frete_1">%</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="vcr_custo_1" type="text" class="validate">
+          <label for="vcr_custo_1">VCR Custo</label>
         </div>
        
       </div>
+
+
+      <div class="row">
+<div class=" col s1">
+         2
+        </div>
+        <div class="input-field col s1">
+          <input id="marca_2" type="text" class="validate">
+          <label for="marca_2">Marca</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="modelo_2" type="text" class="validate">
+          <label for="modelo_2">Modelo</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="vcr_compra_2" type="text" class="validate">
+          <label for="vcr_compra_2">VCR Compra</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="ipi_2" type="text" class="validate">
+          <label for="ipi_2">IPI</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="%_ipi_2" type="text" class="validate">
+          <label for="%_ipi_2">%</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="icms_difal_2" type="text" class="validate">
+          <label for="icms_difal_2">ICMS-DIFAL</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="%_icms_difal_2" type="text" class="validate">
+          <label for="%_icms_difal_2">%</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="frete_2" type="text" class="validate">
+          <label for="frete_2">Frete</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="%_frete_2" type="text" class="validate">
+          <label for="%_frete_2">%</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="vcr_custo_2" type="text" class="validate">
+          <label for="vcr_custo_2">VCR Custo</label>
+        </div>
+       
+      </div>
+
+      <div class="row">
+<div class=" col s1">
+         3
+        </div>
+        <div class="input-field col s1">
+          <input id="marca_3" type="text" class="validate">
+          <label for="marca_3">Marca</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="modelo_3" type="text" class="validate">
+          <label for="modelo_3">Modelo</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="vcr_compra_3" type="text" class="validate">
+          <label for="vcr_compra_3">VCR Compra</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="ipi_3" type="text" class="validate">
+          <label for="ipi_3">IPI</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="%_ipi_3" type="text" class="validate">
+          <label for="%_ipi_3">%</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="icms_difal_3" type="text" class="validate">
+          <label for="icms_difal_3">ICMS-DIFAL</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="%_icms_difal_3" type="text" class="validate">
+          <label for="%_icms_difal_3">%</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="frete_3" type="text" class="validate">
+          <label for="frete_3">Frete</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="%_frete_3" type="text" class="validate">
+          <label for="%_frete_3">%</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="vcr_custo_3" type="text" class="validate">
+          <label for="vcr_custo_3">VCR Custo</label>
+        </div>
+       
+      </div>
+
+      <div class="row">
+<div class=" col s1">
+         4
+        </div>
+        <div class="input-field col s1">
+          <input id="marca_4" type="text" class="validate">
+          <label for="marca_4">Marca</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="modelo_4" type="text" class="validate">
+          <label for="modelo_4">Modelo</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="vcr_compra_4" type="text" class="validate">
+          <label for="vcr_compra_4">VCR Compra</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="ipi_4" type="text" class="validate">
+          <label for="ipi_4">IPI</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="%_ipi_4" type="text" class="validate">
+          <label for="%_ipi_4">%</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="icms_difal_4" type="text" class="validate">
+          <label for="icms_difal_4">ICMS-DIFAL</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="%_icms_difal_4" type="text" class="validate">
+          <label for="%_icms_difal_4">%</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="frete_4" type="text" class="validate">
+          <label for="frete_4">Frete</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="%_frete_4" type="text" class="validate">
+          <label for="%_frete_4">%</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="vcr_custo_4" type="text" class="validate">
+          <label for="vcr_custo_4">VCR Custo</label>
+        </div>
+       
+      </div>
+
+      <div class="row">
+<div class=" col s1">
+         5
+        </div>
+        <div class="input-field col s1">
+          <input id="marca_5" type="text" class="validate">
+          <label for="marca_5">Marca</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="modelo_5" type="text" class="validate">
+          <label for="modelo_5">Modelo</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="vcr_compra_5" type="text" class="validate">
+          <label for="vcr_compra_5">VCR Compra</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="ipi_5" type="text" class="validate">
+          <label for="ipi_5">IPI</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="%_ipi_5" type="text" class="validate">
+          <label for="%_ipi_5">%</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="icms_difal_5" type="text" class="validate">
+          <label for="icms_difal_5">ICMS-DIFAL</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="%_icms_difal_5" type="text" class="validate">
+          <label for="%_icms_difal_5">%</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="frete_5" type="text" class="validate">
+          <label for="frete_5">Frete</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="%_frete_5" type="text" class="validate">
+          <label for="%_frete_5">%</label>
+        </div>
+        <div class="input-field col s1">
+          <input id="vcr_custo_5" type="text" class="validate">
+          <label for="vcr_custo_5">VCR Custo</label>
+        </div>
+       
+      </div>
+
+
+
+
+
+
+
 </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

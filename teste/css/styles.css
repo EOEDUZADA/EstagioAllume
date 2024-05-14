@@ -583,3 +583,12 @@ table{
     width: auto;
 }
    
+
+.containerMarcas{
+
+    background-color: #d1f600;
+    border-radius: 20px;
+    padding: 10px;
+    margin: 10px;
+
+}
