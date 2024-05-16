@@ -1,6 +1,80 @@
 <?php
 session_start();
 
+
+?>
+
+<?php
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+$id = $_POST['id'];
+$host = "localhost";
+$dbname = "allume";
+$username = "root";
+$password = "";
+
+// Conexão com o banco de dados MySQL
+$dbcon = mysqli_connect($host, $username, $password, $dbname);
+
+// info do produto
+
+$sql_produtos = "SELECT * FROM produtos WHERE id_produto = $id";
+$result_sql_produtos = mysqli_query($dbcon, $sql_produtos);
+
+
+ if($result_sql_produtos) {
+
+$num_rows = mysqli_num_rows($result_sql_produtos);
+
+  if ($num_rows > 0 ) {
+   while($row = mysqli_fetch_assoc($result_sql_produtos)){
+    $id_produto = $row['id_produto'];
+    $und = $row['und'];
+    $nome_produto =  $row['nome_produto'];
+    $ncm = $row['ncm'];
+    $ean = $row['ean'];
+    $peso = $row['peso'];
+    $tamanho = $row['tamanho'];
+    $cod_barra = $row['cod_barra'];
+   }
+  }
+
+ }
+
+//melhor marca
+
+$sql_melhor_marca = "SELECT *
+FROM marcas
+WHERE vlr_custo = (SELECT MIN(vlr_custo) FROM marcas)
+AND id_produto = $id";
+
+$result_sql_melhor_marca = mysqli_query($dbcon, $sql_melhor_marca);
+
+
+ if($result_sql_melhor_marca) {
+$num_rows = mysqli_num_rows($result_sql_produtos);
+
+  if ($num_rows > 0 ) {
+   while($row = mysqli_fetch_assoc($result_sql_melhor_marca)){
+    $id_melhor_marca = $row['id_marca'];
+    $melhor_marca = $row['marca'];
+    $melhor_marca_modelo =  $row['modelo'];
+    $melhor_marca_vlr_compra = $row['vlr_compra'];
+    $melhor_marca_vlr_custo = $row['vlr_custo'];
+    $melhor_marca_id_produto = $row['id_produto'];
+   }
+  }
+
+ }
+
+
+ //marcas
+
+// Loop para executar a consulta SELECT
+    // Cria a consulta SELECT
+ 
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,52 +147,53 @@ box-shadow: 0px 0px 19px -10px rgba(0,0,0,0.75);
     </div>
 </nav>
 <div class="container-infoProduto">
-
+<form action="infoProduto.php" method="post" enctype="multipart/form-data">
+      
 <div class="container">
 <div class="row">
-    <form class="col s12 m12">
+    
       <div class="row">
         <div class="input-field col s1 m1">
-          <input  id="id_produto" type="text" class="validate">
+          <input  id="id_produto" type="text" value="<?php if ((!empty($id_produto))) { echo $id_produto;} ; ?>"class="validate">
           <label for="id_produto">ID</label>
         </div>
         <div class="input-field col s4 m4">
-          <input id="nome_produto" type="text" class="validate">
+          <input id="nome_produto" name="nome_produto" type="text" value="<?php if ((!empty($nome_produto))) { echo $nome_produto;} ; ?>" class="validate">
           <label for="nome_produto">Nome do produto</label>
         </div>
         <div class="input-field col s4 m4">
-          <input id="ncm" type="text" class="validate">
+          <input id="ncm" name="ncm" type="text" value="<?php if ((!empty($ncm))) { echo $ncm;} ; ?>" class="validate">
           <label for="ncm">NCM</label>
         </div>
         <div class="col s3 m3" id="foto">
       <div> FOTO </div>
         </div>
       </div>
-      <div class="row" id="ncm">
+      <div class="row">
       <div class="input-field col s3">
-          <input  id="unidade" type="text" class="validate">
-          <label for="unidade">Unidade</label>
+          <input  id="und" name="und" type="text" value="<?php if ((!empty($und))) { echo $und;} ; ?>" class="validate">
+          <label for="und">Unidade</label>
         </div>
         <div class="input-field col s4 offset-s2">
-          <input id="cod_ean" type="text" class="validate">
+          <input id="cod_ean" name="cod_ean" type="text" value="<?php if ((!empty($ean))) { echo $ean;} ; ?>" class="validate">
           <label for="cod_ean">Cod/EAN</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s1">
-          <input id="peso" type="text" class="validate">
+          <input id="peso" name="peso" type="text" value="<?php if ((!empty($peso))) { echo $peso;} ; ?>" class="validate">
           <label for="peso">Peso</label>
         </div>
         <div class="input-field col s2">
-          <input id="tamanho" type="text" class="validate">
+          <input id="tamanho" name="tamanho" type="text" value="<?php if ((!empty($tamanho))) { echo $tamanho;} ; ?>" class="validate">
           <label for="tamanho">Tamanho</label>
         </div>
         <div class="input-field col s4 offset-s2">
-          <input id="cod_barra" type="text" class="validate">
+          <input id="cod_barra" name="cod_barra" type="text" value="<?php if ((!empty($cod_barra))) { echo $cod_barra;} ; ?>" class="validate">
           <label for="cod_barra">Cod de barra</label>
         </div>
       </div>
-    </form>
+
   </div>
 </div>
 
@@ -128,24 +203,24 @@ box-shadow: 0px 0px 19px -10px rgba(0,0,0,0.75);
 <div class="row">
     <h5> Melhor marca </h5>
         <div class="input-field col s2">
-          <input id="melhor_marca" type="text" class="validate">
+          <input id="melhor_marca" name="melhor_marca" type="text" value="<?php if ((!empty($melhor_marca))) { echo $melhor_marca;} ; ?>"  class="validate">
           <label for="melhor_marca">Marca</label>
         </div>
         <div class="input-field col s2">
-          <input id="melhor_modelo" type="text" class="validate">
+          <input id="melhor_modelo" name="melhor_modelo" type="text" value="<?php if ((!empty($melhor_marca_modelo))) { echo $melhor_marca_modelo;} ; ?>"  class="validate">
           <label for="melhor_modelo">Modelo</label>
         </div>
         <div class="input-field col s2">
-          <input id="melhor_vcr_custo" type="text" class="validate">
-          <label for="melhor_vcr_custo">VCR Custo</label>
+          <input id="melhor_vlr_custo" name="melhor_vlr_custo" type="text" value="<?php if ((!empty($melhor_marca_vlr_custo))) { echo $melhor_marca_vlr_custo;} ; ?>"  class="validate">
+          <label for="melhor_vlr_custo">VLR Custo</label>
         </div>
         <div class="input-field col s2">
-          <input id="melhor_markup" type="text" class="validate">
-          <label for="melhor_markup">MARKUP</label>
+          <input id="markup" name="markup" type="text" class="validate">
+          <label for="markup">MARKUP</label>
         </div>
         <div class="input-field col s2">
-          <input id="melhor_vcr_venda" type="text" class="validate">
-          <label for="melhor_vcr_venda">VCR Venda</label>
+          <input id="melhor_vlr_venda" name="melhor_vlr_venda" type="text"  class="validate">
+          <label for="melhor_vlr_venda">VLR Venda</label>
         </div>
       </div>
 </div>
@@ -156,15 +231,15 @@ box-shadow: 0px 0px 19px -10px rgba(0,0,0,0.75);
 <div class="row">
     <h5> Estoque </h5>
         <div class="input-field col s2">
-          <input id="localizacao_estoque" type="text" class="validate">
+          <input id="localizacao_estoque" name="localizacao_estoque" type="text" class="validate">
           <label for="localizacao_estoque">Localização no estoque</label>
         </div>
         <div class="input-field col s2">
-          <input id="estoque_atual" type="text" class="validate">
+          <input id="estoque_atual" name="estoque_atual" type="text" class="validate">
           <label for="estoque_atual">Estoque atual</label>
         </div>
         <div class="input-field col s2">
-          <input id="estoque_minimo" type="text" class="validate">
+          <input id="estoque_minimo" name="estoque_minimo" type="text" class="validate">
           <label for="estoque_minimo">Estoque mínimo</label>
         </div>
         <div class="input-field col s2">
@@ -176,250 +251,72 @@ box-shadow: 0px 0px 19px -10px rgba(0,0,0,0.75);
 
 
 <div class="container">
+    <h5>Marcas</h5>
+<?php
+$i= 0;
+    $resultados = array();
+    $sql_marcas = "SELECT * FROM marcas where id_produto = $id ";
+    $result_query_marcas = mysqli_query($dbcon,$sql_marcas);
+    while($i < 5) {
+$row = mysqli_fetch_assoc($result_query_marcas);
 
-<div class="row">
-<div class=" col s1">
-         1
-        </div>
-        <div class="input-field col s1">
-          <input id="marca_1" type="text" class="validate">
-          <label for="marca_1">Marca</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="modelo_1" type="text" class="validate">
-          <label for="modelo_1">Modelo</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="vcr_compra_1" type="text" class="validate">
-          <label for="vcr_compra_1">VCR Compra</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="ipi_1" type="text" class="validate">
-          <label for="ipi_1">IPI</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="%_ipi_1" type="text" class="validate">
-          <label for="%_ipi_1">%</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="icms_difal_1" type="text" class="validate">
-          <label for="icms_difal_1">ICMS-DIFAL</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="%_icms_difal_1" type="text" class="validate">
-          <label for="%_icms_difal_1">%</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="frete_1" type="text" class="validate">
-          <label for="frete_1">Frete</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="%_frete_1" type="text" class="validate">
-          <label for="%_frete_1">%</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="vcr_custo_1" type="text" class="validate">
-          <label for="vcr_custo_1">VCR Custo</label>
-        </div>
-       
-      </div>
+$i++;
 
+    echo '<div class="row">' . PHP_EOL;
+    echo '<div class="col s1">' . $i . '</div>' . PHP_EOL;
+    echo '<div class="input-field col s1">' . PHP_EOL;
+    echo '<input id="marca_' . $i . '" name="marca_' . $i . '" value="' . ($row['marca'] ?? '') . '" type="text" class="validate">' . PHP_EOL;
+    echo '<label for="marca_' . $i . '">Marca</label>' . PHP_EOL;
+    echo '</div>' . PHP_EOL;
+    echo '<div class="input-field col s2">' . PHP_EOL;
+    echo '<input id="modelo_' . $i . '" name="modelo_' . $i . '" value="' . ($row['modelo'] ?? '') . '" type="text" class="validate">' . PHP_EOL;
+    echo '<label for="modelo_' . $i . '">Modelo</label>' . PHP_EOL;
+    echo '</div>' . PHP_EOL;
+    echo '<div class="input-field col s1">' . PHP_EOL;
+    echo '<input id="vlr_compra_' . $i . '" name="vlr_compra_' . $i . '" value="' . ($row['vlr_compra'] ?? '') . '" type="text" class="validate">' . PHP_EOL;
+    echo '<label for="vlr_compra_' . $i . '">VLR Compra</label>' . PHP_EOL;
+    echo '</div>' . PHP_EOL;
+    echo '<div class="input-field col s1">' . PHP_EOL;
+    echo '<input id="ipi_' . $i . '" name="ipi_' . $i . '"  type="text" class="validate">' . PHP_EOL;
+    echo '<label for="ipi_' . $i . '">IPI</label>' . PHP_EOL;
+    echo '</div>' . PHP_EOL;
+    echo '<div class="input-field col s1">' . PHP_EOL;
+    echo '<input id="%_ipi_' . $i . '" name="%_ipi_' . $i . '" type="text" class="validate">' . PHP_EOL;
+    echo '<label for="%_ipi_' . $i . '">%</label>' . PHP_EOL;
+    echo '</div>' . PHP_EOL;
+    echo '<div class="input-field col s1">' . PHP_EOL;
+    echo '<input id="icms_difal_' . $i . '" name="icms_difal_' . $i . '" type="text" class="validate">' . PHP_EOL;
+    echo '<label for="icms_difal_' . $i . '">ICMS-DIFAL</label>' . PHP_EOL;
+    echo '</div>' . PHP_EOL;
+    echo '<div class="input-field col s1">' . PHP_EOL;
+    echo '<input id="%_icms_difal_' . $i . '" name="%_icms_difal_' . $i . '" type="text" class="validate">' . PHP_EOL;
+    echo '<label for="%_icms_difal_' . $i . '">%</label>' . PHP_EOL;
+    echo '</div>' . PHP_EOL;
+    echo '<div class="input-field col s1">' . PHP_EOL;
+    echo '<input id="frete_' . $i . '" name="frete_' . $i . '" type="text" class="validate">' . PHP_EOL;
+    echo '<label for="frete_' . $i . '">Frete</label>' . PHP_EOL;
+    echo '</div>' . PHP_EOL;
+    echo '<div class="input-field col s1">' . PHP_EOL;
+    echo '<input id="%_frete_' . $i . '" name="%_frete_' . $i . '" type="text" class="validate">' . PHP_EOL;
+    echo '<label for="%_frete_' . $i . '">%</label>' . PHP_EOL;
+    echo '</div>' . PHP_EOL;
+    echo '<div class="input-field col s1">' . PHP_EOL;
+    echo '<input id="vlr_custo_' . $i . '" name="vlr_custo_' . $i . '" value="' . ($row['vlr_custo_'] ?? '') . '" type="text" class="validate">' . PHP_EOL;
+    echo '<label for="vlr_custo_' . $i . '">VLR Custo</label>' . PHP_EOL;
+    echo '</div>' . PHP_EOL;
+    echo '</div>' . PHP_EOL;
 
-      <div class="row">
-<div class=" col s1">
-         2
-        </div>
-        <div class="input-field col s1">
-          <input id="marca_2" type="text" class="validate">
-          <label for="marca_2">Marca</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="modelo_2" type="text" class="validate">
-          <label for="modelo_2">Modelo</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="vcr_compra_2" type="text" class="validate">
-          <label for="vcr_compra_2">VCR Compra</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="ipi_2" type="text" class="validate">
-          <label for="ipi_2">IPI</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="%_ipi_2" type="text" class="validate">
-          <label for="%_ipi_2">%</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="icms_difal_2" type="text" class="validate">
-          <label for="icms_difal_2">ICMS-DIFAL</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="%_icms_difal_2" type="text" class="validate">
-          <label for="%_icms_difal_2">%</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="frete_2" type="text" class="validate">
-          <label for="frete_2">Frete</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="%_frete_2" type="text" class="validate">
-          <label for="%_frete_2">%</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="vcr_custo_2" type="text" class="validate">
-          <label for="vcr_custo_2">VCR Custo</label>
-        </div>
-       
-      </div>
+    }
 
-      <div class="row">
-<div class=" col s1">
-         3
-        </div>
-        <div class="input-field col s1">
-          <input id="marca_3" type="text" class="validate">
-          <label for="marca_3">Marca</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="modelo_3" type="text" class="validate">
-          <label for="modelo_3">Modelo</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="vcr_compra_3" type="text" class="validate">
-          <label for="vcr_compra_3">VCR Compra</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="ipi_3" type="text" class="validate">
-          <label for="ipi_3">IPI</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="%_ipi_3" type="text" class="validate">
-          <label for="%_ipi_3">%</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="icms_difal_3" type="text" class="validate">
-          <label for="icms_difal_3">ICMS-DIFAL</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="%_icms_difal_3" type="text" class="validate">
-          <label for="%_icms_difal_3">%</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="frete_3" type="text" class="validate">
-          <label for="frete_3">Frete</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="%_frete_3" type="text" class="validate">
-          <label for="%_frete_3">%</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="vcr_custo_3" type="text" class="validate">
-          <label for="vcr_custo_3">VCR Custo</label>
-        </div>
-       
-      </div>
-
-      <div class="row">
-<div class=" col s1">
-         4
-        </div>
-        <div class="input-field col s1">
-          <input id="marca_4" type="text" class="validate">
-          <label for="marca_4">Marca</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="modelo_4" type="text" class="validate">
-          <label for="modelo_4">Modelo</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="vcr_compra_4" type="text" class="validate">
-          <label for="vcr_compra_4">VCR Compra</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="ipi_4" type="text" class="validate">
-          <label for="ipi_4">IPI</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="%_ipi_4" type="text" class="validate">
-          <label for="%_ipi_4">%</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="icms_difal_4" type="text" class="validate">
-          <label for="icms_difal_4">ICMS-DIFAL</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="%_icms_difal_4" type="text" class="validate">
-          <label for="%_icms_difal_4">%</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="frete_4" type="text" class="validate">
-          <label for="frete_4">Frete</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="%_frete_4" type="text" class="validate">
-          <label for="%_frete_4">%</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="vcr_custo_4" type="text" class="validate">
-          <label for="vcr_custo_4">VCR Custo</label>
-        </div>
-       
-      </div>
-
-      <div class="row">
-<div class=" col s1">
-         5
-        </div>
-        <div class="input-field col s1">
-          <input id="marca_5" type="text" class="validate">
-          <label for="marca_5">Marca</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="modelo_5" type="text" class="validate">
-          <label for="modelo_5">Modelo</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="vcr_compra_5" type="text" class="validate">
-          <label for="vcr_compra_5">VCR Compra</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="ipi_5" type="text" class="validate">
-          <label for="ipi_5">IPI</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="%_ipi_5" type="text" class="validate">
-          <label for="%_ipi_5">%</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="icms_difal_5" type="text" class="validate">
-          <label for="icms_difal_5">ICMS-DIFAL</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="%_icms_difal_5" type="text" class="validate">
-          <label for="%_icms_difal_5">%</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="frete_5" type="text" class="validate">
-          <label for="frete_5">Frete</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="%_frete_5" type="text" class="validate">
-          <label for="%_frete_5">%</label>
-        </div>
-        <div class="input-field col s1">
-          <input id="vcr_custo_5" type="text" class="validate">
-          <label for="vcr_custo_5">VCR Custo</label>
-        </div>
-       
-      </div>
-
-
-
-
-
-
-
+    
+   
+    ?>
 </div>
+      
+            <p class="enviar right"><input type="submit" value="Salvar"></p>
+        </form>
+
+
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

@@ -32,7 +32,12 @@ if (isset($_POST['query'])) {
     $query = $_POST['query'];
     $tab = $_POST['tab'];
     // Consulta SQL para pesquisar no banco de dados
-    $sql = "SELECT * FROM produtos WHERE desc_produto LIKE :query ORDER BY valor_cadastro_produto ASC LIMIT 1  ";
+    $sql = "SELECT p.*, m.*
+    FROM produtos p
+    INNER JOIN marcas m ON p.id_produto = m.id_produto
+    WHERE p.nome_produto LIKE :query
+    ORDER BY m.vlr_custo ASC
+    LIMIT 1";
     $stmt = $conn->prepare($sql);
     $stmt->bindValue(':query', '%' . $query . '%');
     $stmt->execute();
@@ -64,7 +69,7 @@ if (isset($_POST['query'])) {
                 $tab = $_POST['tab'];
           
                 
-                    $sql = "SELECT * FROM produtos WHERE desc_produto LIKE :query";
+                    $sql = "SELECT * FROM produtos WHERE nome_produto LIKE :query";
                     $stmt = $conn->prepare($sql);
                     $stmt->bindValue(':query', '%' . $query . '%');
                     $stmt->execute();
@@ -117,7 +122,7 @@ if (isset($_POST['query'])) {
                
 
             echo "<div class='collection'>";
-            echo "<a href='#' class='collection-item resultado_pesquisa_$tab' data-marca_produto_$tab='" . $row['marca_produto'] . "' data-modelo_produto_$tab='" . $row['modelo_produto'] .   "' data-valor_custo_produto_$tab='" . $row['valor_custo_produto'] . "' data-valor_minimo_produto_$tab='" . $row['valor_minimo_produto'] . "' data-valor_cadastro_produto_$tab='" . $row['valor_cadastro_produto'] . "' data-id_produto_$tab='" . $row['id_produto'] . "' data-und_produto_$tab='" . $row['und_produto'] . "' >" . $row['desc_produto'] . "</a>";
+            echo "<a href='#' class='collection-item resultado_pesquisa_$tab' data-marca_produto_$tab='" . $row['marca'] . "' data-modelo_produto_$tab='" . $row['modelo'] .   "' data-valor_custo_produto_$tab='" . $row['vlr_custo'] . "' data-valor_minimo_produto_$tab='" . $row['valor_minimo_produto'] . "' data-valor_cadastro_produto_$tab='" . $row['valor_cadastro_produto'] . "' data-id_produto_$tab='" . $row['id_produto'] . "' data-und_produto_$tab='" . $row['und_produto'] . "' >" . $row['nome_produto'] . "</a>";
             echo "</div>";
 
 

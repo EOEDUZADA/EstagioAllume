@@ -1,39 +1,21 @@
 CREATE TABLE produtos (
- id_produto serial primary key,   
- und_produto varchar(255),
+ id_produto INT AUTO_INCREMENT PRIMARY KEY,   
+ und varchar(255),
  nome_produto varchar(255),
- ncm_produto varchar(255),
- ean_produto varchar(255),
- peso_produto varchar(255),
- tamanho_produto varchar(255),
- cod_barra_produto varchar(255),
- valor_referencia_produto float,
- valor_custo_produto float,
- valor_minimo_produto float,
- 
- marca_1 varchar(255),
- modelo_1 varchar(255),
- vcr_compra_1 varchar(255),
- vcr_custo_1 varchar(255),
+ ncm varchar(255),
+ ean varchar(255),
+ peso varchar(255),
+ tamanho varchar(255),
+ cod_barra varchar(255)
+ );
 
-marca_2 varchar(255),
- modelo_2 varchar(255),
- vcr_compra_2 varchar(255),
- vcr_custo_2 varchar(255),
 
-  marca_3 varchar(255),
- modelo_3 varchar(255),
- vcr_compra_3 varchar(255),
- vcr_custo_3 varchar(255),
-
-  marca_4 varchar(255),
- modelo_4 varchar(255),
- vcr_compra_4 varchar(255),
- vcr_custo_4 varchar(255),
-
- marca_5 varchar(255),
- modelo_5 varchar(255),
- vcr_compra_5 varchar(255),
- vcr_custo_5 varchar(255)
+CREATE TABLE marcas(
+ id_marca INT AUTO_INCREMENT PRIMARY KEY,
+ marca varchar(255),
+ modelo varchar(255),
+ vcr_compra varchar(255),
+ vcr_custo varchar(255),
+ id_produto int,
+ FOREIGN KEY (id_produto) REFERENCES produtos(id_produto)
 );
-

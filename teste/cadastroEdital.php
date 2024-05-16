@@ -120,76 +120,56 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             novoInput.type = "file";
             novoInput.name = "fileUpload";
 
-            var formulario = document.getElementById("formulario_edital");
+            
+            var formulario = document.getElementById("novoupload");
             formulario.appendChild(novoInput);
         }
 
-    
+        function adicionarNovoProduto() {
+        var novaLinha = document.createElement('div');
+        novaLinha.className = 'row';
 
-function adicionarNovoProduto() {
-    
+        novaLinha.innerHTML = `
+            <div class="col s4">
+                <div class="input-field">
+                    <input id="input1" type="text" name="desc_produto_edital[]" class="validate">
+                    <label for="input1">Descrição Produto</label>
+                </div>
+            </div>
+            <div class="col s1">
+                <div class="input-field">
+                    <input id="input2" type="text" name="item_edital[]" class="validate">
+                    <label for="input2">Item</label>
+                </div>
+            </div>
+            <div class="col s2">
+                <div class="input-field">
+                    <input id="input3" type="text" name="valor_unit_ref_produto_edital[]" class="validate">
+                    <label for="input3">Valor de referência</label>
+                </div>
+            </div>
+            <div class="col s2">
+                <div class="input-field">
+                    <input id="input4" type="text" name="lote_produto_edital" class="validate">
+                    <label for="input4">lote</label>
+                </div>
+            </div>
+            <div class="col s2">
+                <div class="input-field">
+                    <input id="input5" type="text" name="qtd_produto_edital" class="validate">
+                    <label for="input5">Quantidade</label>
+                </div>
+            </div>
+            <div class="col s1">
+                <div class="input-field">
+                    <input id="input6" type="text" name="und_produto_edital" class="validate">
+                    <label for="input6">UND</label>
+                </div>
+            </div>
+        `;
 
-    // Cria um novo elemento div para agrupar os inputs do produto
-    var novoContainerProdutos = document.createElement("div");
-    novoContainerProdutos.className = "containerProdutos";
-   
-   var pLoteProdutoEdital = document.createElement("p");
-    pLoteProdutoEdital.innerHTML = "Lote";
-    var InputLoteProdutoEdital = document.createElement("input");
-    InputLoteProdutoEdital.type = "text";
-    InputLoteProdutoEdital.name = "lote_produto_edital"; // Correção: adicione [] ao nome
-    pLoteProdutoEdital.appendChild(InputLoteProdutoEdital);
-
-    // Cria os inputs para o novo produto
-    var pItemEdital = document.createElement("p");
-    pItemEdital.innerHTML = "Item";
-    var InputItemEdital = document.createElement("input");
-    InputItemEdital.type = "text";
-    InputItemEdital.name = "item_edital[]"; // Correção: adicione [] ao nome
-    pItemEdital.appendChild(InputItemEdital);
-
-    var pDescProdutoEdital = document.createElement("p");
-    pDescProdutoEdital.innerHTML = "Descrição do produto";
-    var InputDescProdutoEdital = document.createElement("input");
-    InputDescProdutoEdital.type = "text";
-    InputDescProdutoEdital.name = "desc_produto_edital[]"; // Correção: adicione [] ao nome
-    pDescProdutoEdital.appendChild(InputDescProdutoEdital);
-
-    
-    var pQuantidadeProdutoEdital = document.createElement("p");
-    pQuantidadeProdutoEdital.innerHTML = "Quantidade";
-    var InputQuantidadeProdutoEdital = document.createElement("input");
-    InputQuantidadeProdutoEdital.type = "text";
-    InputQuantidadeProdutoEdital.name = "qtd_produto_edital"; // Correção: adicione [] ao nome
-    pQuantidadeProdutoEdital.appendChild(InputQuantidadeProdutoEdital);
-
-
-    var pUndProdutoEdital = document.createElement("p");
-    pUndProdutoEdital.innerHTML = "UND";
-    var InputUndProdutoEdital = document.createElement("input");
-    InputUndProdutoEdital.type = "text";
-    InputUndProdutoEdital.name = "und_produto_edital"; // Correção: adicione [] ao nome
-    pUndProdutoEdital.appendChild(InputUndProdutoEdital);
-
-
-    var pValorRefProdutoEdital = document.createElement("p");
-    pValorRefProdutoEdital.innerHTML = "Valor de referência";
-    var InputValorRefProdutoEdital = document.createElement("input");
-    InputValorRefProdutoEdital.type = "text";
-    InputValorRefProdutoEdital.name = "valor_unit_ref_produto_edital[]"; // Correção: adicione [] ao nome
-    pValorRefProdutoEdital.appendChild(InputValorRefProdutoEdital);
-
-    novoContainerProdutos.appendChild(pLoteProdutoEdital);
-    novoContainerProdutos.appendChild(pItemEdital);
-    novoContainerProdutos.appendChild(pValorRefProdutoEdital);
-    novoContainerProdutos.appendChild(pDescProdutoEdital);
-    novoContainerProdutos.appendChild(pQuantidadeProdutoEdital);
-    novoContainerProdutos.appendChild(pUndProdutoEdital);
-
-    // Adiciona o container de produtos ao formulário
-    var formulario = document.getElementById("formulario_edital");
-    formulario.appendChild(novoContainerProdutos);
-}
+        document.querySelector('.produtos').appendChild(novaLinha);
+    }
 
 
         function validarFormulario() {
@@ -300,8 +280,7 @@ box-shadow: 0px 0px 6px 0px rgba(59,59,59,0.75);
     }
 
     input[type="text"],
-    input[type="file"],
-    input[type="submit"] {
+    input[type="file"]{
         margin-bottom: 15px;
         padding: 10px;
         border-bottom: 1px solid yellow;
@@ -315,9 +294,19 @@ box-shadow: 0px 0px 6px 0px rgba(59,59,59,0.75);
         background-color: black;
         color: #fff;
         cursor: pointer;
+        margin-bottom: 15px;
+        padding: 10px;
+        border-bottom: 1px solid yellow;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        
+        box-sizing: border-box;
     }
 
     input[type="submit"]:hover {
+        background-color: green;
+    }
+    .material-icons:hover{
         background-color: green;
     }
 
@@ -337,6 +326,27 @@ box-shadow: 0px 0px 6px 0px rgba(59,59,59,0.75);
         border: 2px solid #ffffff;
     }
 
+    .container-edital {
+            margin-top: 100px;
+            display:flex;
+            justify-content:center;
+        }
+
+        .card.small{
+            height: auto;
+        }
+
+        .card {
+            border-radius: 15px;
+        }
+        .card-title {
+            font-weight: bold;
+        }
+        .main-content{
+            background-color:white;
+            width:85vw;
+        }
+
 </style>
 <body>
 
@@ -347,71 +357,136 @@ box-shadow: 0px 0px 6px 0px rgba(59,59,59,0.75);
         <i class="large material-icons brand-logo right" style="font-size: 50px;">account_circle</i>
     </div>
 </nav>
+<form id="formulario_edital" action="cadastroEdital.php" method="post" enctype="multipart/form-data">
 
-<div class="container">
-    <h2>Cadastro de edital</h2>
-    <form id="formulario_edital" action="editais.php" method="post" enctype="multipart/form-data">
-        <p>Nome do orgão <input type="text" name="nome_orgao_edital" required /></p>
-        <p>Numero do edital <input type="text" name="numero_edital" required /></p>
-        <p>Numero do processo <input type="text" name="numero_processo" /></p>
-        <p>Documento é SRP?</p>
-        <p>
-            <label>
-                <input name="tipo_documento" type="radio" value="SRP" />
-                <span>Sim</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input name="tipo_documento" type="radio" value="NORMAL" />
-                <span>Não</span>
-            </label>
-        </p>
-        <p>Tipo de fornecimento</p>
-        <p>
-            <label>
-                <input name="tipo_fornecimento" type="radio" value="PRODUTO" />
-                <span>Produto</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input name="tipo_fornecimento" type="radio" value="SERVIÇO" />
-                <span>Serviço</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input name="tipo_fornecimento" type="radio" value="PRODUTOS_SERVIÇOS" />
-                <span>Produtos e Serviços</span>
-            </label>
-        </p>
+<div class="container-edital" id="formulario_edital" action="cadastroEdital.php" method="post" enctype="multipart/form-data">
+    <div class="main-content">
+        
+        <h5 class="card-title black-text">Cadastro de edital</h5>
+        <hr><br>
+        
+        <div class="row">
+            <div class="col s12 m12">
+                <div class="card small white darken-1">
+                    <div class="card-content black-text" id="novoupload">
+                        <div class="row">
+                            <div class="col s9">
+                                <p>Cliente <input type="text" name="nome_orgao_edital" /></p>
+                            </div>
+                            <div class="col s3">
+                                <p>Número do Edital <input type="text" name="numero_edital" /></p>
+                                <br>
+                            </div>
+                            <div class="col s3">
+                                <p>Número do processo <input type="text" name="numero_processo" /></p>
+                            </div>
+                        </div>
+                        
+                        <div class="col s12">
+                            <br>
+                            <div class="row">
+                                <div class="col s6">
+                                    <p>Documento é SRP?</p>
+                                    <p>
+                                        <label>
+                                            <input name="tipo_documento" type="radio" value="SRP" />
+                                            <span>Sim</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input name="tipo_documento" type="radio" value="NORMAL" />
+                                            <span>Não</span>
+                                        </label>
+                                    </p>
+                                </div>
+                                <div class="col s2 offset-s4">
+                                    <p>Data final <input type="datetime-local" name="data_final_edital" required /></p> <!-- Colocar hora -->
+                                </div>
+                            </div>
+                        </div>
+                        <br>
 
-        <p>Modalidade do edital</p>
-        <p>
-            <label>
-                <input name="modalidade_edital" type="radio" value="SRP" />
-                <span>Sim</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input name="modalidade_edital" type="radio" value="NORMAL" />
-                <span>Não</span>
-            </label>
-        </p>
-      
-        <p>Data final <input type="datetime-local" name="data_final_edital" required /></p> <!-- Colocar hora -->
-        <p>Data limite para orçamento <input type="datetime-local" name="data_limite_orcamento" required /></p>  <!-- Colocar hora -->
+                        <div class="col s12">
+                            <br>
+                            <div class="row">
+                                <div class="col s6">
+                                    <p>Tipo de fornecimento</p>
+                                    <p>
+                                        <label>
+                                            <input name="tipo_fornecimento" type="radio" value="PRODUTO" />
+                                            <span>Produto</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input name="tipo_fornecimento" type="radio" value="SERVIÇO" />
+                                            <span>Serviço</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input name="tipo_fornecimento" type="radio" value="PRODUTOS_SERVIÇOS" />
+                                            <span>Produtos e Serviços</span>
+                                        </label>
+                                    </p>
+                                </div>
+                                <div class="col s2 offset-s4">
+                                    <p>Data limite para orçamento <input type="datetime-local" name="data_limite_orcamento" required /></p> <!-- Colocar hora -->
+                                </div>
+                            </div>
+                        </div>
+                        <br>
 
-        <input type="file" name="fileUpload[]" multiple>
-    </form>
-    <p id="botaoAdicionarProduto" onclick="adicionarNovoProduto()" class="enviar"><input type="button" class="blue-text" value="Adicionar novo Produto"></p>
-    <p onclick="adicionarNovoUpload()" class="enviar"><input type="submit" value="Adicionar novo upload"></p>
-    <p class="enviar"><input id="botaoEnviar" type="submit" value="Inserir" onclick="enviarFormulario()"></p>
-    <p id="erroPreencher" class="red-text"> </p>
+                        <div class="col s12">
+                            <br>
+                            <p>Modalidade do edital</p>
+                            <p>
+                                <label>
+                                    <input name="modalidade_edital" type="radio" value="SRP" />
+                                    <span>Sim</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input name="modalidade_edital" type="radio" value="NORMAL" />
+                                    <span>Não</span>
+                                </label>
+                            </p>
+                            <br>
+                        </div>
+                        <br>   
+                        <p onclick="adicionarNovoUpload()" class="enviar"><input type="submit" value="Adicionar novo upload"></p>
+                        <input type="file" name="fileUpload[]" multiple>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+
+    <h5 class="card-title black-text">Produtos</h5>
+    <hr><br>
+        
+    <div class="row"> 
+        <div class="col s12 m12">
+            <div class="card small white darken-1">
+                <div class="card-content black-text">
+                    <p id="botaoAdicionarProduto" onclick="adicionarNovoProduto()" class="enviar">
+                        <a class="btn-floating btn-small waves-effect waves-light black">
+                        <i class="material-icons">add</i>
+                        </a>
+                    </p>
+                    <div class="produtos"></div>
+                </div>
+            </div>
+        </div>
+            <p class="enviar"><input id="botaoEnviar" type="submit" value="Inserir" onclick="enviarFormulario()"></p>
+            <p id="erroPreencher" class="red-text"> </p>
+    </div>
+
 </div>
-
+    </form>
 
 <!-- Scripts Materialize -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

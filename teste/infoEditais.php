@@ -164,278 +164,250 @@ $numero_edital = $row['numero_edital'];
 
 
 <div class="container-infoEditais">
-
-<div class="main-content">
-    
-    <h5 class="card-title black-text">Dados do Edital</h5> <hr><br>
-    
-    <div class="row">
-        <div class="col s12 m12">
-            <div class="row">
-                <div class="card small white darken-1">
-                <div class="card-content black-text">
-                    <div class="col s9">
-                            <p> Cliente <input type="text" value=<?php echo $nome_orgao;?> /></p>
-                    </div>
-                    <div class="col s3">
-                            <p> Número do Edital <input type="text" value=<?php echo $numero_edital;?> /></p>
-                            <br>
-                    </div>
-                    <div class="col s3">
-                            <p> Número do processo <input type="text" value=<?php echo $numero_processo_edital;?> /></p>
-                            
-                    </div>
-                
-
-                <div class="col s12">
-                    <br>
-            <div class="row">
-                <div class="col s6">
-                    <p>Documento é SRP?</p>
-                <p>
-                    <label>
-                        <input name="tipo_documento" type="radio" value="SRP" />
-                        <span>Sim</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input name="tipo_documento" type="radio" value="NORMAL" />
-                        <span>Não</span>
-                    </label>
-                </p>
-            </div>
-                <div class="col s2 offset-s4">
-                    <p>Data final <input type="datetime-local" name="data_final_edital" required /></p> <!-- Colocar hora -->
-                </div>
-        </div>
-                </div>
-                <br>
-                <div class="col s12">
-                    <br>
-
-            <div class="row">
-                <div class="col s6">
-                    <p>Tipo de fornecimento</p>
-                <p>
-                    <label>
-                        <input name="tipo_fornecimento" type="radio" value="PRODUTO" />
-                        <span>Produto</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input name="tipo_fornecimento" type="radio" value="SERVIÇO" />
-                        <span>Serviço</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input name="tipo_fornecimento" type="radio" value="PRODUTOS_SERVIÇOS" />
-                        <span>Produtos e Serviços</span>
-                    </label>
-                </p>
-    </div>
-            <div class="col s2 offset-s4">
-                <p>Data limite para orçamento <input type="datetime-local" name="data_limite_orcamento" required /></p>  <!-- Colocar hora -->
-            </div>
-            
-            </div>
-                </div>
-                <br>
-
-            <div class="col s12">
-                    <br>
-            <p>Modalidade do edital</p>
-                <p>
-                    <label>
-                        <input name="modalidade_edital" type="radio" value="SRP" />
-                        <span>Sim</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input name="modalidade_edital" type="radio" value="NORMAL" />
-                        <span>Não</span>
-                    </label>
-                </p>
+    <div class="main-content">
+        <h5 class="card-title black-text">Dados do Edital</h5>
+        <hr><br>
         
-    </div>      
-                
-            </div>
-            </div>
-        </div>
+        <div class="row">
+            <div class="col s12 m12">
+                <div class="row">
+                    <div class="card small white darken-1">
+                        <div class="card-content black-text">
+                            <div class="col s9">
+                                <p> Cliente <input type="text" value="<?php echo $nome_orgao;?>" /></p>
+                            </div>
+                            <div class="col s3">
+                                <p> Número do Edital <input type="text" value="<?php echo $numero_edital;?>" /></p>
+                                <br>
+                            </div>
+                            <div class="col s3">
+                                <p> Número do processo <input type="text" value="<?php echo $numero_processo_edital;?>" /></p>
+                            </div>
 
-    </div>
-       
-
-
-        <h5 class="card-title black-text">Produtos</h5> <hr><br>
-
-<div class="row"> 
-      <div class="col s12 m12">
-                        <div class="card small white darken-1">
-                            <div class="card-content black-text">
-    <?php
-    $host = "localhost";
-    $dbname = "allume";
-    $username = "root";
-    $password = "";
-
-    // Conexão com o banco de dados MySQL
-    $dbcon = mysqli_connect($host, $username, $password, $dbname);
-
-    // Verifica se a conexão foi bem sucedida
-    $query_editais = "SELECT * FROM produtos_conciliados WHERE id_edital = $id";
-    $result_editais = mysqli_query($dbcon, $query_editais);
-
-    if ($result_editais) {
-        $num_rows = mysqli_num_rows($result_editais);
-
-        if ($num_rows > 0) {
-            while ($row = mysqli_fetch_assoc($result_editais)) {
-             
-                             echo  '<div class="row">
-                                    <div class="col s4">
-                                        <div class="input-field">
-                                            <input id="input1" type="text" class="validate " value="' . $row['desc_produto'] . '" readonly>
-                                            <label for="input1">Produto</label>
-                                        </div>
+                            <div class="col s12">
+                                <br>
+                                <div class="row">
+                                    <div class="col s6">
+                                        <p>Documento é SRP?</p>
+                                        <p>
+                                            <label>
+                                                <input name="tipo_documento" type="radio" value="SRP" />
+                                                <span>Sim</span>
+                                            </label>
+                                        </p>
+                                        <p>
+                                            <label>
+                                                <input name="tipo_documento" type="radio" value="NORMAL" />
+                                                <span>Não</span>
+                                            </label>
+                                        </p>
                                     </div>
-                                    <div class="col s1">
-                                        <div class="input-field">
-                                            <input id="input2" type="text" class="validate " value="' . $row['marca_produto'] . '" readonly>
-                                            <label for="input2">Marca</label>
-                                        </div>
-                                    </div>
-                                    <div class="col s1">
-                                        <div class="input-field">
-                                            <input id="input3" type="text" class="validate " value="' . $row['modelo_produto'] . '" readonly>
-                                            <label for="input3">Modelo</label>
-                                        </div>
-                                    </div>
-                                    <div class="col s2">
-                                        <div class="input-field">
-                                            <input id="input4" type="text" class="validate " value="' . $row['valor_cadastro_produto'] . '" readonly>
-                                            <label for="input4">Valor Cadastro</label>
-                                        </div>
-                                    </div>
-                                    <div class="col s2">
-                                        <div class="input-field">
-                                            <input id="input5" type="text" class="validate " value="' . $row['valor_minimo_produto'] . '" readonly>
-                                            <label for="input5">Valor Mínimo</label>
-                                        </div>
-                                    </div>
-                                    <div class="col s2">
-                                    <div class="input-field">
-                                        <input id="input6" type="text" class="validate " value="' . $row['qtd_produto'] . '" readonly>
-                                        <label for="input6">QTD</label>
+                                    <div class="col s2 offset-s4">
+                                        <p>Data final <input type="datetime-local" name="data_final_edital" required /></p> <!-- Colocar hora -->
                                     </div>
                                 </div>
-                                </div>';
-                            
-            }
-        }
-    }
-    ?>
-    </div>
+                            </div>
+                            <br>
+
+                            <div class="col s12">
+                                <br>
+                                <div class="row">
+                                    <div class="col s6">
+                                        <p>Tipo de fornecimento</p>
+                                        <p>
+                                            <label>
+                                                <input name="tipo_fornecimento" type="radio" value="PRODUTO" />
+                                                <span>Produto</span>
+                                            </label>
+                                        </p>
+                                        <p>
+                                            <label>
+                                                <input name="tipo_fornecimento" type="radio" value="SERVIÇO" />
+                                                <span>Serviço</span>
+                                            </label>
+                                        </p>
+                                        <p>
+                                            <label>
+                                                <input name="tipo_fornecimento" type="radio" value="PRODUTOS_SERVIÇOS" />
+                                                <span>Produtos e Serviços</span>
+                                            </label>
+                                        </p>
+                                    </div>
+                                    <div class="col s2 offset-s4">
+                                        <p>Data limite para orçamento <input type="datetime-local" name="data_limite_orcamento" required /></p>  <!-- Colocar hora -->
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="col s12">
+                                <br>
+                                <p>Modalidade do edital</p>
+                                <p>
+                                    <label>
+                                        <input name="modalidade_edital" type="radio" value="SRP" />
+                                        <span>Sim</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input name="modalidade_edital" type="radio" value="NORMAL" />
+                                        <span>Não</span>
+                                    </label>
+                                </p>
+                            </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
 
-</div>
+        <h5 class="card-title black-text">Produtos</h5>
+        <hr><br>
 
-    <br>
-   
+        <div class="row"> 
+            <div class="col s12 m12">
+                <div class="card small white darken-1">
+                    <div class="card-content black-text">
+                        <?php
+                        $host = "localhost";
+                        $dbname = "allume";
+                        $username = "root";
+                        $password = "";
 
-        <h5 class="card-title black-text">Totais do Edital</h5> <hr><br>
-    
-    <div class="row">
+                        // Conexão com o banco de dados MySQL
+                        $dbcon = mysqli_connect($host, $username, $password, $dbname);
+
+                        // Verifica se a conexão foi bem sucedida
+                        $query_editais = "SELECT * FROM produtos_conciliados WHERE id_edital = $id";
+                        $result_editais = mysqli_query($dbcon, $query_editais);
+
+                        if ($result_editais) {
+                            $num_rows = mysqli_num_rows($result_editais);
+
+                            if ($num_rows > 0) {
+                                while ($row = mysqli_fetch_assoc($result_editais)) {
+                                    echo  '<div class="row">
+                                            <div class="col s4">
+                                                <div class="input-field">
+                                                    <input id="input1" type="text" class="validate " value="' . $row['desc_produto'] . '" readonly>
+                                                    <label for="input1">Produto</label>
+                                                </div>
+                                            </div>
+                                            <div class="col s1">
+                                                <div class="input-field">
+                                                    <input id="input2" type="text" class="validate " value="' . $row['marca_produto'] . '" readonly>
+                                                    <label for="input2">Marca</label>
+                                                </div>
+                                            </div>
+                                            <div class="col s1">
+                                                <div class="input-field">
+                                                    <input id="input3" type="text" class="validate " value="' . $row['modelo_produto'] . '" readonly>
+                                                    <label for="input3">Modelo</label>
+                                                </div>
+                                            </div>
+                                            <div class="col s2">
+                                                <div class="input-field">
+                                                    <input id="input4" type="text" class="validate " value="' . $row['valor_cadastro_produto'] . '" readonly>
+                                                    <label for="input4">Valor Cadastro</label>
+                                                </div>
+                                            </div>
+                                            <div class="col s2">
+                                                <div class="input-field">
+                                                    <input id="input5" type="text" class="validate " value="' . $row['valor_minimo_produto'] . '" readonly>
+                                                    <label for="input5">Valor Mínimo</label>
+                                                </div>
+                                            </div>
+                                            <div class="col s2">
+                                                <div class="input-field">
+                                                    <input id="input6" type="text" class="validate " value="' . $row['qtd_produto'] . '" readonly>
+                                                    <label for="input6">QTD</label>
+                                                </div>
+                                            </div>
+                                        </div>';
+                                }
+                            }
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <h5 class="card-title black-text">Totais do Edital</h5>
+        <hr><br>
         
+        <div class="row">
             <div class="card small white darken-1">
                 <div class="card-content black-text">
-
-                <div class="col s3 m3">
-                <p>Valor Dos Produtos<input type="text"/></p>
-
+                    <div class="col s3 m3">
+                        <p>Valor Dos Produtos<input type="text"/></p>
+                    </div>
+                    <div class="col s3 m3">
+                        <p>Valor do IPI<input type="text"/></p>
+                    </div>
+                    <div class="col s3 m3">
+                        <p>Valor do Frete <input type="text"/></p>
+                    </div>
+                    <div class="col s3 m3">
+                        <p>Valor Do Desconto <input type="text"/></p>
+                        <br>
+                    </div>
+                    <div class="col s6 m6">
+                        <p>Valor Total Do Orçamento<input type="text"/></p>
+                    </div>
                 </div>
-                <div class="col s3 m3">
-                <p>Valor do IPI<input type="text"/></p>
-
-                </div>
-                <div class="col s3 m3">
-                <p>Valor do Frete <input type="text"/></p>
-
-                </div>
-                <div class="col s3 m3">
-                <p>Valor Do Desconto <input type="text"/></p>
-                    <br>
-                </div>
-                <div class="col s6 m6">
-                <p>Valor Total Do Orçamento<input type="text"/></p>
-
-                </div>
-            </div>
-        
-    </div>
-    <br>
-
-    <h5 class="card-title black-text">Transporte</h5> <hr><br>
-
-    <div class="row">
-        
-        <div class="card small white darken-1">
-            <div class="card-content black-text">
-
-            <div class="col s6 m6">
-            <p>Modalidade do Frete<input type="text"/></p>
-
-            </div>
-            <div class="col s6 m6">
-            <p>Transportadora<input type="text"/></p>
-
-            </div>
             </div>
         </div>
-    
-    </div>
-    <br>
+        <br>
 
-    <h5 class="card-title black-text">Detalhes do Orçamento</h5> <hr><br>
-    <div class="row">
+        <h5 class="card-title black-text">Transporte</h5>
+        <hr><br>
         
-        <div class="card small white darken-1">
-            <div class="card-content black-text">
-
-            <div class="col s2 m2">
-            <p>Data Do Orçamento<input type="text" /></p>
-
-
-            </div>
-            <div class="col s2 m2">
-            <p>Prazo de Entrega<input type="text" /></p>
-
-            </div>
-            <div class="col s1 m1">
-            <p>Validade<input type="text" /></p>
-
-            </div>
-            <div class="col s6 m6">
-            <p>Referencia<input type="text" /></p>
-                <br><br>
-            </div>
-            <div class="col s6 m6">
-            <p>Observaçao<input type="text" /></p>
-
-            </div>
+        <div class="row">
+            <div class="card small white darken-1">
+                <div class="card-content black-text">
+                    <div class="col s6 m6">
+                        <p>Modalidade do Frete<input type="text"/></p>
+                    </div>
+                    <div class="col s6 m6">
+                        <p>Transportadora<input type="text"/></p>
+                    </div>
+                </div>
             </div>
         </div>
-    
+        <br>
+
+        <h5 class="card-title black-text">Detalhes do Orçamento</h5>
+        <hr><br>
+        
+        <div class="row">
+            <div class="card small white darken-1">
+                <div class="card-content black-text">
+                    <div class="col s2 m2">
+                        <p>Data Do Orçamento<input type="text" /></p>
+                    </div>
+                    <div class="col s2 m2">
+                        <p>Prazo de Entrega<input type="text" /></p>
+                    </div>
+                    <div class="col s1 m1">
+                        <p>Validade<input type="text" /></p>
+                    </div>
+                    <div class="col s6 m6">
+                        <p>Referencia<input type="text" /></p>
+                        <br><br>
+                    </div>
+                    <div class="col s6 m6">
+                        <p>Observaçao<input type="text" /></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-
 </div>
 
-</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
