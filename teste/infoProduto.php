@@ -37,6 +37,7 @@ $num_rows = mysqli_num_rows($result_sql_produtos);
     $peso = $row['peso'];
     $tamanho = $row['tamanho'];
     $cod_barra = $row['cod_barra'];
+
    }
   }
 
@@ -147,14 +148,14 @@ box-shadow: 0px 0px 19px -10px rgba(0,0,0,0.75);
     </div>
 </nav>
 <div class="container-infoProduto">
-<form action="infoProduto.php" method="post" enctype="multipart/form-data">
+<form id='formulario_produtos' action="actionInfoProduto.php" method="post" enctype="multipart/form-data">
       
 <div class="container">
 <div class="row">
     
       <div class="row">
         <div class="input-field col s1 m1">
-          <input  id="id_produto" type="text" value="<?php if ((!empty($id_produto))) { echo $id_produto;} ; ?>"class="validate">
+          <input  id="id_produto" name="id_produto" type="text" value="<?php if ((!empty($id_produto))) { echo $id_produto;} ; ?>"class="validate">
           <label for="id_produto">ID</label>
         </div>
         <div class="input-field col s4 m4">
@@ -166,7 +167,7 @@ box-shadow: 0px 0px 19px -10px rgba(0,0,0,0.75);
           <label for="ncm">NCM</label>
         </div>
         <div class="col s3 m3" id="foto">
-      <div> FOTO </div>
+         <div><input type="file" name="fileUpload">Adicionar Imagem</input> </div> 
         </div>
       </div>
       <div class="row">
@@ -262,62 +263,77 @@ $row = mysqli_fetch_assoc($result_query_marcas);
 
 $i++;
 
-    echo '<div class="row">' . PHP_EOL;
-    echo '<div class="col s1">' . $i . '</div>' . PHP_EOL;
-    echo '<div class="input-field col s1">' . PHP_EOL;
-    echo '<input id="marca_' . $i . '" name="marca_' . $i . '" value="' . ($row['marca'] ?? '') . '" type="text" class="validate">' . PHP_EOL;
-    echo '<label for="marca_' . $i . '">Marca</label>' . PHP_EOL;
-    echo '</div>' . PHP_EOL;
-    echo '<div class="input-field col s2">' . PHP_EOL;
-    echo '<input id="modelo_' . $i . '" name="modelo_' . $i . '" value="' . ($row['modelo'] ?? '') . '" type="text" class="validate">' . PHP_EOL;
-    echo '<label for="modelo_' . $i . '">Modelo</label>' . PHP_EOL;
-    echo '</div>' . PHP_EOL;
-    echo '<div class="input-field col s1">' . PHP_EOL;
-    echo '<input id="vlr_compra_' . $i . '" name="vlr_compra_' . $i . '" value="' . ($row['vlr_compra'] ?? '') . '" type="text" class="validate">' . PHP_EOL;
-    echo '<label for="vlr_compra_' . $i . '">VLR Compra</label>' . PHP_EOL;
-    echo '</div>' . PHP_EOL;
-    echo '<div class="input-field col s1">' . PHP_EOL;
-    echo '<input id="ipi_' . $i . '" name="ipi_' . $i . '"  type="text" class="validate">' . PHP_EOL;
-    echo '<label for="ipi_' . $i . '">IPI</label>' . PHP_EOL;
-    echo '</div>' . PHP_EOL;
-    echo '<div class="input-field col s1">' . PHP_EOL;
-    echo '<input id="%_ipi_' . $i . '" name="%_ipi_' . $i . '" type="text" class="validate">' . PHP_EOL;
-    echo '<label for="%_ipi_' . $i . '">%</label>' . PHP_EOL;
-    echo '</div>' . PHP_EOL;
-    echo '<div class="input-field col s1">' . PHP_EOL;
-    echo '<input id="icms_difal_' . $i . '" name="icms_difal_' . $i . '" type="text" class="validate">' . PHP_EOL;
-    echo '<label for="icms_difal_' . $i . '">ICMS-DIFAL</label>' . PHP_EOL;
-    echo '</div>' . PHP_EOL;
-    echo '<div class="input-field col s1">' . PHP_EOL;
-    echo '<input id="%_icms_difal_' . $i . '" name="%_icms_difal_' . $i . '" type="text" class="validate">' . PHP_EOL;
-    echo '<label for="%_icms_difal_' . $i . '">%</label>' . PHP_EOL;
-    echo '</div>' . PHP_EOL;
-    echo '<div class="input-field col s1">' . PHP_EOL;
-    echo '<input id="frete_' . $i . '" name="frete_' . $i . '" type="text" class="validate">' . PHP_EOL;
-    echo '<label for="frete_' . $i . '">Frete</label>' . PHP_EOL;
-    echo '</div>' . PHP_EOL;
-    echo '<div class="input-field col s1">' . PHP_EOL;
-    echo '<input id="%_frete_' . $i . '" name="%_frete_' . $i . '" type="text" class="validate">' . PHP_EOL;
-    echo '<label for="%_frete_' . $i . '">%</label>' . PHP_EOL;
-    echo '</div>' . PHP_EOL;
-    echo '<div class="input-field col s1">' . PHP_EOL;
-    echo '<input id="vlr_custo_' . $i . '" name="vlr_custo_' . $i . '" value="' . ($row['vlr_custo_'] ?? '') . '" type="text" class="validate">' . PHP_EOL;
-    echo '<label for="vlr_custo_' . $i . '">VLR Custo</label>' . PHP_EOL;
-    echo '</div>' . PHP_EOL;
-    echo '</div>' . PHP_EOL;
+
+echo '<div class="row">' . PHP_EOL;
+echo '<input id="id_marca_' . $i . '" name="id_marca_' . $i . '" value="' . ($row['id_marca'] ?? '') . '" type="hidden" class="validate">' . PHP_EOL;
+echo '<input id="id_produto_' . $i . '" name="id_produto_' . $i . '" value="' . ($row['id_produto'] ?? '') . '" type="hidden" class="validate">' . PHP_EOL;
+echo '<div class="col s1">' . $i . '</div>' . PHP_EOL;
+echo '<div class="input-field col s1">' . PHP_EOL;
+echo '<input id="marca_' . $i . '" name="marca_' . $i . '" value="' . ($row['marca'] ?? '') . '" type="text" class="validate">' . PHP_EOL;
+echo '<label for="marca_' . $i . '">Marca</label>' . PHP_EOL;
+echo '</div>' . PHP_EOL;
+echo '<div class="input-field col s2">' . PHP_EOL;
+echo '<input id="modelo_' . $i . '" name="modelo_' . $i . '" value="' . ($row['modelo'] ?? '') . '" type="text" class="validate">' . PHP_EOL;
+echo '<label for="modelo_' . $i . '">Modelo</label>' . PHP_EOL;
+echo '</div>' . PHP_EOL;
+echo '<div class="input-field col s1">' . PHP_EOL;
+echo '<input id="vlr_compra_' . $i . '" name="vlr_compra_' . $i . '" value="' . ($row['vlr_compra'] ?? '') . '" type="text" class="validate">' . PHP_EOL;
+echo '<label for="vlr_compra_' . $i . '">VLR Compra</label>' . PHP_EOL;
+echo '</div>' . PHP_EOL;
+echo '<div class="input-field col s1">' . PHP_EOL;
+echo '<input id="ipi_' . $i . '" name="ipi_' . $i . '"  type="text" class="validate">' . PHP_EOL;
+echo '<label for="ipi_' . $i . '">IPI</label>' . PHP_EOL;
+echo '</div>' . PHP_EOL;
+echo '<div class="input-field col s1">' . PHP_EOL;
+echo '<input id="%_ipi_' . $i . '" name="%_ipi_' . $i . '" type="text" class="validate">' . PHP_EOL;
+echo '<label for="%_ipi_' . $i . '">%</label>' . PHP_EOL;
+echo '</div>' . PHP_EOL;
+echo '<div class="input-field col s1">' . PHP_EOL;
+echo '<input id="icms_difal_' . $i . '" name="icms_difal_' . $i . '" type="text" class="validate">' . PHP_EOL;
+echo '<label for="icms_difal_' . $i . '">ICMS-DIFAL</label>' . PHP_EOL;
+echo '</div>' . PHP_EOL;
+echo '<div class="input-field col s1">' . PHP_EOL;
+echo '<input id="%_icms_difal_' . $i . '" name="%_icms_difal_' . $i . '" type="text" class="validate">' . PHP_EOL;
+echo '<label for="%_icms_difal_' . $i . '">%</label>' . PHP_EOL;
+echo '</div>' . PHP_EOL;
+echo '<div class="input-field col s1">' . PHP_EOL;
+echo '<input id="frete_' . $i . '" name="frete_' . $i . '" type="text" class="validate">' . PHP_EOL;
+echo '<label for="frete_' . $i . '">Frete</label>' . PHP_EOL;
+echo '</div>' . PHP_EOL;
+echo '<div class="input-field col s1">' . PHP_EOL;
+echo '<input id="%_frete_' . $i . '" name="%_frete_' . $i . '" type="text" class="validate">' . PHP_EOL;
+echo '<label for="%_frete_' . $i . '">%</label>' . PHP_EOL;
+echo '</div>' . PHP_EOL;
+echo '<div class="input-field col s1">' . PHP_EOL;
+echo '<input id="vlr_custo_' . $i . '" name="vlr_custo_' . $i . '" value="' . ($row['vlr_custo'] ?? '') . '" type="text" class="validate">' . PHP_EOL;
+echo '<label for="vlr_custo_' . $i . '">VLR Custo</label>' . PHP_EOL;
+echo '</div>' . PHP_EOL;
+echo '</div>' . PHP_EOL;
+
+
 
     }
-
-    
+   
    
     ?>
+    </form>
 </div>
-      
-            <p class="enviar right"><input type="submit" value="Salvar"></p>
-        </form>
+    
+            <p class="enviar right"><input type="submit" value="Salvar" onclick="enviarFormulario()"></p>
+        
 
 
 </div>
+<script>
+
+function enviarFormulario() {
+              
+                var formulario_produtos = document.getElementById("formulario_produtos");
+                formulario_produtos.submit();
+            
+        }
+
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>

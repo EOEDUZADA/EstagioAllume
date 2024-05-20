@@ -64,6 +64,13 @@ nav .brand-logo {
    color: #5A57FF;
     
 }
+
+.botoesPaginacao a {
+    margin-top: 20px;
+}
+.dropdown-content {
+            border-radius: 5px;   
+        }
     </style>
 
 
@@ -83,8 +90,10 @@ nav .brand-logo {
             <li><a href="tabelaeditais.php">Editais</a></li>
             <li><a href="tabelaprodutos.php">Produtos</a></li>
         </ul>
-        <a href="paginaInicialAdmin.php" style="margin-left: auto;"><p class="white-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p></a>
-        <i class="dropdown-trigger large material-icons brand-logo right "data-target="dropdown-account" style="font-size: 50px;color: white;">account_circle</i>
+        <a href="paginaInicialAdmin.php" style="margin-left: auto;">
+            <p class="white-text" style="margin-right: 60px;">Bem vindo! <?php echo $_SESSION['nome'] ?> </p>
+        </a>
+        <i class="dropdown-trigger large material-icons brand-logo right" data-target="dropdown-account" style="font-size: 50px;color: white;">account_circle</i>
     </div>
     
 </nav>
@@ -128,9 +137,16 @@ nav .brand-logo {
 
         // Verifica se a conexão foi bem sucedida
 
-        $query_produtos = "SELECT * FROM produtos";
-        $result_produtos = mysqli_query($dbcon, $query_produtos);
+        $resultados_por_pagina = 10;
 
+      
+
+        // Página atual (por padrão, a página 1)
+        $pagina_atual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+        $offset = ($pagina_atual - 1) * $resultados_por_pagina;
+        $query_produtos = "SELECT * FROM produtos LIMIT $resultados_por_pagina OFFSET $offset";
+        $result_produtos = mysqli_query($dbcon, $query_produtos);
+        $tem_mais_resultados = mysqli_num_rows($result_produtos) == $resultados_por_pagina;
         // Verifique se há linhas retornadas
         if ($result_produtos) {
            $num_rows = mysqli_num_rows($result_produtos);
@@ -198,27 +214,27 @@ function enviarFormulario(id) {
         form.submit();
     }
 
+
     document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.sidenav');
-  var instances = M.Sidenav.init(elems);
-
-  var sidebarToggle = document.getElementById('sidebar-toggle');
-  sidebarToggle.addEventListener('click', function() {
-    var sidenavInstance = M.Sidenav.getInstance(elems[0]);
-    sidenavInstance.isOpen ? sidenavInstance.close() : sidenavInstance.open();
-    sidebarToggle.innerHTML = sidenavInstance.isOpen ? '<i class="material-icons" style="margin-left: 50px;">menu</i>' : '<i class="material-icons" style="margin-left: 50px;">menu</i>';
-
-  });
-});
-
-
-document.addEventListener('DOMContentLoaded', function() {
-        var dropdowns = document.querySelectorAll('.dropdown-trigger');
-        M.Dropdown.init(dropdowns, {
-            coverTrigger: false
-        });
+    var elems = document.querySelectorAll('.dropdown-trigger');
+    var instances = M.Dropdown.init(elems, {
+        alignment: 'right',
+        hover: true,
+        coverTrigger: false,
+        constrainWidth: false
     });
+});
     </script>
+      <div class="botoesPaginacao">
+   <?php if ($pagina_atual > 1) { ?>
+    <a class="left" href="?pagina=<?php echo $pagina_atual - 1; ?>">Página Anterior</a>
+<?php } ?>
+
+    
+    <?php if ($tem_mais_resultados) { ?>
+    <a class='right' href="?pagina=<?php echo $pagina_atual + 1; ?>">Próxima Página</a>
+<?php } ?>
+</div>
 </body>
 
             

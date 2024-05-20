@@ -20,7 +20,9 @@ session_start();
        nav .brand-logo {
             color:black;
         }
-
+        .dropdown-content {
+            border-radius: 5px;   
+        }
 
     </style>
 </head>
@@ -42,7 +44,9 @@ session_start();
     </div>
     
 </nav>
-
+<ul id="dropdown-account" class="dropdown-content">
+    <li><a href="sair.php">Sair</a></li>
+</ul>
 
 <div class="main-content">
     
@@ -80,17 +84,13 @@ session_start();
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.sidenav');
-  var instances = M.Sidenav.init(elems);
-
-  var sidebarToggle = document.getElementById('sidebar-toggle');
-  sidebarToggle.addEventListener('click', function() {
-    var sidenavInstance = M.Sidenav.getInstance(elems[0]);
-    sidenavInstance.isOpen ? sidenavInstance.close() : sidenavInstance.open();
-    
-    
-    sidebarToggle.innerHTML = sidenavInstance.isOpen ? '<i class="material-icons" style="margin-left: 50px;">menu</i>' : '<i class="material-icons" style="margin-left: 50px;">menu</i>';
-  });
+    var elems = document.querySelectorAll('.dropdown-trigger');
+    var instances = M.Dropdown.init(elems, {
+        alignment: 'right',
+        hover: true,
+        coverTrigger: false,
+        constrainWidth: false
+    });
 });
 </script>
 

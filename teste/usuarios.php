@@ -33,6 +33,9 @@ table {
 nav .brand-logo {
     color:black;
 }
+.dropdown-content {
+            border-radius: 5px;   
+        }
 
     </style>
 <body>

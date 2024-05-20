@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         $sql_code_editais = "INSERT INTO editais (nome_orgao_edital, numero_edital, numero_processo, tipo_documento, tipo_fornecimento, data_final_edital, data_limite_orcamento_edital, data_cadastro_edital , arquivo_edital) 
-        VALUES ('$nome_orgao', '$numero_edital', '$numero_processo', '$tipo_documento', '$tipo_fornecimento', NOW(), NOW(), '$data_cadastro_edital', '$arquivos_string')";
+        VALUES ('$nome_orgao', '$numero_edital', '$numero_processo', '$tipo_documento', '$tipo_fornecimento', '$data_final_edital', '$data_limite_orcamento', '$data_cadastro_edital', '$arquivos_string')";
         
 
         if ($dbcon->query($sql_code_editais) === TRUE) {

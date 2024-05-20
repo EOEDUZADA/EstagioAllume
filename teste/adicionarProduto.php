@@ -71,6 +71,10 @@ echo "o sql ta pegando";
         if ($dbcon->query($sql) === TRUE) {
             echo "marca $i ta na pista e foi inserida no banco de dados<br>";
             $filledCount++;
+
+            header("Location: tabelaprodutos.php");
+exit;
+
         } else {
             echo "Erro ao inserir marca $i: " . $dbcon->error . "<br>";
         }
@@ -90,21 +94,6 @@ $dbcon->close();
 }
 }
 
-
-
-
-
-
-
-$marca = $_POST['marca'];
-$modelo = $_POST['modelo'];
-$vlr_compra = $_POST['vlr_compra'];
-$vlr_custo = $_POST['vlr_custo']; 
-
-echo $marca . "<br>";
-echo $modelo . "<br>";
-echo $vlr_compra . "<br>";
-echo $vlr_custo . "<br>";
 
 
 
@@ -184,16 +173,12 @@ box-shadow: 0px 0px 19px -10px rgba(0,0,0,0.75);
     </div>
 </nav>
 <div class="container-infoProduto">
-<form action="infoProduto.php" method="post" enctype="multipart/form-data">
+<form action="adicionarProduto.php" method="post" enctype="multipart/form-data">
       
 <div class="container">
 <div class="row">
     
       <div class="row">
-        <div class="input-field col s1 m1">
-          <input  id="id_produto" type="text" class="validate">
-          <label for="id_produto">ID</label>
-        </div>
         <div class="input-field col s4 m4">
           <input id="nome_produto" name="nome_produto" type="text" class="validate">
           <label for="nome_produto">Nome do produto</label>
@@ -203,7 +188,7 @@ box-shadow: 0px 0px 19px -10px rgba(0,0,0,0.75);
           <label for="ncm">NCM</label>
         </div>
         <div class="col s3 m3" id="foto">
-      <div> FOTO </div>
+      <div><input type="file" name="fileUpload">Adicionar Imagem</input> </div>
         </div>
       </div>
       <div class="row" id="ncm">
@@ -233,35 +218,6 @@ box-shadow: 0px 0px 19px -10px rgba(0,0,0,0.75);
 
   </div>
 </div>
-
-
-<div class="container">
-
-<div class="row">
-    <h5> Melhor marca </h5>
-        <div class="input-field col s2">
-          <input id="melhor_marca" name="melhor_marca" type="text" class="validate">
-          <label for="melhor_marca">Marca</label>
-        </div>
-        <div class="input-field col s2">
-          <input id="melhor_modelo" name="melhor_modelo" type="text" class="validate">
-          <label for="melhor_modelo">Modelo</label>
-        </div>
-        <div class="input-field col s2">
-          <input id="melhor_vcr_custo" name="melhor_vcr_custo" type="text" class="validate">
-          <label for="melhor_vcr_custo">VCR Custo</label>
-        </div>
-        <div class="input-field col s2">
-          <input id="markup" name="markup" type="text" class="validate">
-          <label for="markup">MARKUP</label>
-        </div>
-        <div class="input-field col s2">
-          <input id="melhor_vcr_venda" name="melhor_vcr_venda" type="text" class="validate">
-          <label for="melhor_vcr_venda">VCR Venda</label>
-        </div>
-      </div>
-</div>
-
 
 <div class="container">
 
