@@ -156,7 +156,7 @@ session_start();
 
                     while ($row = mysqli_fetch_assoc($result_editais)) {
                         echo "<tr>";
-                        echo "<td><label><input type='checkbox' name='ids[]' value='" . $row['id'] . "'><span></span></label></td>";  // Checkbox for each row
+                        echo "<td><label><input type='checkbox' name='ids[]' value='" . $row['id'] . "'><span></span></label></td>";  
                         echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["id"] . "</td>";
                         echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["nome_orgao_edital"] . "</td>";
                         echo "<td onclick=\"enviarFormulario('" . $row['id'] . "')\">" . $row["numero_edital"] . "</td>";

@@ -46,18 +46,25 @@ $num_rows = mysqli_num_rows($result_sql_produtos);
 //melhor marca
 
 $sql_melhor_marca = "SELECT *
-FROM marcas
-WHERE vlr_custo = (SELECT MIN(vlr_custo) FROM marcas)
-AND id_produto = $id";
+                     FROM marcas
+                     WHERE id_produto = $id
+                     ORDER BY vlr_custo ASC
+                     LIMIT 1";
+
+
+
+
 
 $result_sql_melhor_marca = mysqli_query($dbcon, $sql_melhor_marca);
 
 
- if($result_sql_melhor_marca) {
-$num_rows = mysqli_num_rows($result_sql_produtos);
 
+ if($result_sql_melhor_marca) {
+
+
+$num_rows = mysqli_num_rows($result_sql_produtos);
   if ($num_rows > 0 ) {
-   while($row = mysqli_fetch_assoc($result_sql_melhor_marca)){
+   while($row = mysqli_fetch_assoc($result_sql_melhor_marca)){ 
     $id_melhor_marca = $row['id_marca'];
     $melhor_marca = $row['marca'];
     $melhor_marca_modelo =  $row['modelo'];
@@ -69,11 +76,6 @@ $num_rows = mysqli_num_rows($result_sql_produtos);
 
  }
 
-
- //marcas
-
-// Loop para executar a consulta SELECT
-    // Cria a consulta SELECT
  
 }
 ?>
@@ -250,6 +252,12 @@ box-shadow: 0px 0px 19px -10px rgba(0,0,0,0.75);
       </div>
 </div>
 
+<div class="kk" id="kk">
+  <?php
+if(isset($_POST['query_ipi'])) {
+  echo "a query está definida";
+} ?>
+</div>
 
 <div class="container">
     <h5>Marcas</h5>
@@ -264,7 +272,9 @@ $row = mysqli_fetch_assoc($result_query_marcas);
 $i++;
 
 
-echo '<div class="row">' . PHP_EOL;
+
+
+echo '<div class="row" data-idx="' . $i . '" >' . PHP_EOL;
 echo '<input id="id_marca_' . $i . '" name="id_marca_' . $i . '" value="' . ($row['id_marca'] ?? '') . '" type="hidden" class="validate">' . PHP_EOL;
 echo '<input id="id_produto_' . $i . '" name="id_produto_' . $i . '" value="' . ($row['id_produto'] ?? '') . '" type="hidden" class="validate">' . PHP_EOL;
 echo '<div class="col s1">' . $i . '</div>' . PHP_EOL;
@@ -297,7 +307,7 @@ echo '<input id="%_icms_difal_' . $i . '" name="%_icms_difal_' . $i . '" type="t
 echo '<label for="%_icms_difal_' . $i . '">%</label>' . PHP_EOL;
 echo '</div>' . PHP_EOL;
 echo '<div class="input-field col s1">' . PHP_EOL;
-echo '<input id="frete_' . $i . '" name="frete_' . $i . '" type="text" class="validate">' . PHP_EOL;
+echo '<input id="frete_' . $i . '" name="frete_' . $i . '" value="" type="text" class="validate">' . PHP_EOL;
 echo '<label for="frete_' . $i . '">Frete</label>' . PHP_EOL;
 echo '</div>' . PHP_EOL;
 echo '<div class="input-field col s1">' . PHP_EOL;
@@ -324,6 +334,8 @@ echo '</div>' . PHP_EOL;
 
 
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
 
 function enviarFormulario() {
@@ -333,8 +345,27 @@ function enviarFormulario() {
             
         }
 
+        
+
+        var i = <?php echo $i; ?>;
+
+        console.log(i);
+
+        contador = 0;
+        
+        $(document).ready(function () {
+    // Monitorar alterações nos campos de IPI, Frete e ICMS
+    $('input[id^="ipi_"], input[id^="frete_"]').on('input', function () {
+        const idx = $(this).closest('.row').data('idx');
+        console.log(idx);
+        const ipi = $(`input[name="ipi_${idx}"]`).val("");
+        const frete = $(`input[name="frete_${idx}"]`).val();
+        const icms = $(`input[name="icms_difal_${idx}"]`).val();
+        console.log(`Linha ${idx} - IPI: ${ipi}, Frete: ${frete}, ICMS: ${icms}`);
+    });
+});
+
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 </body>
 </html>

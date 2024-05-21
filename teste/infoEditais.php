@@ -26,6 +26,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
     $data_limite_orcamento = $_POST['data_limite_orcamento'];
     $modalidade_edital = $_POST['modalidade_edital'];
 
+    $item_edital = $_POST["item_edital"];
+    $lote_produto_edital = $_POST["lote_produto_edital"];
+    $valor_unit_ref_produto_edital = $_POST["valor_unit_ref_produto_edital"];
+    $desc_produto_edital = $_POST["desc_produto_edital"];
+    $qtd_produto_edital = $_POST["qtd_produto_edital"];
+    $und_produto_edital = $_POST["und_produto_edital"];
+
     $query_update = "UPDATE editais SET 
         nome_orgao_edital = '$nome_orgao',
         numero_edital = '$numero_edital',
@@ -36,6 +43,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
         data_limite_orcamento_edital = '$data_limite_orcamento',
         modalidade_edital = '$modalidade_edital'
         WHERE id = $id";
+
+
+    $query_update = "UPDATE produtos_do_edital SET 
+        item_edital = '$item_edital',
+        lote_produto_edital = ' $lote_produto_edital',
+        valor_unit_ref_produto_edital = '$valor_unit_ref_produto_edital',
+        desc_produto_edital = '$desc_produto_edital',
+        qtd_produto_edital = '$qtd_produto_edital',
+        und_produto_edital = '$und_produto_edital',
+        WHERE id_produto = $id_produto";
 
     if (mysqli_query($dbcon, $query_update)) {
         header("Location: tabelaEditais.php"); 
@@ -64,6 +81,8 @@ if($result_editais) {
         }
     }
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -78,6 +97,53 @@ if($result_editais) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
+    <script>
+        function adicionarNovoProduto() {
+        var novaLinha = document.createElement('div');
+        novaLinha.className = 'row';
+
+        novaLinha.innerHTML = `
+            <div class="col s4">
+                <div class="input-field">
+                    <input id="input1" type="text" name="desc_produto_edital[]" class="validate">
+                    <label for="input1">Descrição Produto</label>
+                </div>
+            </div>
+            <div class="col s1">
+                <div class="input-field">
+                    <input id="input2" type="text" name="item_edital[]" class="validate">
+                    <label for="input2">Item</label>
+                </div>
+            </div>
+            <div class="col s2">
+                <div class="input-field">
+                    <input id="input3" type="text" name="valor_unit_ref_produto_edital[]" class="validate">
+                    <label for="input3">Valor de referência</label>
+                </div>
+            </div>
+            <div class="col s1">
+                <div class="input-field">
+                    <input id="input4" type="text" name="lote_produto_edital" class="validate">
+                    <label for="input4">lote</label>
+                </div>
+            </div>
+            <div class="col s2">
+                <div class="input-field">
+                    <input id="input5" type="text" name="qtd_produto_edital" class="validate">
+                    <label for="input5">Quantidade</label>
+                </div>
+            </div>
+            <div class="col s2">
+                <div class="input-field">
+                    <input id="input6" type="text" name="und_produto_edital" class="validate">
+                    <label for="input6">UND</label>
+                </div>
+            </div>
+        `;
+
+        document.querySelector('.produtos').appendChild(novaLinha);
+    }
+    </script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -280,6 +346,12 @@ if($result_editais) {
             <div class="col s12 m12">
                 <div class="card small white darken-1">
                     <div class="card-content black-text">
+                    <p id="botaoAdicionarProduto" onclick="adicionarNovoProduto()" class="enviar">
+                        <a class="btn-floating btn-small waves-effect waves-light black">
+                        <i class="material-icons">add</i>
+                        </a>
+                    </p>
+                    <div class="produtos"></div>
                         <?php
                         $host = "localhost";
                         $dbname = "allume";
@@ -290,7 +362,7 @@ if($result_editais) {
                         $dbcon = mysqli_connect($host, $username, $password, $dbname);
 
                         // Verifica se a conexão foi bem sucedida
-                        $query_editais = "SELECT * FROM produtos_conciliados WHERE id_edital = $id";
+                        $query_editais = "SELECT * FROM produtos_do_edital WHERE id_edital = $id";
                         $result_editais = mysqli_query($dbcon, $query_editais);
 
                         if ($result_editais) {
@@ -300,38 +372,38 @@ if($result_editais) {
                                     echo  '<div class="row">
                                             <div class="col s4">
                                                 <div class="input-field">
-                                                    <input id="input1" type="text" class="validate " value="' . $row['desc_produto'] . '">
-                                                    <label for="input1">Produto</label>
+                                                    <input id="input1" type="text" class="validate " value="' . $row['desc_produto_edital'] . '">
+                                                    <label for="input1">Descrição</label>
                                                 </div>
                                             </div>
                                             <div class="col s1">
                                                 <div class="input-field">
-                                                    <input id="input2" type="text" class="validate " value="' . $row['marca_produto'] . '">
-                                                    <label for="input2">Marca</label>
+                                                    <input id="input2" type="text" class="validate " value="' . $row['item_edital'] . '">
+                                                    <label for="input2">Item</label>
+                                                </div>
+                                            </div>
+                                            <div class="col s2">
+                                                <div class="input-field">
+                                                    <input id="input3" type="text" class="validate " value="' . $row['valor_unit_ref_produto_edital'] . '">
+                                                    <label for="input3">Valor de Referencia</label>
                                                 </div>
                                             </div>
                                             <div class="col s1">
                                                 <div class="input-field">
-                                                    <input id="input3" type="text" class="validate " value="' . $row['modelo_produto'] . '">
-                                                    <label for="input3">Modelo</label>
+                                                    <input id="input4" type="text" class="validate " value="' . $row['lote_produto_edital'] . '">
+                                                    <label for="input4">Lote</label>
                                                 </div>
                                             </div>
                                             <div class="col s2">
                                                 <div class="input-field">
-                                                    <input id="input4" type="text" class="validate " value="' . $row['valor_cadastro_produto'] . '">
-                                                    <label for="input4">Valor Cadastro</label>
+                                                    <input id="input5" type="text" class="validate " value="' . $row['qtd_produto_edital'] . '">
+                                                    <label for="input5">QTD</label>
                                                 </div>
                                             </div>
                                             <div class="col s2">
                                                 <div class="input-field">
-                                                    <input id="input5" type="text" class="validate " value="' . $row['valor_minimo_produto'] . '">
-                                                    <label for="input5">Valor Mínimo</label>
-                                                </div>
-                                            </div>
-                                            <div class="col s2">
-                                                <div class="input-field">
-                                                    <input id="input6" type="text" class="validate " value="' . $row['qtd_produto'] . '">
-                                                    <label for="input6">QTD</label>
+                                                    <input id="input6" type="text" class="validate " value="' . $row['und_produto_edital'] . '">
+                                                    <label for="input6">UND</label>
                                                 </div>
                                             </div>
                                         </div>';

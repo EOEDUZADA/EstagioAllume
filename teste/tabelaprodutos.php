@@ -64,6 +64,10 @@ nav .brand-logo {
    color: #5A57FF;
     
 }
+
+.botoesPaginacao a {
+    margin-top: 20px;
+}
     </style>
 
 
@@ -99,17 +103,16 @@ nav .brand-logo {
     <div class="container-botao-tabelaEditais">
  <div class="row">
         <div class="col s1">
-            <button class="btn"><a href="infoProduto.php" class="adiferente">Adicionar Produtos</a></button>
+            <button class="btn"><a href="adicionarProduto.php" class="adiferente">Adicionar Produtos</a></button>
         </div>
         <div class="col s1">
-        <button class="btn">Imprimir</button>
+        <button class="btn" id="btn-excluir">Excluir</button>
         </div>
         <div class="col s1">
-        <button class="btn">Excluir</button>
+            <button class="btn">Imprimir</button>
         </div>
         <div class="col s1">
-        <button class="btn">Mais Ações</button>
-
+            <button class="btn">Mais Ações</button>
         </div>
 </div>
     
@@ -128,9 +131,16 @@ nav .brand-logo {
 
         // Verifica se a conexão foi bem sucedida
 
-        $query_produtos = "SELECT * FROM produtos";
-        $result_produtos = mysqli_query($dbcon, $query_produtos);
+        $resultados_por_pagina = 10;
 
+      
+
+        // Página atual (por padrão, a página 1)
+        $pagina_atual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+        $offset = ($pagina_atual - 1) * $resultados_por_pagina;
+        $query_produtos = "SELECT * FROM produtos LIMIT $resultados_por_pagina OFFSET $offset";
+        $result_produtos = mysqli_query($dbcon, $query_produtos);
+        $tem_mais_resultados = mysqli_num_rows($result_produtos) == $resultados_por_pagina;
         // Verifique se há linhas retornadas
         if ($result_produtos) {
            $num_rows = mysqli_num_rows($result_produtos);
@@ -141,15 +151,9 @@ nav .brand-logo {
                 echo "<table class='funcionarios' id='tabela_usuarios'>";
                 echo "<thead>";
                 echo "<tr>";
+                echo "<th></th>";
                 echo "<th>ID</th>";  
-                echo "<th>Qtd</th>";
-                echo "<th>Und</th>";
-                echo "<th>Descrição</th>"; 
-                echo "<th>Marca</th>";
-                echo "<th>Modelo</th>";
-                echo "<th>Valor de Custo</th>";
-                echo "<th>Valor Minimo</th>";
-                echo "<th>Valor de cadastro</th>";
+                echo "<th>Produto</th>";
                 echo "</tr>";
                 echo "</thead>";
                 echo "<tbody>";
@@ -158,20 +162,11 @@ nav .brand-logo {
                while ($row = mysqli_fetch_assoc($result_produtos)) {
 
                     echo "<tr>";
+                    echo "<td><label><input type='checkbox' name='ids[]' value='" . $row['id_produto'] . "'><span></span></label></td>";  
                     echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["id_produto"] . "</td>";
-                    echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["qtd_produto"] . "</td>";
-                    echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["und_produto"] . "</td>";
-                    echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["desc_produto"] . "</td>";
-                    echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["marca_produto"] . "</td>";
-                    echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["modelo_produto"] . "</td>";
-                    echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["valor_custo_produto"] . "</td>";
-                    echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["valor_minimo_produto"] . "</td>";
-                    echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["valor_cadastro_produto"] . "</td>";
-
-
-                    
+                    echo "<td onclick=\"enviarFormulario('" . $row['id_produto'] . "')\">" . $row["nome_produto"] . "</td>";
                    echo "
-                            <form id='formulario_info_produtos' method='post' action='infoproduto.php'>
+                            <form id='formulario_info_produtos' method='post' action='infoProduto.php'>
                              <input type='hidden' id='id_produto' name='id' value='" . $row['id_produto'] . "'>
                             </form>";
                    
@@ -203,6 +198,39 @@ nav .brand-logo {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
 
+document.getElementById('btn-excluir').addEventListener('click', function() {
+    var checkboxes = document.querySelectorAll('input[name="ids[]"]:checked');
+    var ids = Array.from(checkboxes).map(function(checkbox) {
+        return checkbox.value;
+    });
+
+    if (ids.length > 0) {
+        if (confirm('Tem certeza de que deseja excluir o/os Produtos selecionados?')) {
+            var formData = new FormData();
+            formData.append('deleteprod', '1');
+            ids.forEach(function(id_produto) {
+                formData.append('ids[]', id_produto);
+            });
+
+            fetch('deleteprod.php', {
+                method: 'POST',
+                body: formData
+            }).then(function(response) {
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    alert('Erro ao excluir Produtos.');
+                }
+            }).catch(function(error) {
+                console.error('Erro ao excluir produtos:', error);
+                alert('Erro ao excluir produtos.');
+            });
+        }
+    } else {
+        alert('Nenhum Produto selecionado para exclusão.');
+    }
+});
+
 $('.dropdown-trigger').dropdown();
 
 
@@ -215,18 +243,6 @@ function enviarFormulario(id) {
         form.submit();
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.sidenav');
-  var instances = M.Sidenav.init(elems);
-
-  var sidebarToggle = document.getElementById('sidebar-toggle');
-  sidebarToggle.addEventListener('click', function() {
-    var sidenavInstance = M.Sidenav.getInstance(elems[0]);
-    sidenavInstance.isOpen ? sidenavInstance.close() : sidenavInstance.open();
-    sidebarToggle.innerHTML = sidenavInstance.isOpen ? '<i class="material-icons" style="margin-left: 50px;">menu</i>' : '<i class="material-icons" style="margin-left: 50px;">menu</i>';
-
-  });
-});
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -236,6 +252,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     </script>
+      <div class="botoesPaginacao">
+   <?php if ($pagina_atual > 1) { ?>
+    <a class="left" href="?pagina=<?php echo $pagina_atual - 1; ?>">Página Anterior</a>
+<?php } ?>
+
+    
+    <?php if ($tem_mais_resultados) { ?>
+    <a class='right' href="?pagina=<?php echo $pagina_atual + 1; ?>">Próxima Página</a>
+<?php } ?>
+</div>
 </body>
 
             

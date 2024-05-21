@@ -42,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                            VALUES ($id, '$nova_marca', '$novo_modelo', '$novo_vlr_compra','$novo_vlr_custo')";
 
             if ($dbcon->query($sql_inserir) === TRUE) {
+                header("Location: tabelaProdutos.php"); 
                 echo "Nova marca inserida com sucesso.";
             } else {
                 echo "Erro: " . $sql_inserir . "<br>" . $dbcon->error;
@@ -65,6 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                            WHERE id_produto=$id AND marca='$row[marca]' AND modelo='$row[modelo]'";
 
             if ($dbcon->query($sql_atualizar) === TRUE) {
+                header("Location: tabelaProdutos.php"); 
                 echo "Marca atualizada com sucesso.";
             } else {
                 echo "Erro: " . $sql_atualizar . "<br>" . $dbcon->error;
